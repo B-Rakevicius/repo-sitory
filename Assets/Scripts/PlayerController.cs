@@ -1,10 +1,14 @@
 using System;
+using Unity.Cinemachine;
 using Unity.Netcode;
 using UnityEngine;
 
 public class PlayerController : NetworkBehaviour
 {
+    [SerializeField] private Transform _transform;
     [SerializeField] private CharacterController _characterController;
+    [SerializeField] private CinemachineCamera _cinemachineCamera;
+    [SerializeField] private AudioListener _audioListener;
     private PlayerInput _playerInput;
     
     // Events
@@ -13,7 +17,6 @@ public class PlayerController : NetworkBehaviour
     // Variables
     [SerializeField] private float _acceleration = 0.5f;
     [SerializeField] private float _deceleration = 0.8f;
-    [SerializeField] private float _moveSpeed = 0.05f;
     [SerializeField] private float _maxSpeed = 0.3f;
     private Vector2 _frameInput;    // Capture input values
     private Vector3 _frameVelocity; // Accumulate input values
@@ -21,6 +24,17 @@ public class PlayerController : NetworkBehaviour
 
     public override void OnNetworkSpawn()
     {
+        // We have to set the camera priority for the owner to be higher than other players.
+        // For now, I will use 1 for owner, and 0 for others.
+        if (IsOwner)
+        {
+            _cinemachineCamera.Priority = 1;
+            _audioListener.enabled = true;
+        }
+        else
+        {
+            _cinemachineCamera.Priority = 0;
+        }
     }
 
     private void Start()
