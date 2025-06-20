@@ -2,11 +2,13 @@ using System;
 using Unity.Cinemachine;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class PlayerController : NetworkBehaviour
 {
     // References
-    [SerializeField] private Transform _transform;
+    [SerializeField] private Transform _playerTransform;
+    [SerializeField] private Transform _groundCheckTransform;
     [SerializeField] private CharacterController _characterController;
     [SerializeField] private CinemachineCamera _cinemachineCamera;
     [SerializeField] private Transform _cameraContainer;
@@ -17,12 +19,20 @@ public class PlayerController : NetworkBehaviour
     public event EventHandler OnPlayerJumped;
     
     // Variables
-    // WASD Movement
+    // Player movement
     [SerializeField] private float _acceleration = 0.5f;
     [SerializeField] private float _deceleration = 0.8f;
     [SerializeField] private float _maxSpeed = 0.3f;
+    [SerializeField] private float _jumpForce = 5f;
+    [SerializeField] private float _fallAcceleration = 2f;
+    [SerializeField] private float _maxFallSpeed = 4f;
+    [SerializeField] private float _gravity = -9.81f;
+    [SerializeField] private float _groundDistance = 0.2f;
+    [SerializeField] private LayerMask _groundMask;
     private Vector2 _frameInput;    // Capture input values
     private Vector3 _frameVelocity; // Accumulate input values
+    private bool _jumped = false;
+    private bool _isGrounded;
     
     // Camera movement
     [SerializeField] private float _cameraSensitivity = 5f;
@@ -58,6 +68,7 @@ public class PlayerController : NetworkBehaviour
         if (IsOwner)
         {
             GatherInput();
+            CheckGroundedState();
         }
     }
 
@@ -73,16 +84,18 @@ public class PlayerController : NetworkBehaviour
             // WASD values
             SideMovement();
             ForwardMovement();
+            UpwardMovement();
             ApplyMovement();
         }
         else
         {
-            // // Camera values
+            // Camera values
             ApplyRotationRpc(_cameraInput);
             
             // WASD values
             SideMovementRpc(_frameInput);
             ForwardMovementRpc(_frameInput);
+            UpwardMovementRpc();
             ApplyMovementRpc();
         }
     }
@@ -91,6 +104,15 @@ public class PlayerController : NetworkBehaviour
     {
         _frameInput = _playerInput.Player.Movement.ReadValue<Vector2>();
         _cameraInput = _playerInput.Player.CameraMovement.ReadValue<Vector2>();
+
+        _jumped = _playerInput.Player.Jump.ReadValue<float>() > 0 ? true : false;
+
+        //_jumped = false; // Should set to false once we are not grounded
+    }
+
+    private void CheckGroundedState()
+    {
+        _isGrounded = Physics.CheckSphere(_groundCheckTransform.position, _groundDistance, _groundMask);
     }
     
     #region WASD movement
@@ -123,6 +145,32 @@ public class PlayerController : NetworkBehaviour
             _frameVelocity.z = Mathf.MoveTowards(_frameVelocity.z, _frameInput.y * _maxSpeed, Time.fixedDeltaTime * _acceleration);
         }
     }
+
+    [Rpc(SendTo.Server)]
+    private void UpwardMovementRpc()
+    {
+        
+    }
+    
+    private void UpwardMovement()
+    {
+        if (_isGrounded)
+        {
+            _frameVelocity.y = 0;
+        }
+        if (_jumped && _isGrounded)
+        {
+            _frameVelocity.y = Mathf.Sqrt(_jumpForce * -2f * _gravity);
+        }
+        if (!_isGrounded)
+        {
+            _frameVelocity.y += _gravity * _fallAcceleration * Time.fixedDeltaTime;
+            //_frameVelocity.y = Mathf.MoveTowards(_frameVelocity.y, _maxFallSpeed, Time.fixedDeltaTime * _gravity * _fallAcceleration);
+            Debug.Log("Fall speed: " + _frameVelocity.y);
+        }
+
+        Debug.Log("Is jumped: " + _jumped);
+    }
     
     [Rpc(SendTo.Server)]
     private void ApplyMovementRpc()
@@ -131,7 +179,7 @@ public class PlayerController : NetworkBehaviour
     }
     private void ApplyMovement()
     {
-        _characterController.Move(_transform.rotation * _frameVelocity);
+        _characterController.Move(_playerTransform.rotation * _frameVelocity);
     }
     #endregion
     
@@ -149,7 +197,7 @@ public class PlayerController : NetworkBehaviour
     {
         _frameRotation += _cameraInput * _cameraSensitivity;
         _cinemachineCamera.transform.rotation = Quaternion.Euler(-_frameRotation.y * _cameraSensitivity, _frameRotation.x * _cameraSensitivity, 0);
-        _transform.rotation = Quaternion.Euler(0, _frameRotation.x * _cameraSensitivity, 0);
+        _playerTransform.rotation = Quaternion.Euler(0, _frameRotation.x * _cameraSensitivity, 0);
     }
     #endregion
 }
