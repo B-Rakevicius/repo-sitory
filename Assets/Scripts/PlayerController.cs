@@ -5,9 +5,11 @@ using UnityEngine;
 
 public class PlayerController : NetworkBehaviour
 {
+    // References
     [SerializeField] private Transform _transform;
     [SerializeField] private CharacterController _characterController;
     [SerializeField] private CinemachineCamera _cinemachineCamera;
+    [SerializeField] private Transform _cameraContainer;
     [SerializeField] private AudioListener _audioListener;
     private PlayerInput _playerInput;
     
@@ -15,11 +17,17 @@ public class PlayerController : NetworkBehaviour
     public event EventHandler OnPlayerJumped;
     
     // Variables
+    // WASD Movement
     [SerializeField] private float _acceleration = 0.5f;
     [SerializeField] private float _deceleration = 0.8f;
     [SerializeField] private float _maxSpeed = 0.3f;
     private Vector2 _frameInput;    // Capture input values
     private Vector3 _frameVelocity; // Accumulate input values
+    
+    // Camera movement
+    [SerializeField] private float _cameraSensitivity = 5f;
+    private Vector2 _cameraInput;   // Capture mouse rotation
+    private Vector2 _frameRotation; // Accumulate camera input values
 
 
     public override void OnNetworkSpawn()
@@ -57,14 +65,22 @@ public class PlayerController : NetworkBehaviour
     // Apply input values
     private void FixedUpdate()
     {
-        if (IsServer && IsLocalPlayer)
+        if (IsOwner)
         {
+            // Camera values
+            ApplyRotation();
+            
+            // WASD values
             SideMovement();
             ForwardMovement();
             ApplyMovement();
         }
-        else if (IsClient && IsLocalPlayer)
+        else
         {
+            // // Camera values
+            ApplyRotationRpc(_cameraInput);
+            
+            // WASD values
             SideMovementRpc(_frameInput);
             ForwardMovementRpc(_frameInput);
             ApplyMovementRpc();
@@ -74,9 +90,10 @@ public class PlayerController : NetworkBehaviour
     private void GatherInput()
     {
         _frameInput = _playerInput.Player.Movement.ReadValue<Vector2>();
+        _cameraInput = _playerInput.Player.CameraMovement.ReadValue<Vector2>();
     }
-
     
+    #region WASD movement
     [Rpc(SendTo.Server)]
     private void SideMovementRpc(Vector2 _frameInput)
     {
@@ -114,6 +131,25 @@ public class PlayerController : NetworkBehaviour
     }
     private void ApplyMovement()
     {
-        _characterController.Move(_frameVelocity);
+        _characterController.Move(_transform.rotation * _frameVelocity);
     }
+    #endregion
+    
+    
+    #region Camera rotation
+    [Rpc(SendTo.Server)]
+    private void ApplyRotationRpc(Vector2 _cameraInput)
+    {
+        this._cameraInput = _cameraInput;
+        ApplyRotation();
+    }
+
+    // TODO: Camera rotation around Y axis is a little bit strange (it kinda snaps back a little after rotation).
+    private void ApplyRotation()
+    {
+        _frameRotation += _cameraInput * _cameraSensitivity;
+        _cinemachineCamera.transform.rotation = Quaternion.Euler(-_frameRotation.y * _cameraSensitivity, _frameRotation.x * _cameraSensitivity, 0);
+        _transform.rotation = Quaternion.Euler(0, _frameRotation.x * _cameraSensitivity, 0);
+    }
+    #endregion
 }
