@@ -181,8 +181,8 @@ public class PlayerController : NetworkBehaviour
     private void ApplyRotation()
     {
         _frameRotation += _cameraInput * _cameraSensitivity;
-        _cinemachineCamera.transform.rotation = Quaternion.Euler(-_frameRotation.y * _cameraSensitivity, _frameRotation.x * _cameraSensitivity, 0);
         _playerTransform.rotation = Quaternion.Euler(0, _frameRotation.x * _cameraSensitivity, 0);
+        _cinemachineCamera.transform.rotation = Quaternion.Euler(-_frameRotation.y * _cameraSensitivity, _frameRotation.x * _cameraSensitivity, 0);
     }
     #endregion
 }
