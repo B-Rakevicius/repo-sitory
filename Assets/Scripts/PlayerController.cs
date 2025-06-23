@@ -21,6 +21,7 @@ public class PlayerController : NetworkBehaviour
     // Variables
     // Player movement
     [SerializeField] private float _acceleration = 0.5f;
+    [SerializeField] private float _airAcceleration = 0.1f;
     [SerializeField] private float _deceleration = 0.8f;
     [SerializeField] private float _maxSpeed = 0.3f;
     [SerializeField] private float _jumpForce = 5f;
@@ -29,10 +30,13 @@ public class PlayerController : NetworkBehaviour
     [SerializeField] private float _gravity = -9.81f;
     [SerializeField] private float _groundDistance = 0.2f;
     [SerializeField] private LayerMask _groundMask;
-    private Vector2 _frameInput;    // Capture input values
-    private Vector3 _frameVelocity; // Accumulate input values
+    private Vector2 _frameInput;     // Capture input values
+    private Vector3 _frameVelocity;  // Accumulate input values
+    private Quaternion _lastRotation; // Last player rotation to apply when in air
     private bool _jumped = false;
     private bool _isGrounded;
+    private bool _isMovingForward;
+    private bool _isMovingRight;
     
     // Camera movement
     [SerializeField] private float _cameraSensitivity = 5f;
@@ -59,6 +63,8 @@ public class PlayerController : NetworkBehaviour
     {
         _playerInput = new();
         _playerInput.Enable();
+        
+        _lastRotation = _playerTransform.rotation;
     }
 
     // Gather input values
@@ -111,10 +117,25 @@ public class PlayerController : NetworkBehaviour
     }
     private void SideMovement()
     {
-        if (_frameInput.x == 0) {
-            _frameVelocity.x = Mathf.MoveTowards(_frameVelocity.x, 0, Time.fixedDeltaTime * _deceleration);
-        } else {
-            _frameVelocity.x = Mathf.MoveTowards(_frameVelocity.x, _frameInput.x * _maxSpeed, Time.fixedDeltaTime * _acceleration);
+        // Player is on the ground. Apply regular movement.
+        if (_isGrounded) {
+            if (_frameInput.x == 0) {
+                _frameVelocity.x = Mathf.MoveTowards(_frameVelocity.x, 0, Time.fixedDeltaTime * _deceleration);
+            } else {
+                _frameVelocity.x = Mathf.MoveTowards(_frameVelocity.x, _frameInput.x * _maxSpeed, Time.fixedDeltaTime * _acceleration);
+                _lastRotation = _playerTransform.rotation;
+            } 
+        }
+        // Player is in the air. If he is moving in opposite direction, instantly stop movement.
+        else {
+            if (_frameInput.x != 0) {
+                _lastRotation = _playerTransform.rotation;
+            }
+            _isMovingRight = _frameVelocity.x > 0 ? true : false;
+            if (_isMovingRight && _frameInput.x < 0 || !_isMovingRight && _frameInput.x > 0) {
+                _frameVelocity.x = 0;
+            }
+            _frameVelocity.x += _airAcceleration * _frameInput.x * Time.fixedDeltaTime;
         }
     }
 
@@ -126,10 +147,25 @@ public class PlayerController : NetworkBehaviour
     }
     private void ForwardMovement()
     {
-        if (_frameInput.y == 0) {
-            _frameVelocity.z = Mathf.MoveTowards(_frameVelocity.z, 0, Time.fixedDeltaTime * _deceleration);
-        } else {
-            _frameVelocity.z = Mathf.MoveTowards(_frameVelocity.z, _frameInput.y * _maxSpeed, Time.fixedDeltaTime * _acceleration);
+        // Player is on the ground. Apply regular movement.
+        if (_isGrounded) {
+            if (_frameInput.y == 0) {
+                _frameVelocity.z = Mathf.MoveTowards(_frameVelocity.z, 0, Time.fixedDeltaTime * _deceleration);
+            } else {
+                _frameVelocity.z = Mathf.MoveTowards(_frameVelocity.z, _frameInput.y * _maxSpeed, Time.fixedDeltaTime * _acceleration);
+                _lastRotation = _playerTransform.rotation;
+            }
+        }
+        // Player is in the air. If he is moving in opposite direction, instantly stop movement.
+        else {
+            if (_frameInput.y != 0) {
+                _lastRotation = _playerTransform.rotation;
+            }
+            _isMovingForward = _frameVelocity.z > 0 ? true : false;
+            if (_isMovingForward && _frameInput.y < 0 || !_isMovingForward && _frameInput.y > 0) {
+                _frameVelocity.z = 0;
+            }
+            _frameVelocity.z += _airAcceleration * _frameInput.y * Time.fixedDeltaTime;
         }
     }
 
@@ -142,16 +178,13 @@ public class PlayerController : NetworkBehaviour
     
     private void UpwardMovement()
     {
-        if (_isGrounded)
-        {
+        if (_isGrounded) {
             _frameVelocity.y = 0;
         }
-        if (_jumped && _isGrounded)
-        {
+        if (_jumped && _isGrounded) {
             _frameVelocity.y = Mathf.Sqrt(_jumpForce * -0.01f * _gravity);
         }
-        if (!_isGrounded)
-        {
+        if (!_isGrounded) {
             _frameVelocity.y += _gravity * _fallAcceleration * Time.fixedDeltaTime;
         }
 
@@ -164,7 +197,11 @@ public class PlayerController : NetworkBehaviour
     }
     private void ApplyMovement()
     {
-        _characterController.Move(_playerTransform.rotation * _frameVelocity);
+        // if (_isGrounded) {
+        //     _characterController.Move(_playerTransform.rotation * _frameVelocity);
+        // }else {
+            _characterController.Move(_lastRotation * _frameVelocity); 
+        //}
     }
     #endregion
     
@@ -176,8 +213,7 @@ public class PlayerController : NetworkBehaviour
         _cameraInput = cameraInput;
         ApplyRotation();
     }
-
-    // TODO: Camera rotation around Y axis is a little bit strange (it kinda snaps back a little after rotation).
+    
     private void ApplyRotation()
     {
         _frameRotation += _cameraInput * _cameraSensitivity;
