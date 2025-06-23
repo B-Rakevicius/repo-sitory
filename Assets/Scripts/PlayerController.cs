@@ -87,17 +87,6 @@ public class PlayerController : NetworkBehaviour
             UpwardMovement();
             ApplyMovement();
         }
-        else
-        {
-            // Camera values
-            ApplyRotationRpc(_cameraInput);
-            
-            // WASD values
-            SideMovementRpc(_frameInput);
-            ForwardMovementRpc(_frameInput);
-            UpwardMovementRpc();
-            ApplyMovementRpc();
-        }
     }
     
     private void GatherInput()
@@ -106,8 +95,6 @@ public class PlayerController : NetworkBehaviour
         _cameraInput = _playerInput.Player.CameraMovement.ReadValue<Vector2>();
 
         _jumped = _playerInput.Player.Jump.ReadValue<float>() > 0 ? true : false;
-
-        //_jumped = false; // Should set to false once we are not grounded
     }
 
     private void CheckGroundedState()
@@ -117,9 +104,9 @@ public class PlayerController : NetworkBehaviour
     
     #region WASD movement
     [Rpc(SendTo.Server)]
-    private void SideMovementRpc(Vector2 _frameInput)
+    private void SideMovementRpc(Vector2 frameInput)
     {
-        this._frameInput = _frameInput;
+        _frameInput = frameInput;
         SideMovement();
     }
     private void SideMovement()
@@ -132,9 +119,9 @@ public class PlayerController : NetworkBehaviour
     }
 
     [Rpc(SendTo.Server)]
-    private void ForwardMovementRpc(Vector2 _frameInput)
+    private void ForwardMovementRpc(Vector2 frameInput)
     {
-        this._frameInput = _frameInput;
+        _frameInput = frameInput;
         ForwardMovement();
     }
     private void ForwardMovement()
@@ -147,9 +134,10 @@ public class PlayerController : NetworkBehaviour
     }
 
     [Rpc(SendTo.Server)]
-    private void UpwardMovementRpc()
+    private void UpwardMovementRpc(bool jumped)
     {
-        
+        _jumped = jumped;
+        UpwardMovement();
     }
     
     private void UpwardMovement()
@@ -160,16 +148,13 @@ public class PlayerController : NetworkBehaviour
         }
         if (_jumped && _isGrounded)
         {
-            _frameVelocity.y = Mathf.Sqrt(_jumpForce * -2f * _gravity);
+            _frameVelocity.y = Mathf.Sqrt(_jumpForce * -0.01f * _gravity);
         }
         if (!_isGrounded)
         {
             _frameVelocity.y += _gravity * _fallAcceleration * Time.fixedDeltaTime;
-            //_frameVelocity.y = Mathf.MoveTowards(_frameVelocity.y, _maxFallSpeed, Time.fixedDeltaTime * _gravity * _fallAcceleration);
-            Debug.Log("Fall speed: " + _frameVelocity.y);
         }
 
-        Debug.Log("Is jumped: " + _jumped);
     }
     
     [Rpc(SendTo.Server)]
@@ -186,9 +171,9 @@ public class PlayerController : NetworkBehaviour
     
     #region Camera rotation
     [Rpc(SendTo.Server)]
-    private void ApplyRotationRpc(Vector2 _cameraInput)
+    private void ApplyRotationRpc(Vector2 cameraInput)
     {
-        this._cameraInput = _cameraInput;
+        _cameraInput = cameraInput;
         ApplyRotation();
     }
 

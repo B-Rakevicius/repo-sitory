@@ -294,10 +294,10 @@ MonoBehaviour:
   _cinemachineCamera: {fileID: 238849729210222428}
   _cameraContainer: {fileID: 2020990745925120942}
   _audioListener: {fileID: 743936511521748533}
-  _acceleration: 0.5
+  _acceleration: 1
   _deceleration: 0.8
-  _maxSpeed: 0.2
-  _jumpForce: 0.1
+  _maxSpeed: 0.15
+  _jumpForce: 0.5
   _fallAcceleration: 0.1
   _maxFallSpeed: 0.1
   _gravity: -9.81
