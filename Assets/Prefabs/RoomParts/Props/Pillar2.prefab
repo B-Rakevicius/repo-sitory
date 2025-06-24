@@ -52,9 +52,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -6900385278981632002, guid: 4a9bb0e2c20cda54fb6945839f198b66, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 4a9bb0e2c20cda54fb6945839f198b66, type: 3}
       propertyPath: m_Name
       value: Pillar2
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4a9bb0e2c20cda54fb6945839f198b66, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 1078210541694900024, guid: 4a9bb0e2c20cda54fb6945839f198b66, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 5065471103357296908, guid: 4a9bb0e2c20cda54fb6945839f198b66, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
