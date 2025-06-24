@@ -4,5 +4,5 @@ public interface IItemGrabbable
 {
     public void GrabItem(Transform grabPointTransform);
     public void ReleaseItem();
-    public void ThrowItem();
+    public void ThrowItem(Vector3 direction);
 }

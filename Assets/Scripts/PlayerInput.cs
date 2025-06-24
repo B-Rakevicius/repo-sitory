@@ -126,6 +126,15 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ItemThrow"",
+                    ""type"": ""Button"",
+                    ""id"": ""eef91993-9227-4d86-b222-eee43cd3687a"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -216,6 +225,17 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""action"": ""ItemGrab"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a973b185-dfa5-4616-8afd-0e947773ea17"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ItemThrow"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -228,6 +248,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_Player_CameraMovement = m_Player.FindAction("CameraMovement", throwIfNotFound: true);
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
         m_Player_ItemGrab = m_Player.FindAction("ItemGrab", throwIfNotFound: true);
+        m_Player_ItemThrow = m_Player.FindAction("ItemThrow", throwIfNotFound: true);
     }
 
     ~@PlayerInput()
@@ -312,6 +333,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_CameraMovement;
     private readonly InputAction m_Player_Jump;
     private readonly InputAction m_Player_ItemGrab;
+    private readonly InputAction m_Player_ItemThrow;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -339,6 +361,10 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Player/ItemGrab".
         /// </summary>
         public InputAction @ItemGrab => m_Wrapper.m_Player_ItemGrab;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/ItemThrow".
+        /// </summary>
+        public InputAction @ItemThrow => m_Wrapper.m_Player_ItemThrow;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -377,6 +403,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @ItemGrab.started += instance.OnItemGrab;
             @ItemGrab.performed += instance.OnItemGrab;
             @ItemGrab.canceled += instance.OnItemGrab;
+            @ItemThrow.started += instance.OnItemThrow;
+            @ItemThrow.performed += instance.OnItemThrow;
+            @ItemThrow.canceled += instance.OnItemThrow;
         }
 
         /// <summary>
@@ -400,6 +429,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @ItemGrab.started -= instance.OnItemGrab;
             @ItemGrab.performed -= instance.OnItemGrab;
             @ItemGrab.canceled -= instance.OnItemGrab;
+            @ItemThrow.started -= instance.OnItemThrow;
+            @ItemThrow.performed -= instance.OnItemThrow;
+            @ItemThrow.canceled -= instance.OnItemThrow;
         }
 
         /// <summary>
@@ -468,5 +500,12 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnItemGrab(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "ItemThrow" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnItemThrow(InputAction.CallbackContext context);
     }
 }
