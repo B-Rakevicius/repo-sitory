@@ -1,3 +1,4 @@
+using System;
 using System.IO.Compression;
 using UnityEngine;
 
@@ -7,23 +8,37 @@ public class ItemGrabbable : MonoBehaviour, IItemGrabbable
     private Transform _grabPointTransform;
     private Rigidbody _rb;
 
+    public event EventHandler OnItemDropped;
+
     private Vector3 _previousPos;
     private Vector3 _itemVelocity;
-    private float _itemVelocityImpact = 0.2f; // How much does the item's velocity impact throw speed.
-    private float _lerpSpeed = 64f;    // How snappy does the item follow the camera.
+    [SerializeField] private float _lerpSpeed = 650f; // How snappy does the item follow the camera.
+    [SerializeField] private float _grabPointItemDistanceThreshold = 1.5f; // How far the camera can move from stuck object before it gets dropped.
+    private float _itemVelocityImpact = 0.2f;        // How much does the item's velocity impact throw speed.
 
     private void Awake()
     {
         _rb = GetComponent<Rigidbody>();
     }
 
+    // We could use _rb.linearVelocity or AddForce to make Grabbable function similar to R.E.P.O.
     private void FixedUpdate()
     {
         // Move the item towards grab point if we are holding it.
         if (_grabPointTransform is null) { return; }
+        MoveItem();
+
+    }
+
+    private void MoveItem()
+    {
+        Vector3 grabPointItemDistance = _grabPointTransform.position - transform.position;
+        _rb.linearVelocity = grabPointItemDistance * Time.deltaTime * _lerpSpeed;
         
-        Vector3 newPos = Vector3.Lerp(transform.position, _grabPointTransform.position, Time.deltaTime * _lerpSpeed);
-        _rb.MovePosition(newPos);
+        if (grabPointItemDistance.magnitude >= _grabPointItemDistanceThreshold)
+        {
+            OnItemDropped?.Invoke(this, EventArgs.Empty);
+        }
     }
 
     private void Update()
@@ -53,7 +68,6 @@ public class ItemGrabbable : MonoBehaviour, IItemGrabbable
         _grabPointTransform = null;
         _rb.useGravity = true;
         _rb.freezeRotation = false;
-        //_rb.linearVelocity = _itemVelocity * _itemVelocityImpact;
 
         Vector3 throwForce = (direction + _itemVelocity * _itemVelocityImpact) / _rb.mass;
         _rb.AddForce(throwForce, ForceMode.Impulse);
