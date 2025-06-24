@@ -1,5 +1,6 @@
 using Unity.Cinemachine;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class ItemGrabRaycast : MonoBehaviour
 {
@@ -15,19 +16,12 @@ public class ItemGrabRaycast : MonoBehaviour
     private void Start()
     {
         _playerInput = new();
+        _playerInput.Player.ItemGrab.started += OnItemGrabTriggered;
         _playerInput.Enable();
     }
 
-    private void Update()
+    private void OnItemGrabTriggered(InputAction.CallbackContext obj)
     {
-        GrabItem();
-    }
-
-    private void GrabItem()
-    {
-        // Get user input and pickup the object
-        if (_playerInput.Player.ItemGrab.ReadValue<float>() > 0)
-        {
             // No object is picked up. Grab it.
             if (_itemGrabbable == null)
             {
@@ -50,7 +44,6 @@ public class ItemGrabRaycast : MonoBehaviour
             }
             
             Debug.DrawRay(_cinemachineCameraTransform.position, _cinemachineCameraTransform.forward * _grabDistance, Color.red);
-        }
     }
 
 }

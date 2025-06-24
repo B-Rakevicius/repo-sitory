@@ -1,3 +1,4 @@
+using System.IO.Compression;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
@@ -5,8 +6,9 @@ public class ItemGrabbable : MonoBehaviour, IItemGrabbable
 {
     private Transform _grabPointTransform;
     private Rigidbody _rb;
+    
 
-    private float _lerpSpeed = 5f;
+    private float _lerpSpeed = 64f;
 
     private void Awake()
     {
@@ -15,7 +17,7 @@ public class ItemGrabbable : MonoBehaviour, IItemGrabbable
 
     private void FixedUpdate()
     {
-        if (_grabPointTransform == null) { return; }
+        if (_grabPointTransform is null) { return; }
         
         Vector3 newPos = Vector3.Lerp(transform.position, _grabPointTransform.position, Time.deltaTime * _lerpSpeed);
         _rb.MovePosition(newPos);
@@ -25,12 +27,15 @@ public class ItemGrabbable : MonoBehaviour, IItemGrabbable
     {
         _grabPointTransform = grabPointTransform;
         _rb.useGravity = false;
+        _rb.freezeRotation = true;
+        this.transform.rotation = _grabPointTransform.localRotation;
     }
 
     public void ReleaseItem()
     {
         _grabPointTransform = null;
         _rb.useGravity = true;
+        _rb.freezeRotation = false;
     }
 
     public void ThrowItem()
