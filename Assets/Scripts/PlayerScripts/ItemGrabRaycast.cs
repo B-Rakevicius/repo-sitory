@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 
 public class ItemGrabRaycast : NetworkBehaviour
 {
-    private IItemGrabbable _itemGrabbable;
+    private ItemGrabbable _itemGrabbable;
     private PlayerInput _playerInput;
     [SerializeField] private LayerMask _grabLayerMask;
     [SerializeField] private Transform _grabPointTransform;
@@ -18,6 +18,7 @@ public class ItemGrabRaycast : NetworkBehaviour
     private void Start()
     {
         _playerInput = new();
+        // Subscribe to input events only if we are the owner of the player prefab.
         if (IsOwner)
         {
             _playerInput.Player.ItemGrab.started += PlayerInput_OnItemGrabTriggered;
@@ -28,6 +29,9 @@ public class ItemGrabRaycast : NetworkBehaviour
 
     private void PlayerInput_OnItemThrowTriggered(InputAction.CallbackContext obj)
     {
+        // Send a request to the server to throw the object. Since the object has 
+        // NetworkTransform, object movement will be done on the server, and synced 
+        // to the clients.
         OnItemThrowTriggeredRpc();
     }
 
@@ -37,29 +41,38 @@ public class ItemGrabRaycast : NetworkBehaviour
         if (_itemGrabbable is null) { return; }
         
         _itemGrabbable.ThrowItem(_cinemachineCameraTransform.transform.forward);
+        _itemGrabbable.SetHolderId(ulong.MaxValue);
         _itemGrabbable.OnItemDropped -= ItemGrabbable_OnItemDropped;
         _itemGrabbable = null;
     }
 
     private void PlayerInput_OnItemGrabTriggered(InputAction.CallbackContext obj)
     {
-        OnItemGrabTriggeredRpc();
+        // Send a request to the server to throw the object. Since the object has 
+        // NetworkTransform, object movement will be done on the server, and synced 
+        // to the clients.
+        OnItemGrabTriggeredRpc(NetworkManager.Singleton.LocalClientId);
     }
 
     [Rpc(SendTo.Server)]
-    private void OnItemGrabTriggeredRpc()
+    private void OnItemGrabTriggeredRpc(ulong clientId)
     {
-        // No object is picked up. Grab it.
+        // No object is picked up. Try to grab it.
         if (_itemGrabbable == null)
         {
-            // Ray cast from camera
+            // Ray cast from camera.
             if (Physics.Raycast(_cinemachineCameraTransform.position, _cinemachineCameraTransform.forward,
                     out RaycastHit hit, _grabDistance, _grabLayerMask))
             {
-                // Object is grabbable. Get component and grab it
+                // Object is grabbable. Get component and try to grab it.
                 if (hit.collider.TryGetComponent(out _itemGrabbable))
                 {
+                    // Someone else is holding the object. Don't allow to pick it up.
+                    if (_itemGrabbable.GetHolderId() != ulong.MaxValue) { _itemGrabbable = null; return; }
+                    
                     _itemGrabbable.GrabItem(_grabPointTransform);
+                    _itemGrabbable.SetHolderId(clientId);
+                    Debug.Log("Item holder id: " + _itemGrabbable.GetHolderId());
                     _itemGrabbable.OnItemDropped += ItemGrabbable_OnItemDropped;
                 }
             }
@@ -68,17 +81,19 @@ public class ItemGrabRaycast : NetworkBehaviour
         else
         {
             _itemGrabbable.ReleaseItem();
+            _itemGrabbable.SetHolderId(ulong.MaxValue);
+            Debug.Log("Item holder id: " + _itemGrabbable.GetHolderId());
             _itemGrabbable.OnItemDropped -= ItemGrabbable_OnItemDropped;
             _itemGrabbable = null;
         }
-
-        Debug.Log("Is item null?: " + _itemGrabbable);
         Debug.DrawRay(_cinemachineCameraTransform.position, _cinemachineCameraTransform.forward * _grabDistance, Color.red);
     }
 
     private void ItemGrabbable_OnItemDropped(object sender, EventArgs e)
     {
         _itemGrabbable.ReleaseItem();
+        _itemGrabbable.SetHolderId(ulong.MaxValue);
+        Debug.Log("Item holder id: " + _itemGrabbable.GetHolderId());
         _itemGrabbable.OnItemDropped -= ItemGrabbable_OnItemDropped;
         _itemGrabbable = null;
     }

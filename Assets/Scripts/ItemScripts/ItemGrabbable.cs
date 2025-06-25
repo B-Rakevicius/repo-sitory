@@ -1,9 +1,10 @@
 using System;
 using System.IO.Compression;
+using Unity.Netcode;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
-public class ItemGrabbable : MonoBehaviour, IItemGrabbable
+public class ItemGrabbable : NetworkBehaviour, IItemGrabbable
 {
     private Transform _grabPointTransform;
     private Rigidbody _rb;
@@ -15,7 +16,18 @@ public class ItemGrabbable : MonoBehaviour, IItemGrabbable
     [SerializeField] private float _lerpSpeed = 650f;                      // How snappy does the item follow the camera.
     [SerializeField] private float _grabPointItemDistanceThreshold = 1.5f; // How far the camera can move from stuck object before it gets dropped.
     private float _itemVelocityImpact = 0.2f;                              // How much does the item's velocity impact throw speed.
+    private NetworkVariable<ulong> _holderClientId = new NetworkVariable<ulong>();
 
+
+    public override void OnNetworkSpawn()
+    {
+        if (IsServer)
+        {
+            // When no one is holding the object, set holder value to max.
+            _holderClientId.Value = ulong.MaxValue;
+        }
+    }
+    
     private void Awake()
     {
         _rb = GetComponent<Rigidbody>();
@@ -72,5 +84,15 @@ public class ItemGrabbable : MonoBehaviour, IItemGrabbable
 
         Vector3 throwForce = (direction + _itemVelocity * _itemVelocityImpact) / _rb.mass;
         _rb.AddForce(throwForce, ForceMode.Impulse);
+    }
+
+    public void SetHolderId(ulong holderClientId)
+    {
+        _holderClientId.Value = holderClientId;
+    }
+
+    public ulong GetHolderId()
+    {
+        return _holderClientId.Value;
     }
 }
