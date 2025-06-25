@@ -1,9 +1,10 @@
 using System;
 using Unity.Cinemachine;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class ItemGrabRaycast : MonoBehaviour
+public class ItemGrabRaycast : NetworkBehaviour
 {
     private IItemGrabbable _itemGrabbable;
     private PlayerInput _playerInput;
@@ -17,12 +18,21 @@ public class ItemGrabRaycast : MonoBehaviour
     private void Start()
     {
         _playerInput = new();
-        _playerInput.Player.ItemGrab.started += PlayerInput_OnItemGrabTriggered;
-        _playerInput.Player.ItemThrow.performed += PlayerInput_OnItemThrowTriggered;
+        if (IsOwner)
+        {
+            _playerInput.Player.ItemGrab.started += PlayerInput_OnItemGrabTriggered;
+            _playerInput.Player.ItemThrow.performed += PlayerInput_OnItemThrowTriggered;
+        }
         _playerInput.Enable();
     }
 
     private void PlayerInput_OnItemThrowTriggered(InputAction.CallbackContext obj)
+    {
+        OnItemThrowTriggeredRpc();
+    }
+
+    [Rpc(SendTo.Server)]
+    private void OnItemThrowTriggeredRpc()
     {
         if (_itemGrabbable is null) { return; }
         
@@ -32,6 +42,12 @@ public class ItemGrabRaycast : MonoBehaviour
     }
 
     private void PlayerInput_OnItemGrabTriggered(InputAction.CallbackContext obj)
+    {
+        OnItemGrabTriggeredRpc();
+    }
+
+    [Rpc(SendTo.Server)]
+    private void OnItemGrabTriggeredRpc()
     {
         // No object is picked up. Grab it.
         if (_itemGrabbable == null)

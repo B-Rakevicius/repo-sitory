@@ -12,9 +12,9 @@ public class ItemGrabbable : MonoBehaviour, IItemGrabbable
 
     private Vector3 _previousPos;
     private Vector3 _itemVelocity;
-    [SerializeField] private float _lerpSpeed = 650f; // How snappy does the item follow the camera.
+    [SerializeField] private float _lerpSpeed = 650f;                      // How snappy does the item follow the camera.
     [SerializeField] private float _grabPointItemDistanceThreshold = 1.5f; // How far the camera can move from stuck object before it gets dropped.
-    private float _itemVelocityImpact = 0.2f;        // How much does the item's velocity impact throw speed.
+    private float _itemVelocityImpact = 0.2f;                              // How much does the item's velocity impact throw speed.
 
     private void Awake()
     {
@@ -35,6 +35,7 @@ public class ItemGrabbable : MonoBehaviour, IItemGrabbable
         Vector3 grabPointItemDistance = _grabPointTransform.position - transform.position;
         _rb.linearVelocity = grabPointItemDistance * Time.deltaTime * _lerpSpeed;
         
+        // If distance between the item and grab point is greater than threshold - drop it.
         if (grabPointItemDistance.magnitude >= _grabPointItemDistanceThreshold)
         {
             OnItemDropped?.Invoke(this, EventArgs.Empty);
