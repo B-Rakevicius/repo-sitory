@@ -7,7 +7,6 @@ using UnityEngine.InputSystem;
 public class ItemGrabRaycast : NetworkBehaviour
 {
     private ItemGrabbable _itemGrabbable;
-    private PlayerInput _playerInput;
     [SerializeField] private LayerMask _grabLayerMask;
     [SerializeField] private Transform _grabPointTransform;
     [SerializeField] private Transform _cinemachineCameraTransform;
@@ -17,14 +16,11 @@ public class ItemGrabRaycast : NetworkBehaviour
 
     private void Start()
     {
-        _playerInput = new();
         // Subscribe to input events only if we are the owner of the player prefab.
-        if (IsOwner)
-        {
-            _playerInput.Player.ItemGrab.started += PlayerInput_OnItemGrabTriggered;
-            _playerInput.Player.LeftMouseButton.started += PlayerInput_OnItemThrowTriggered;
-        }
-        _playerInput.Enable();
+        if (!IsOwner) { return; }
+        
+        InputManager.Instance.playerInput.Player.ItemGrab.started += PlayerInput_OnItemGrabTriggered;
+        InputManager.Instance.playerInput.Player.LeftMouseButton.started += PlayerInput_OnItemThrowTriggered;
     }
 
     private void PlayerInput_OnItemThrowTriggered(InputAction.CallbackContext obj)

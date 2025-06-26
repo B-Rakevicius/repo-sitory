@@ -1,11 +1,11 @@
+using System;
 using Unity.Netcode;
 using UnityEngine;
 
 public class GameManager : NetworkBehaviour
 {
     public static GameManager Instance { get; private set; }
-
-
+    
     private void Awake()
     {
         if (Instance != null)

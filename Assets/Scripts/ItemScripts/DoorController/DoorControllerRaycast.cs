@@ -7,7 +7,6 @@ using UnityEngine.InputSystem;
 public class DoorOpenRaycast : NetworkBehaviour
 {
     private DoorController _doorController;
-    private PlayerInput _playerInput;
     [SerializeField] private Transform _cinemachineCameraTransform;
 
     private Vector2 _cameraInput;
@@ -15,13 +14,6 @@ public class DoorOpenRaycast : NetworkBehaviour
     [SerializeField] private LayerMask _doorLayerMask;
     [SerializeField] private float _grabDistance = 2f;
     [SerializeField] private float _cameraDoorDistanceThreshold = 3f;
-
-
-    private void Start()
-    {
-        _playerInput = new();
-        _playerInput.Enable();
-    }
 
     private void Update()
     {
@@ -47,8 +39,8 @@ public class DoorOpenRaycast : NetworkBehaviour
 
     private void GatherInput()
     {
-        _cameraInput = _playerInput.Player.CameraMovement.ReadValue<Vector2>();
-        _mouseLeftBtnInput = _playerInput.Player.LeftMouseButton.ReadValue<float>();
+        _cameraInput = InputManager.Instance.playerInput.Player.DoorMovement.ReadValue<Vector2>();
+        _mouseLeftBtnInput = InputManager.Instance.playerInput.Player.LeftMouseButton.ReadValue<float>();
     }
 
     /// <summary>
@@ -61,9 +53,14 @@ public class DoorOpenRaycast : NetworkBehaviour
         if (distance > _cameraDoorDistanceThreshold)
         {
             _doorController = null;
+            EnableCameraRotationRpc();
         }
     }
     
+    /// <summary>
+    /// Triggers door rotation if Raycast hit a door object.
+    /// </summary>
+    /// <param name="mouseRotY">Mouse Y axis input, acts as rotation degrees.</param>
     [Rpc(SendTo.Server)]
     private void TriggerDoorRotationRpc(float mouseRotY)
     {
@@ -79,15 +76,40 @@ public class DoorOpenRaycast : NetworkBehaviour
         {
             //_playerInput.Player.Movement.Disable();
             _doorController.RotateDoor(mouseRotY);
+            DisableCameraRotationRpc();
             CheckDistance();
         }
         
         Debug.DrawRay(_cinemachineCameraTransform.position, _cinemachineCameraTransform.forward * _grabDistance, Color.red);
     }
-
+    
+    /// <summary>
+    /// Is called when player stops holding Left Mouse Button.
+    /// </summary>
     [Rpc(SendTo.Server)]
     private void TriggerDoorReferenceResetRpc()
     {
         _doorController = null;
+        EnableCameraRotationRpc();
+    }
+
+    /// <summary>
+    /// Disable camera rotation while interacting with the door. Is sent from the server to the player prefab's
+    /// owner.
+    /// </summary>
+    [Rpc(SendTo.Owner)]
+    private void DisableCameraRotationRpc()
+    {
+        InputManager.Instance.playerInput.Player.CameraMovement.Disable();
+    }
+    
+    /// <summary>
+    /// Enable camera rotation if no longer interacting with door. Is sent from the server to the player prefab's
+    /// owner.
+    /// </summary>
+    [Rpc(SendTo.Owner)]
+    private void EnableCameraRotationRpc()
+    {
+        InputManager.Instance.playerInput.Player.CameraMovement.Enable();
     }
 }

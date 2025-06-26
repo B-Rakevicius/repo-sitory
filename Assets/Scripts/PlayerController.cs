@@ -13,7 +13,6 @@ public class PlayerController : NetworkBehaviour
     [SerializeField] private CinemachineCamera _cinemachineCamera;
     [SerializeField] private Transform _cameraContainer;
     [SerializeField] private AudioListener _audioListener;
-    private PlayerInput _playerInput;
     
     // Events
     public event EventHandler OnPlayerJumped;
@@ -61,9 +60,6 @@ public class PlayerController : NetworkBehaviour
 
     private void Start()
     {
-        _playerInput = new();
-        _playerInput.Enable();
-        
         _lastRotation = _playerTransform.rotation;
     }
 
@@ -97,10 +93,10 @@ public class PlayerController : NetworkBehaviour
     
     private void GatherInput()
     {
-        _frameInput = _playerInput.Player.Movement.ReadValue<Vector2>();
-        _cameraInput = _playerInput.Player.CameraMovement.ReadValue<Vector2>();
+        _frameInput = InputManager.Instance.playerInput.Player.Movement.ReadValue<Vector2>();
+        _cameraInput = InputManager.Instance.playerInput.Player.CameraMovement.ReadValue<Vector2>();
 
-        _jumped = _playerInput.Player.Jump.ReadValue<float>() > 0 ? true : false;
+        _jumped = InputManager.Instance.playerInput.Player.Jump.ReadValue<float>() > 0 ? true : false;
     }
 
     private void CheckGroundedState()
