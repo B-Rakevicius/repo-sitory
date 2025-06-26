@@ -15,7 +15,7 @@ public class PlayerController : NetworkBehaviour
     [SerializeField] private AudioListener _audioListener;
     
     // Events
-    public event EventHandler OnPlayerJumped;
+    //public event EventHandler OnPlayerJumped;
     
     // Variables
     // Player movement
@@ -25,7 +25,7 @@ public class PlayerController : NetworkBehaviour
     [SerializeField] private float _maxSpeed = 0.3f;
     [SerializeField] private float _jumpForce = 5f;
     [SerializeField] private float _fallAcceleration = 2f;
-    [SerializeField] private float _maxFallSpeed = 4f;
+    //[SerializeField] private float _maxFallSpeed = 4f;
     [SerializeField] private float _gravity = -9.81f;
     [SerializeField] private float _groundDistance = 0.2f;
     [SerializeField] private LayerMask _groundMask;

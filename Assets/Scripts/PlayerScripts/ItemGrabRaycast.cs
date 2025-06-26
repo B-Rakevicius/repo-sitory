@@ -68,7 +68,6 @@ public class ItemGrabRaycast : NetworkBehaviour
                     
                     _itemGrabbable.GrabItem(_grabPointTransform);
                     _itemGrabbable.SetHolderId(clientId);
-                    Debug.Log("Item holder id: " + _itemGrabbable.GetHolderId());
                     _itemGrabbable.OnItemDropped += ItemGrabbable_OnItemDropped;
                 }
             }
@@ -78,7 +77,6 @@ public class ItemGrabRaycast : NetworkBehaviour
         {
             _itemGrabbable.ReleaseItem();
             _itemGrabbable.SetHolderId(ulong.MaxValue);
-            Debug.Log("Item holder id: " + _itemGrabbable.GetHolderId());
             _itemGrabbable.OnItemDropped -= ItemGrabbable_OnItemDropped;
             _itemGrabbable = null;
         }
@@ -89,7 +87,6 @@ public class ItemGrabRaycast : NetworkBehaviour
     {
         _itemGrabbable.ReleaseItem();
         _itemGrabbable.SetHolderId(ulong.MaxValue);
-        Debug.Log("Item holder id: " + _itemGrabbable.GetHolderId());
         _itemGrabbable.OnItemDropped -= ItemGrabbable_OnItemDropped;
         _itemGrabbable = null;
     }
