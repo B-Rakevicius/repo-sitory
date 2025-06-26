@@ -128,12 +128,12 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""ItemThrow"",
+                    ""name"": ""LeftMouseButton"",
                     ""type"": ""Button"",
                     ""id"": ""eef91993-9227-4d86-b222-eee43cd3687a"",
                     ""expectedControlType"": """",
                     ""processors"": """",
-                    ""interactions"": """",
+                    ""interactions"": ""Hold"",
                     ""initialStateCheck"": false
                 }
             ],
@@ -233,7 +233,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""ItemThrow"",
+                    ""action"": ""LeftMouseButton"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -248,7 +248,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_Player_CameraMovement = m_Player.FindAction("CameraMovement", throwIfNotFound: true);
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
         m_Player_ItemGrab = m_Player.FindAction("ItemGrab", throwIfNotFound: true);
-        m_Player_ItemThrow = m_Player.FindAction("ItemThrow", throwIfNotFound: true);
+        m_Player_LeftMouseButton = m_Player.FindAction("LeftMouseButton", throwIfNotFound: true);
     }
 
     ~@PlayerInput()
@@ -333,7 +333,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_CameraMovement;
     private readonly InputAction m_Player_Jump;
     private readonly InputAction m_Player_ItemGrab;
-    private readonly InputAction m_Player_ItemThrow;
+    private readonly InputAction m_Player_LeftMouseButton;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -362,9 +362,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         /// </summary>
         public InputAction @ItemGrab => m_Wrapper.m_Player_ItemGrab;
         /// <summary>
-        /// Provides access to the underlying input action "Player/ItemThrow".
+        /// Provides access to the underlying input action "Player/LeftMouseButton".
         /// </summary>
-        public InputAction @ItemThrow => m_Wrapper.m_Player_ItemThrow;
+        public InputAction @LeftMouseButton => m_Wrapper.m_Player_LeftMouseButton;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -403,9 +403,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @ItemGrab.started += instance.OnItemGrab;
             @ItemGrab.performed += instance.OnItemGrab;
             @ItemGrab.canceled += instance.OnItemGrab;
-            @ItemThrow.started += instance.OnItemThrow;
-            @ItemThrow.performed += instance.OnItemThrow;
-            @ItemThrow.canceled += instance.OnItemThrow;
+            @LeftMouseButton.started += instance.OnLeftMouseButton;
+            @LeftMouseButton.performed += instance.OnLeftMouseButton;
+            @LeftMouseButton.canceled += instance.OnLeftMouseButton;
         }
 
         /// <summary>
@@ -429,9 +429,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @ItemGrab.started -= instance.OnItemGrab;
             @ItemGrab.performed -= instance.OnItemGrab;
             @ItemGrab.canceled -= instance.OnItemGrab;
-            @ItemThrow.started -= instance.OnItemThrow;
-            @ItemThrow.performed -= instance.OnItemThrow;
-            @ItemThrow.canceled -= instance.OnItemThrow;
+            @LeftMouseButton.started -= instance.OnLeftMouseButton;
+            @LeftMouseButton.performed -= instance.OnLeftMouseButton;
+            @LeftMouseButton.canceled -= instance.OnLeftMouseButton;
         }
 
         /// <summary>
@@ -501,11 +501,11 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnItemGrab(InputAction.CallbackContext context);
         /// <summary>
-        /// Method invoked when associated input action "ItemThrow" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// Method invoked when associated input action "LeftMouseButton" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnItemThrow(InputAction.CallbackContext context);
+        void OnLeftMouseButton(InputAction.CallbackContext context);
     }
 }

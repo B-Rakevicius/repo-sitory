@@ -22,7 +22,7 @@ public class ItemGrabRaycast : NetworkBehaviour
         if (IsOwner)
         {
             _playerInput.Player.ItemGrab.started += PlayerInput_OnItemGrabTriggered;
-            _playerInput.Player.ItemThrow.performed += PlayerInput_OnItemThrowTriggered;
+            _playerInput.Player.LeftMouseButton.started += PlayerInput_OnItemThrowTriggered;
         }
         _playerInput.Enable();
     }
