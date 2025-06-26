@@ -110,6 +110,15 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""DoorMovement"",
+                    ""type"": ""Value"",
+                    ""id"": ""8fc5178b-d3e1-4e2a-9c92-1104547bcd10"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
                     ""name"": ""Jump"",
                     ""type"": ""Value"",
                     ""id"": ""89552c41-af7a-4741-8e40-1b90b2f59ecb"",
@@ -128,12 +137,12 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""ItemThrow"",
+                    ""name"": ""LeftMouseButton"",
                     ""type"": ""Button"",
                     ""id"": ""eef91993-9227-4d86-b222-eee43cd3687a"",
                     ""expectedControlType"": """",
                     ""processors"": """",
-                    ""interactions"": """",
+                    ""interactions"": ""Hold"",
                     ""initialStateCheck"": false
                 }
             ],
@@ -233,7 +242,18 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""ItemThrow"",
+                    ""action"": ""LeftMouseButton"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""85682f5d-dc01-4fd2-8589-bd60efe3f3f2"",
+                    ""path"": ""<Mouse>/delta"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""DoorMovement"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -246,9 +266,10 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_Movement = m_Player.FindAction("Movement", throwIfNotFound: true);
         m_Player_CameraMovement = m_Player.FindAction("CameraMovement", throwIfNotFound: true);
+        m_Player_DoorMovement = m_Player.FindAction("DoorMovement", throwIfNotFound: true);
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
         m_Player_ItemGrab = m_Player.FindAction("ItemGrab", throwIfNotFound: true);
-        m_Player_ItemThrow = m_Player.FindAction("ItemThrow", throwIfNotFound: true);
+        m_Player_LeftMouseButton = m_Player.FindAction("LeftMouseButton", throwIfNotFound: true);
     }
 
     ~@PlayerInput()
@@ -331,9 +352,10 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private List<IPlayerActions> m_PlayerActionsCallbackInterfaces = new List<IPlayerActions>();
     private readonly InputAction m_Player_Movement;
     private readonly InputAction m_Player_CameraMovement;
+    private readonly InputAction m_Player_DoorMovement;
     private readonly InputAction m_Player_Jump;
     private readonly InputAction m_Player_ItemGrab;
-    private readonly InputAction m_Player_ItemThrow;
+    private readonly InputAction m_Player_LeftMouseButton;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -354,6 +376,10 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         /// </summary>
         public InputAction @CameraMovement => m_Wrapper.m_Player_CameraMovement;
         /// <summary>
+        /// Provides access to the underlying input action "Player/DoorMovement".
+        /// </summary>
+        public InputAction @DoorMovement => m_Wrapper.m_Player_DoorMovement;
+        /// <summary>
         /// Provides access to the underlying input action "Player/Jump".
         /// </summary>
         public InputAction @Jump => m_Wrapper.m_Player_Jump;
@@ -362,9 +388,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         /// </summary>
         public InputAction @ItemGrab => m_Wrapper.m_Player_ItemGrab;
         /// <summary>
-        /// Provides access to the underlying input action "Player/ItemThrow".
+        /// Provides access to the underlying input action "Player/LeftMouseButton".
         /// </summary>
-        public InputAction @ItemThrow => m_Wrapper.m_Player_ItemThrow;
+        public InputAction @LeftMouseButton => m_Wrapper.m_Player_LeftMouseButton;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -397,15 +423,18 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @CameraMovement.started += instance.OnCameraMovement;
             @CameraMovement.performed += instance.OnCameraMovement;
             @CameraMovement.canceled += instance.OnCameraMovement;
+            @DoorMovement.started += instance.OnDoorMovement;
+            @DoorMovement.performed += instance.OnDoorMovement;
+            @DoorMovement.canceled += instance.OnDoorMovement;
             @Jump.started += instance.OnJump;
             @Jump.performed += instance.OnJump;
             @Jump.canceled += instance.OnJump;
             @ItemGrab.started += instance.OnItemGrab;
             @ItemGrab.performed += instance.OnItemGrab;
             @ItemGrab.canceled += instance.OnItemGrab;
-            @ItemThrow.started += instance.OnItemThrow;
-            @ItemThrow.performed += instance.OnItemThrow;
-            @ItemThrow.canceled += instance.OnItemThrow;
+            @LeftMouseButton.started += instance.OnLeftMouseButton;
+            @LeftMouseButton.performed += instance.OnLeftMouseButton;
+            @LeftMouseButton.canceled += instance.OnLeftMouseButton;
         }
 
         /// <summary>
@@ -423,15 +452,18 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @CameraMovement.started -= instance.OnCameraMovement;
             @CameraMovement.performed -= instance.OnCameraMovement;
             @CameraMovement.canceled -= instance.OnCameraMovement;
+            @DoorMovement.started -= instance.OnDoorMovement;
+            @DoorMovement.performed -= instance.OnDoorMovement;
+            @DoorMovement.canceled -= instance.OnDoorMovement;
             @Jump.started -= instance.OnJump;
             @Jump.performed -= instance.OnJump;
             @Jump.canceled -= instance.OnJump;
             @ItemGrab.started -= instance.OnItemGrab;
             @ItemGrab.performed -= instance.OnItemGrab;
             @ItemGrab.canceled -= instance.OnItemGrab;
-            @ItemThrow.started -= instance.OnItemThrow;
-            @ItemThrow.performed -= instance.OnItemThrow;
-            @ItemThrow.canceled -= instance.OnItemThrow;
+            @LeftMouseButton.started -= instance.OnLeftMouseButton;
+            @LeftMouseButton.performed -= instance.OnLeftMouseButton;
+            @LeftMouseButton.canceled -= instance.OnLeftMouseButton;
         }
 
         /// <summary>
@@ -487,6 +519,13 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnCameraMovement(InputAction.CallbackContext context);
         /// <summary>
+        /// Method invoked when associated input action "DoorMovement" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnDoorMovement(InputAction.CallbackContext context);
+        /// <summary>
         /// Method invoked when associated input action "Jump" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
@@ -501,11 +540,11 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnItemGrab(InputAction.CallbackContext context);
         /// <summary>
-        /// Method invoked when associated input action "ItemThrow" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// Method invoked when associated input action "LeftMouseButton" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnItemThrow(InputAction.CallbackContext context);
+        void OnLeftMouseButton(InputAction.CallbackContext context);
     }
 }
