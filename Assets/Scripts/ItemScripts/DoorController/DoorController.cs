@@ -5,9 +5,11 @@ using UnityEngine;
 public class DoorController : NetworkBehaviour
 {
     [SerializeField] private float _rotationAngle = 105f;
-    private float _startRotation; // Initial rotation
-    private float _endRotation;   // Maximum rotation
-    private float _rotationY;     // Current door rotation
+    private Vector2 _startRotation;   // Initial rotations
+    private Vector2 _endRotation;     // Maximum rotation
+    private Vector2 _currentRotation; // Current door rotation
+
+
 
     public enum DoorType
     {
@@ -19,9 +21,15 @@ public class DoorController : NetworkBehaviour
 
     private void Awake()
     {
-        _startRotation = transform.eulerAngles.y;
-        _endRotation = _startRotation + _rotationAngle;
-        _rotationY = _startRotation;
+        // Z axis rotations
+        _startRotation.x = transform.eulerAngles.z;
+        _endRotation.x = _startRotation.x - _rotationAngle;
+        _currentRotation.x = _startRotation.x;
+        
+        // Y axis rotations
+        _startRotation.y = transform.eulerAngles.y;
+        _endRotation.y = _startRotation.y + _rotationAngle;
+        _currentRotation.y = _startRotation.y;
     }
     
     /// <summary>
@@ -33,12 +41,12 @@ public class DoorController : NetworkBehaviour
         switch (_doorType)
         {
             case DoorType.Door:
-                _rotationY = Mathf.Clamp(_rotationY + mouseRotY, _startRotation, _endRotation);
-                transform.rotation = Quaternion.Euler(0, _rotationY, 0);
+                _currentRotation.y = Mathf.Clamp(_currentRotation.y + mouseRotY, _startRotation.y, _endRotation.y);
+                transform.rotation = Quaternion.Euler(0, _currentRotation.y, 0);
                 break;
             case DoorType.Chest:
-                _rotationY = Mathf.Clamp(transform.eulerAngles.x + mouseRotY, 0, 90);
-                transform.rotation = Quaternion.Euler(_rotationY, 0, 0);
+                _currentRotation.x = Mathf.Clamp(_currentRotation.x - mouseRotY, _endRotation.x, _startRotation.x);
+                transform.rotation = Quaternion.Euler(0, transform.eulerAngles.y, _currentRotation.x);
                 break;
         }
 
