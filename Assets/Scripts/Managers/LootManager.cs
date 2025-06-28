@@ -41,9 +41,9 @@ public class LootManager : MonoBehaviour
     {
         float volume = boundsSize.x * boundsSize.y * boundsSize.z;
 
-        if (volume < 1f) return _smallLootPrefabs.RandomItem();     //1x1x1
-        if (volume < 8f) return _mediumLootPrefabs.RandomItem();    //2x2x2
-        return _largeLootPrefabs.RandomItem();                      // > 2x2x2
+        if (volume < 0.015f) return _smallLootPrefabs.RandomItem();     //0.25 0.25 0.25
+        if (volume < 0.13f) return _mediumLootPrefabs.RandomItem();    // 0.5 0.5 0.5
+        return _largeLootPrefabs.RandomItem();                       // > 0.5 0.5 0.5
     }
     private void ShuffleSpawnPoints()
     {
