@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class DoorController : NetworkBehaviour
 {
-    private float _rotationY;
+    [SerializeField] private float _rotationAngle = 105f;
+    private float _startRotation; // Initial rotation
+    private float _endRotation;   // Maximum rotation
+    private float _rotationY;     // Current door rotation
 
     public enum DoorType
     {
@@ -12,7 +15,14 @@ public class DoorController : NetworkBehaviour
         Chest
     }
     [SerializeField] private DoorType _doorType;
-    
+
+
+    private void Awake()
+    {
+        _startRotation = transform.eulerAngles.y;
+        _endRotation = _startRotation + _rotationAngle;
+        _rotationY = _startRotation;
+    }
     
     /// <summary>
     /// Rotates the door around X or Y axis (depending if it's door or chest) by mouseRotY degrees.
@@ -23,7 +33,7 @@ public class DoorController : NetworkBehaviour
         switch (_doorType)
         {
             case DoorType.Door:
-                _rotationY = Mathf.Clamp(transform.eulerAngles.y + mouseRotY, 0, 105);
+                _rotationY = Mathf.Clamp(_rotationY + mouseRotY, _startRotation, _endRotation);
                 transform.rotation = Quaternion.Euler(0, _rotationY, 0);
                 break;
             case DoorType.Chest:
