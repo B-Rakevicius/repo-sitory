@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 5789076662070427821}
   - component: {fileID: 1493778597949344336}
   - component: {fileID: 621395184923097398}
-  - component: {fileID: 2107282711730815755}
   - component: {fileID: 6304659364532061849}
+  - component: {fileID: 2107282711730815755}
   - component: {fileID: 3819776331415899685}
   - component: {fileID: 8724589500779320472}
   m_Layer: 7
@@ -140,20 +140,6 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &2107282711730815755
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4584428256771821368}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e847c11aecc1004cb2443990083c6cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _lerpSpeed: 2500
-  _grabPointItemDistanceThreshold: 2
 --- !u!114 &6304659364532061849
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -179,6 +165,21 @@ MonoBehaviour:
   AutoObjectParentSync: 1
   SyncOwnerTransformWhenParented: 1
   AllowOwnerToParent: 0
+--- !u!114 &2107282711730815755
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4584428256771821368}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e847c11aecc1004cb2443990083c6cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
+  _lerpSpeed: 2000
+  _grabPointItemDistanceThreshold: 2
 --- !u!114 &3819776331415899685
 MonoBehaviour:
   m_ObjectHideFlags: 0
