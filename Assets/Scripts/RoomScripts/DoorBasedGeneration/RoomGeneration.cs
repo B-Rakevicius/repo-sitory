@@ -18,13 +18,14 @@ public class RoomGeneration : MonoBehaviour
     }
     public List<Rule> roomRules = new List<Rule>();
     private Dictionary<GameObject, int> roomSpawnCounts = new Dictionary<GameObject, int>();
-
-   // public List<GameObject> roomPrefabs = new List<GameObject>();
     public LayerMask roomCollisionLayer;
 
     private List<RoomScript> spawnedRooms = new List<RoomScript>();
-    private List<DoorScript> availableDoors = new List<DoorScript>();
+    public List<DoorScript> availableDoors = new List<DoorScript>();
     private List<DoorScript> connectedDoors = new List<DoorScript>();
+
+    public GameObject doorPrefab, wallPrefab;
+    private List<GameObject> spawnedDoors = new List<GameObject>();
 
     [Header("-1 for random seed")]
     public int seed = -1;
@@ -59,6 +60,7 @@ public class RoomGeneration : MonoBehaviour
                 break;
             }
         }
+        SealUnusedDoors();
         Debug.Log($"Dungeon generated with seed: {(seed == -1 ? "Random"  : seed.ToString())}");
         Debug.Log($"Dungeon generation complete. Spawned {spawnedRooms.Count} rooms.");
     }
@@ -113,6 +115,7 @@ public class RoomGeneration : MonoBehaviour
                             {
                                 if (!connectedDoors.Contains(newDoor) && !newDoor.isExit)
                                     availableDoors.Add(newDoor);
+                                Debug.Log("buhblunt " + newDoor.name);
                             }
 
                             return true;
@@ -120,47 +123,7 @@ public class RoomGeneration : MonoBehaviour
                     }
                 }
             }
-
-            /*
-            foreach (GameObject roomPrefab in roomPrefabs.OrderBy(x => rng.NextDouble()))
-            {
-
-                
-                RoomScript prefabScript = roomPrefab.GetComponent<RoomScript>();
-                if (prefabScript == null || prefabScript.doorPoints.Count == 0) continue;
-                foreach (DoorScript candidateDoor in prefabScript.doorPoints)
-                {
-                    foreach (int angle in new int[] { 0, 90, 180, 270 })
-                    {
-                        Quaternion rotation = Quaternion.Euler(0, angle, 0);
-                        Vector3 rotatedForward = rotation * candidateDoor.transform.forward;
-                        if (Vector3.Dot(targetDoor.transform.forward, rotatedForward) > -0.99f)
-                            continue;
-                        Vector3 rotatedLocalPos = rotation * candidateDoor.transform.localPosition;
-                        Vector3 spawnPosition = targetDoor.transform.position - rotatedLocalPos;
-                        if (!CheckRoomOverlapSimulated(roomPrefab, spawnPosition, rotation))
-                        {
-                            // valid spot found
-                            GameObject newRoomObj = Instantiate(roomPrefab, spawnPosition, rotation, transform);
-                            RoomScript newRoom = newRoomObj.GetComponent<RoomScript>();
-                            spawnedRooms.Add(newRoom);
-                            ConnectDoors(targetDoor, FindMatchingDoor(newRoom, candidateDoor.name)); // find correctly rotated doors
-                            availableDoors.Remove(targetDoor);
-                            foreach (DoorScript newDoor in newRoom.doorPoints)
-                            {
-                                if (!connectedDoors.Contains(newDoor) && !newDoor.isExit)
-                                {
-                                    availableDoors.Add(newDoor);
-                                }
-                            }
-                            return true;
-                        }
-                    }
-                }
-                
-            }
-            */
-            availableDoors.Remove(targetDoor);
+            //availableDoors.Remove(targetDoor);
         }
         return false;
     }
@@ -204,6 +167,18 @@ public class RoomGeneration : MonoBehaviour
         Debug.Log($"Connected door {doorA.name} to {doorB.name} in room {doorB.transform.parent.parent.name}");
         connectedDoors.Add(doorA);
         connectedDoors.Add(doorB);
+        float doorWidth = doorA.transform.localScale.x;
+        Vector3 spawnPosition = doorA.transform.position + (doorA.transform.right * (doorWidth * -0.5f) + (new Vector3(0,1.5f,0)));
+        GameObject newDoor = Instantiate(
+            doorPrefab,
+            spawnPosition,
+            doorA.transform.rotation,
+            doorA.transform.parent
+        );
+        //newDoor.transform.SetParent(doorA.transform.parent);    
+        doorA.gameObject.SetActive(false);
+        doorB.gameObject.SetActive(false);
+        spawnedDoors.Add(newDoor);
     }
     private void ConnectDoors(DoorScript doorA, DoorScript doorB, RoomScript roomB)
     {
@@ -211,36 +186,20 @@ public class RoomGeneration : MonoBehaviour
         connectedDoors.Add(doorA);
         connectedDoors.Add(doorB);
     }
-    /*
-    private void CheckForAdditionalConnections(RoomScript newRoom)
+    private void SealUnusedDoors()
     {
-        foreach (DoorScript newRoomDoor in newRoom.doorPoints)
+        foreach (DoorScript door in availableDoors)
         {
-            if (connectedDoors.Contains(newRoomDoor)) continue;
-
-            foreach (RoomScript existingRoom in spawnedRooms)
+            if (wallPrefab != null && door != null)
             {
-                if (existingRoom == newRoom) continue;
 
-                foreach (DoorScript existingDoor in existingRoom.doorPoints)
-                {
-                    if (connectedDoors.Contains(existingDoor)) continue;
-
-                    // Check if doors are close enough and facing opposite directions
-                    float distance = Vector3.Distance(newRoomDoor.transform.position, existingDoor.transform.position);
-                    float angle = Vector3.Angle(newRoomDoor.transform.forward, -existingDoor.transform.forward);
-
-                    if (distance < 0.5f && angle < 30f)
-                    {
-                        ConnectDoors(existingDoor, newRoomDoor, newRoom);
-                        availableDoors.Remove(existingDoor);
-                        availableDoors.Remove(newRoomDoor);
-                    }
-                }
+                GameObject wall = Instantiate(wallPrefab, door.transform.position, door.transform.rotation);
+                door.doorway.SetActive(false);
+                door.gameObject.SetActive(false);
             }
-        }
+        }   
+        availableDoors.Clear();
     }
-    */
     public void ClearDungeon()
     {
         foreach (Transform child in transform)
