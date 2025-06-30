@@ -198,7 +198,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &10686672
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4427,8 +4427,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1411307748}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -16.32226, y: 2.5315437, z: 0.026662815}
+  m_LocalRotation: {x: 0.023320159, y: -0.7071167, z: 0.023337837, w: 0.7063268}
+  m_LocalPosition: {x: -16.135191, y: 2.6702044, z: -39.97442}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6210,9 +6210,37 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 373534513453955313, guid: 0911a2d94ea44254aa81c48afb5f8063, type: 3}
+      propertyPath: m_ShadowRadius
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1282154102603029006, guid: 0911a2d94ea44254aa81c48afb5f8063, type: 3}
+      propertyPath: m_ShadowRadius
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1959354734439157510, guid: 0911a2d94ea44254aa81c48afb5f8063, type: 3}
+      propertyPath: m_ShadowRadius
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2229317364987921012, guid: 0911a2d94ea44254aa81c48afb5f8063, type: 3}
+      propertyPath: m_ShadowRadius
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4098630354015223795, guid: 0911a2d94ea44254aa81c48afb5f8063, type: 3}
       propertyPath: m_Name
       value: 0_room_Jail
+      objectReference: {fileID: 0}
+    - target: {fileID: 4917807214443652225, guid: 0911a2d94ea44254aa81c48afb5f8063, type: 3}
+      propertyPath: m_ShadowRadius
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6066197447118827829, guid: 0911a2d94ea44254aa81c48afb5f8063, type: 3}
+      propertyPath: m_ShadowRadius
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8584224961359048243, guid: 0911a2d94ea44254aa81c48afb5f8063, type: 3}
+      propertyPath: m_ShadowRadius
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8681618466646935830, guid: 0911a2d94ea44254aa81c48afb5f8063, type: 3}
       propertyPath: m_LocalPosition.x
