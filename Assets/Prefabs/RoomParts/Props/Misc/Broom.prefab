@@ -48,6 +48,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 94d02f31c82dc6f4791f4919250dc3a7, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: e7ab6f835bdbf9041a1a6642b11b946f, type: 2}
+    - target: {fileID: -7511558181221131132, guid: 94d02f31c82dc6f4791f4919250dc3a7, type: 3}
+      propertyPath: 'm_Materials.Array.data[1]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 1d40886d9efe18f4896e1802217d8677, type: 2}
+    - target: {fileID: -7511558181221131132, guid: 94d02f31c82dc6f4791f4919250dc3a7, type: 3}
+      propertyPath: 'm_Materials.Array.data[2]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 5f4ec46433b8a9a478d88b66a669af63, type: 2}
     - target: {fileID: 919132149155446097, guid: 94d02f31c82dc6f4791f4919250dc3a7, type: 3}
       propertyPath: m_Name
       value: Broom
