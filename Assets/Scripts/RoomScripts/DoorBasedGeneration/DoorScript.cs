@@ -5,7 +5,7 @@ public class DoorScript : MonoBehaviour
     [Header("Door Settings")]
     public bool isEntrance = true;
     public bool isExit = false;
-
+    public GameObject doorway;
     void OnDrawGizmos()
     {
         Gizmos.color = isExit ? Color.red : (isEntrance ? Color.green : Color.yellow);
