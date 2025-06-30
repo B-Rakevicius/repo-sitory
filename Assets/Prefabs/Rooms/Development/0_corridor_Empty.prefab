@@ -531,6 +531,38 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isEntrance: 1
   isExit: 0
+--- !u!1 &4438804205606413020
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4430617310889436900}
+  m_Layer: 0
+  m_Name: LootSpawnPoints
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4430617310889436900
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4438804205606413020}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 7896342406169061651}
+  m_Father: {fileID: 4247436906239489129}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6039374430090565111
 GameObject:
   m_ObjectHideFlags: 0
@@ -778,6 +810,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4247436906239489129}
   - component: {fileID: 5425270858394773404}
+  - component: {fileID: 8464108635269631353}
   m_Layer: 0
   m_Name: 0_corridor_Empty
   m_TagString: Untagged

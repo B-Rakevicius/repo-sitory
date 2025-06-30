@@ -13,10 +13,9 @@ public class PlayerController : NetworkBehaviour
     [SerializeField] private CinemachineCamera _cinemachineCamera;
     [SerializeField] private Transform _cameraContainer;
     [SerializeField] private AudioListener _audioListener;
-    private PlayerInput _playerInput;
     
     // Events
-    public event EventHandler OnPlayerJumped;
+    //public event EventHandler OnPlayerJumped;
     
     // Variables
     // Player movement
@@ -26,7 +25,7 @@ public class PlayerController : NetworkBehaviour
     [SerializeField] private float _maxSpeed = 0.3f;
     [SerializeField] private float _jumpForce = 5f;
     [SerializeField] private float _fallAcceleration = 2f;
-    [SerializeField] private float _maxFallSpeed = 4f;
+    //[SerializeField] private float _maxFallSpeed = 4f;
     [SerializeField] private float _gravity = -9.81f;
     [SerializeField] private float _groundDistance = 0.2f;
     [SerializeField] private LayerMask _groundMask;
@@ -61,9 +60,6 @@ public class PlayerController : NetworkBehaviour
 
     private void Start()
     {
-        _playerInput = new();
-        _playerInput.Enable();
-        
         _lastRotation = _playerTransform.rotation;
     }
 
@@ -97,10 +93,10 @@ public class PlayerController : NetworkBehaviour
     
     private void GatherInput()
     {
-        _frameInput = _playerInput.Player.Movement.ReadValue<Vector2>();
-        _cameraInput = _playerInput.Player.CameraMovement.ReadValue<Vector2>();
+        _frameInput = InputManager.Instance.playerInput.Player.Movement.ReadValue<Vector2>();
+        _cameraInput = InputManager.Instance.playerInput.Player.CameraMovement.ReadValue<Vector2>();
 
-        _jumped = _playerInput.Player.Jump.ReadValue<float>() > 0 ? true : false;
+        _jumped = InputManager.Instance.playerInput.Player.Jump.ReadValue<float>() > 0 ? true : false;
     }
 
     private void CheckGroundedState()
@@ -217,6 +213,7 @@ public class PlayerController : NetworkBehaviour
     private void ApplyRotation()
     {
         _frameRotation += _cameraInput * _cameraSensitivity;
+        _frameRotation.y = Mathf.Clamp(_frameRotation.y, -180f, 180f);
         _playerTransform.rotation = Quaternion.Euler(0, _frameRotation.x * _cameraSensitivity, 0);
         _cinemachineCamera.transform.rotation = Quaternion.Euler(-_frameRotation.y * _cameraSensitivity, _frameRotation.x * _cameraSensitivity, 0);
     }
