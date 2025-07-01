@@ -4427,8 +4427,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1411307748}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.023320159, y: -0.7071167, z: 0.023337837, w: 0.7063268}
-  m_LocalPosition: {x: -16.135191, y: 2.6702044, z: -39.97442}
+  m_LocalRotation: {x: 0.0037058035, y: -0.9962949, z: 0.06104941, w: 0.060462777}
+  m_LocalPosition: {x: 13.563143, y: 3.8126836, z: 66.68606}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6119,10 +6119,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: 0_corridor_Empty
       objectReference: {fileID: 0}
-    - target: {fileID: 8742977098161220676, guid: 4810fd4ea0fd36c428e119f21dacf96b, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6212,10 +6208,6 @@ PrefabInstance:
     - target: {fileID: 4098630354015223795, guid: 0911a2d94ea44254aa81c48afb5f8063, type: 3}
       propertyPath: m_Name
       value: 0_room_Jail
-      objectReference: {fileID: 0}
-    - target: {fileID: 4098630354015223795, guid: 0911a2d94ea44254aa81c48afb5f8063, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8681618466646935830, guid: 0911a2d94ea44254aa81c48afb5f8063, type: 3}
       propertyPath: m_LocalPosition.x
