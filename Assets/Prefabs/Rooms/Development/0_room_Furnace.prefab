@@ -134,9 +134,11 @@ Transform:
   m_Children:
   - {fileID: 8463426829471867182}
   - {fileID: 6821129030218624755}
+  - {fileID: 1803603400702354202}
   - {fileID: 2526280498267290625}
   - {fileID: 7732201842160603724}
   - {fileID: 2052518620797273333}
+  - {fileID: 6503162648028835793}
   m_Father: {fileID: 1556004791744877348}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4357336696775992523
@@ -1421,6 +1423,18 @@ PrefabInstance:
     - target: {fileID: 4296651530663806774, guid: 2293a2cd8b2c30748b2340ac5c5d5381, type: 3}
       propertyPath: m_Name
       value: WallTorch (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7785306212213782609, guid: 2293a2cd8b2c30748b2340ac5c5d5381, type: 3}
+      propertyPath: m_BoundingSphereOverride.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7785306212213782609, guid: 2293a2cd8b2c30748b2340ac5c5d5381, type: 3}
+      propertyPath: m_BoundingSphereOverride.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7785306212213782609, guid: 2293a2cd8b2c30748b2340ac5c5d5381, type: 3}
+      propertyPath: m_BoundingSphereOverride.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3052,6 +3066,80 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7519489317151699024, guid: 6edab11ca50892145bcfeb22265901a9, type: 3}
   m_PrefabInstance: {fileID: 2990950174505009824}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &3020994909565255318
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 7455023052239239247}
+    m_Modifications:
+    - target: {fileID: 3524934643636411788, guid: 2293a2cd8b2c30748b2340ac5c5d5381, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -3.9999995
+      objectReference: {fileID: 0}
+    - target: {fileID: 3524934643636411788, guid: 2293a2cd8b2c30748b2340ac5c5d5381, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3524934643636411788, guid: 2293a2cd8b2c30748b2340ac5c5d5381, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -4.323
+      objectReference: {fileID: 0}
+    - target: {fileID: 3524934643636411788, guid: 2293a2cd8b2c30748b2340ac5c5d5381, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3524934643636411788, guid: 2293a2cd8b2c30748b2340ac5c5d5381, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3524934643636411788, guid: 2293a2cd8b2c30748b2340ac5c5d5381, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3524934643636411788, guid: 2293a2cd8b2c30748b2340ac5c5d5381, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3524934643636411788, guid: 2293a2cd8b2c30748b2340ac5c5d5381, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3524934643636411788, guid: 2293a2cd8b2c30748b2340ac5c5d5381, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3524934643636411788, guid: 2293a2cd8b2c30748b2340ac5c5d5381, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4296651530663806774, guid: 2293a2cd8b2c30748b2340ac5c5d5381, type: 3}
+      propertyPath: m_Name
+      value: WallTorch (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7785306212213782609, guid: 2293a2cd8b2c30748b2340ac5c5d5381, type: 3}
+      propertyPath: m_BoundingSphereOverride.w
+      value: 2.1e-44
+      objectReference: {fileID: 0}
+    - target: {fileID: 7785306212213782609, guid: 2293a2cd8b2c30748b2340ac5c5d5381, type: 3}
+      propertyPath: m_BoundingSphereOverride.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7785306212213782609, guid: 2293a2cd8b2c30748b2340ac5c5d5381, type: 3}
+      propertyPath: m_BoundingSphereOverride.y
+      value: 6.3058e-41
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 2293a2cd8b2c30748b2340ac5c5d5381, type: 3}
+--- !u!4 &1803603400702354202 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3524934643636411788, guid: 2293a2cd8b2c30748b2340ac5c5d5381, type: 3}
+  m_PrefabInstance: {fileID: 3020994909565255318}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3073178418283299148
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4173,6 +4261,18 @@ PrefabInstance:
     - target: {fileID: 4296651530663806774, guid: 2293a2cd8b2c30748b2340ac5c5d5381, type: 3}
       propertyPath: m_Name
       value: WallTorch
+      objectReference: {fileID: 0}
+    - target: {fileID: 7785306212213782609, guid: 2293a2cd8b2c30748b2340ac5c5d5381, type: 3}
+      propertyPath: m_BoundingSphereOverride.w
+      value: 1e-45
+      objectReference: {fileID: 0}
+    - target: {fileID: 7785306212213782609, guid: 2293a2cd8b2c30748b2340ac5c5d5381, type: 3}
+      propertyPath: m_BoundingSphereOverride.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7785306212213782609, guid: 2293a2cd8b2c30748b2340ac5c5d5381, type: 3}
+      propertyPath: m_BoundingSphereOverride.y
+      value: 3e-45
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5496,6 +5596,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: WallTorch (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 7785306212213782609, guid: 2293a2cd8b2c30748b2340ac5c5d5381, type: 3}
+      propertyPath: m_BoundingSphereOverride.w
+      value: NaN
+      objectReference: {fileID: 0}
+    - target: {fileID: 7785306212213782609, guid: 2293a2cd8b2c30748b2340ac5c5d5381, type: 3}
+      propertyPath: m_BoundingSphereOverride.x
+      value: NaN
+      objectReference: {fileID: 0}
+    - target: {fileID: 7785306212213782609, guid: 2293a2cd8b2c30748b2340ac5c5d5381, type: 3}
+      propertyPath: m_BoundingSphereOverride.y
+      value: NaN
+      objectReference: {fileID: 0}
+    - target: {fileID: 7785306212213782609, guid: 2293a2cd8b2c30748b2340ac5c5d5381, type: 3}
+      propertyPath: m_BoundingSphereOverride.z
+      value: 4.5908e-41
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6075,6 +6191,68 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 3409208413807670998, guid: 5b9fd2da93a7eef4c8f1b1638e9ed3ad, type: 3}
   m_PrefabInstance: {fileID: 7272435050663090248}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &7278233948116878639
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 7455023052239239247}
+    m_Modifications:
+    - target: {fileID: 3780055432800415812, guid: a8eadc9d962cad7499e0a04e6eb41a7a, type: 3}
+      propertyPath: m_Name
+      value: Candle
+      objectReference: {fileID: 0}
+    - target: {fileID: 4557261085902301950, guid: a8eadc9d962cad7499e0a04e6eb41a7a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 6.722
+      objectReference: {fileID: 0}
+    - target: {fileID: 4557261085902301950, guid: a8eadc9d962cad7499e0a04e6eb41a7a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.974
+      objectReference: {fileID: 0}
+    - target: {fileID: 4557261085902301950, guid: a8eadc9d962cad7499e0a04e6eb41a7a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -5.6679993
+      objectReference: {fileID: 0}
+    - target: {fileID: 4557261085902301950, guid: a8eadc9d962cad7499e0a04e6eb41a7a, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.95875525
+      objectReference: {fileID: 0}
+    - target: {fileID: 4557261085902301950, guid: a8eadc9d962cad7499e0a04e6eb41a7a, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4557261085902301950, guid: a8eadc9d962cad7499e0a04e6eb41a7a, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.28423297
+      objectReference: {fileID: 0}
+    - target: {fileID: 4557261085902301950, guid: a8eadc9d962cad7499e0a04e6eb41a7a, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4557261085902301950, guid: a8eadc9d962cad7499e0a04e6eb41a7a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4557261085902301950, guid: a8eadc9d962cad7499e0a04e6eb41a7a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -33.026
+      objectReference: {fileID: 0}
+    - target: {fileID: 4557261085902301950, guid: a8eadc9d962cad7499e0a04e6eb41a7a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: a8eadc9d962cad7499e0a04e6eb41a7a, type: 3}
+--- !u!4 &6503162648028835793 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4557261085902301950, guid: a8eadc9d962cad7499e0a04e6eb41a7a, type: 3}
+  m_PrefabInstance: {fileID: 7278233948116878639}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7287494071607252555
 PrefabInstance:
@@ -6748,6 +6926,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: WallTorch (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 7785306212213782609, guid: 2293a2cd8b2c30748b2340ac5c5d5381, type: 3}
+      propertyPath: m_BoundingSphereOverride.w
+      value: 2.1e-44
+      objectReference: {fileID: 0}
+    - target: {fileID: 7785306212213782609, guid: 2293a2cd8b2c30748b2340ac5c5d5381, type: 3}
+      propertyPath: m_BoundingSphereOverride.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7785306212213782609, guid: 2293a2cd8b2c30748b2340ac5c5d5381, type: 3}
+      propertyPath: m_BoundingSphereOverride.y
+      value: 6.3058e-41
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6836,6 +7026,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3953575958487296761, guid: ebebf15f5f8208c4f8382dd0743018d2, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 4554231357104877279, guid: ebebf15f5f8208c4f8382dd0743018d2, type: 3}
       propertyPath: m_LocalPosition.x
       value: -3
@@ -6875,6 +7069,10 @@ PrefabInstance:
     - target: {fileID: 4554231357104877279, guid: ebebf15f5f8208c4f8382dd0743018d2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9022122010275306895, guid: ebebf15f5f8208c4f8382dd0743018d2, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
