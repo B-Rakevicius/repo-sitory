@@ -8307,6 +8307,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: 0_corridor_Empty
       objectReference: {fileID: 0}
+    - target: {fileID: 8742977098161220676, guid: 4810fd4ea0fd36c428e119f21dacf96b, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -8334,7 +8338,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4429592121424805556, guid: 7d920a61f178de74b9fa1828f4e88a46, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6860827717807081586, guid: 7d920a61f178de74b9fa1828f4e88a46, type: 3}
       propertyPath: GlobalObjectIdHash
@@ -8396,6 +8400,10 @@ PrefabInstance:
     - target: {fileID: 4098630354015223795, guid: 0911a2d94ea44254aa81c48afb5f8063, type: 3}
       propertyPath: m_Name
       value: 0_room_Jail
+      objectReference: {fileID: 0}
+    - target: {fileID: 4098630354015223795, guid: 0911a2d94ea44254aa81c48afb5f8063, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8681618466646935830, guid: 0911a2d94ea44254aa81c48afb5f8063, type: 3}
       propertyPath: m_LocalPosition.x
@@ -8494,6 +8502,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: 0_room_Treasure
       objectReference: {fileID: 0}
+    - target: {fileID: 8311151526096251892, guid: 00aab112a6b90014fa447fd02c41ec3f, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -8509,7 +8521,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1556004791744877348, guid: 7ec51a8e9f7acd249805328b79c6e4e1, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 32
       objectReference: {fileID: 0}
     - target: {fileID: 1556004791744877348, guid: 7ec51a8e9f7acd249805328b79c6e4e1, type: 3}
       propertyPath: m_LocalPosition.y
@@ -8517,7 +8529,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1556004791744877348, guid: 7ec51a8e9f7acd249805328b79c6e4e1, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 24
       objectReference: {fileID: 0}
     - target: {fileID: 1556004791744877348, guid: 7ec51a8e9f7acd249805328b79c6e4e1, type: 3}
       propertyPath: m_LocalRotation.w
