@@ -1,28 +1,45 @@
 using System;
+using Unity.Netcode;
 using UnityEngine;
 
-public class ViewModelManager : MonoBehaviour
+public class ViewModelManager : NetworkBehaviour
 {
-    public static ViewModelManager Instance;
     private ViewModel _currentViewModel;
     [SerializeField] private GameObject _mapGameObject; // Map view model will always be on the player.
     private ViewModel _mapViewModel;
     
     [SerializeField] private Transform _viewModelPoint;
-
-    private void Awake()
-    {
-        if (Instance != null)
-        {
-            Debug.Log("There is more than one ViewModelManager in the scene!");
-        }
-        Instance = this;
-    }
+    [SerializeField] private Transform _leftHandPickupPoint;
+    [SerializeField] private Transform _rightHandPickupPoint;
+    
 
     private void Start()
     {
         _mapViewModel = _mapGameObject.GetComponent<ViewModel>();
         _mapGameObject.SetActive(false);
+
+        if (IsOwner)
+        {
+            GameManager.Instance.OnMapOpened += GameManager_OnMapOpened;
+            GameManager.Instance.OnItemGrabbed += GameManager_OnItemGrabbed;
+        }
+    }
+
+    private void GameManager_OnItemGrabbed(object sender, GameManager.OnItemGrabbedEventArgs e)
+    {
+        SetViewModel(e.itemPrefabVM);
+    }
+
+    private void GameManager_OnMapOpened(object sender, GameManager.OnMapOpenedEventArgs e)
+    {
+        if (e.isOpen)
+        {
+            OpenMap("Open");
+        }
+        else
+        {
+            OpenMap("Close");
+        }
     }
 
 
@@ -30,6 +47,7 @@ public class ViewModelManager : MonoBehaviour
     {
         if (_currentViewModel != null)
         {
+            Destroy(_currentViewModel.gameObject);
             _currentViewModel = null;
         }
 
@@ -37,14 +55,19 @@ public class ViewModelManager : MonoBehaviour
         _currentViewModel = viewModel.gameObject.GetComponent<ViewModel>();
     }
 
-    public void PlayAnimation(string animName)
+    private void PlayAnimation(string animName)
     {
-        _currentViewModel?.PlayAnimation(animName);
+        _currentViewModel.PlayAnimation(animName);
     }
 
-    public void OpenMap(string animName)
+    private void OpenMap(string animName)
     {
         if(!_mapGameObject.activeInHierarchy) { _mapGameObject.SetActive(true); }
         _mapViewModel.PlayAnimation(animName);
+    }
+    
+    private void MoveWorldObjectToPoint()
+    {
+        
     }
 }

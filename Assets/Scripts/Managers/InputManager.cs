@@ -31,11 +31,11 @@ public class InputManager : MonoBehaviour
     {
         if (!_isOpen)
         {
-            ViewModelManager.Instance.OpenMap("Open");
+            GameManager.Instance.MapOpened(true);
         }
         else
         {
-            ViewModelManager.Instance.OpenMap("Close");
+            GameManager.Instance.MapOpened(false);
         }
         _isOpen = !_isOpen;
     }
