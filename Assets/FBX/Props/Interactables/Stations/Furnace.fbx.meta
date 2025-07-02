@@ -3,7 +3,67 @@ guid: 98e8cac18f7e77549a0975b85bda7be2
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Bellow
+    second: {fileID: 2100000, guid: 4ac0bdc260800e24ba5126157bb20aa4, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Bellow1
+    second: {fileID: 2100000, guid: d6b4d99b0d1d83742aa9dd0a14fc2ac5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Box
+    second: {fileID: 2100000, guid: 82636a9c9a72b364b8d361177a413359, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: ChimneyBase
+    second: {fileID: 2100000, guid: b9ad658e287f95f43ad22e62e2847111, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: ChimneySupports
+    second: {fileID: 2100000, guid: 26ca048f9821a724194bd8d357927f33, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Coal
+    second: {fileID: 2100000, guid: d79e7c4651bb31b4aab0c172beef69b7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: FurnaceBody
+    second: {fileID: 2100000, guid: bbb5bb0d53732814e9fe7bd1e956c045, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: FurnaceBody1
+    second: {fileID: 2100000, guid: f95ddd2506126c343bd3e2f2d67440e2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: RockArc
+    second: {fileID: 2100000, guid: 4e20b2214e4adad4ea58946b1982e5fb, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Stone
+    second: {fileID: 2100000, guid: 771d2e18617732f4086144d019b81132, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Trim
+    second: {fileID: 2100000, guid: c2e3ed0611136374b861307f90edc267, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Wood1
+    second: {fileID: 2100000, guid: 93b7769001b6d2748aada0b6dd27ecf3, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
