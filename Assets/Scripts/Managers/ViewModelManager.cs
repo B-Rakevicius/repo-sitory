@@ -1,6 +1,7 @@
 using System;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class ViewModelManager : NetworkBehaviour
 {
@@ -22,7 +23,21 @@ public class ViewModelManager : NetworkBehaviour
         {
             GameManager.Instance.OnMapOpened += GameManager_OnMapOpened;
             GameManager.Instance.OnItemGrabbed += GameManager_OnItemGrabbed;
+            GameManager.Instance.OnViewModelCleared += GameManager_OnViewModelCleared;
+            
+            InputManager.Instance.playerInput.Player.Inspect.started += InputManager_OnModelInspectPressed;
+
         }
+    }
+
+    private void InputManager_OnModelInspectPressed(InputAction.CallbackContext obj)
+    {
+        PlayAnimation("Inspect_Throwing");
+    }
+
+    private void GameManager_OnViewModelCleared(object sender, EventArgs e)
+    {
+        ClearViewModel();
     }
 
     private void GameManager_OnItemGrabbed(object sender, GameManager.OnItemGrabbedEventArgs e)
@@ -55,9 +70,15 @@ public class ViewModelManager : NetworkBehaviour
         _currentViewModel = viewModel.gameObject.GetComponent<ViewModel>();
     }
 
+    public void ClearViewModel()
+    {
+        Destroy(_currentViewModel.gameObject);
+        _currentViewModel = null;
+    }
+
     private void PlayAnimation(string animName)
     {
-        _currentViewModel.PlayAnimation(animName);
+        _currentViewModel?.PlayAnimation(animName);
     }
 
     private void OpenMap(string animName)

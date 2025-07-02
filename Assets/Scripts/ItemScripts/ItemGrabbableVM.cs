@@ -4,11 +4,10 @@ using UnityEngine;
 
 public class ItemGrabbableVM : NetworkBehaviour
 {
-    public event EventHandler OnItemDropped;
-    
     [SerializeField] private GameObject _itemPrefabVM; // Viewmodel that represents this world object
     private Transform _grabPointTransform;
     private Rigidbody _rb;
+    
 
     private void Awake()
     {
@@ -23,19 +22,17 @@ public class ItemGrabbableVM : NetworkBehaviour
     
     public void GrabItem(Transform grabPoint)
     {
-        // Notify ViewmodelManager about newly picked up item
         _grabPointTransform = grabPoint;
-        SetRigidBodyPropertiesRpc();
+        SetObjectPropertiesRpc();
     }
     
     public void ShowViewModel()
     {
-        // It's not clear who the owner is, since no one owns the cube.
         GameManager.Instance.ItemGrabbed(_itemPrefabVM);
     }
 
     [Rpc(SendTo.ClientsAndHost)]
-    private void SetRigidBodyPropertiesRpc()
+    private void SetObjectPropertiesRpc()
     {
         _rb.GetComponent<BoxCollider>().enabled = false;
         _rb.useGravity = false;
@@ -43,14 +40,30 @@ public class ItemGrabbableVM : NetworkBehaviour
         _rb.isKinematic = true;
     }
 
-    public void ReleaseItem()
+    public void HideWorldModel()
     {
+        gameObject.GetComponent<Renderer>().enabled = false;
+    }
+    
+    public void ShowWorldModel()
+    {
+        gameObject.GetComponent<Renderer>().enabled = true;
+    }
+
+    public void ThrowItem(Vector3 direction)
+    {
+        _rb.GetComponent<BoxCollider>().enabled = true;
+        _grabPointTransform = null;
+        _rb.isKinematic = false;
+        _rb.useGravity = true;
+        _rb.freezeRotation = false;
         
+        Vector3 throwForce = (direction) / _rb.mass;
+        _rb.AddForce(throwForce, ForceMode.Impulse);
     }
     
     private void MoveItemToHand()
     {
         _rb.MovePosition(_grabPointTransform.position);
-        //_rb.transform.position = _grabPointTransform.position;
     }
 }

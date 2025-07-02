@@ -118,6 +118,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1510398370399522330}
+  - component: {fileID: 7548782874513396935}
   m_Layer: 10
   m_Name: VM_Hands_Cube_Medium
   m_TagString: Untagged
@@ -143,6 +144,19 @@ Transform:
   - {fileID: 8252674273807485720}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7548782874513396935
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5310461348303663446}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76ddafea3248d474c928f3eb6841cbd4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _animator: {fileID: 0}
 --- !u!1 &6682437376938004656
 GameObject:
   m_ObjectHideFlags: 0

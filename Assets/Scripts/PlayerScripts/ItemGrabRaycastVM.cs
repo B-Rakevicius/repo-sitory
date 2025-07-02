@@ -9,7 +9,6 @@ public class ItemGrabRaycastVM : NetworkBehaviour
     private NetworkObject _networkObject; // Used in server to get picked up object
     
     [SerializeField] private LayerMask _grabLayerMask;
-    //[SerializeField] private Transform _grabPointTransform;
     [SerializeField] private Transform _cinemachineCameraTransform;
 
     [SerializeField] private float _grabDistance = 5f;
@@ -24,7 +23,7 @@ public class ItemGrabRaycastVM : NetworkBehaviour
         if (!IsOwner) { return; }
         
         InputManager.Instance.playerInput.Player.ItemGrab.started += PlayerInput_OnItemGrabTriggered;
-        InputManager.Instance.playerInput.Player.LeftMouseButton.started += PlayerInput_OnItemThrowTriggered;
+        InputManager.Instance.playerInput.Player.ItemThrow.started += PlayerInput_OnItemThrowTriggered;
     }
 
     private void Update()
@@ -55,9 +54,11 @@ public class ItemGrabRaycastVM : NetworkBehaviour
     {
         if (_itemGrabbableVM is null) { return; }
         
-        //_itemGrabbableVM.ThrowItem(_cinemachineCameraTransform.transform.forward);
+        ulong objectId = _itemGrabbableVM.NetworkObjectId;
+        ShowWorldModelForOwnerRpc(objectId);
+        ClearViewModelRpc();
+        _itemGrabbableVM.ThrowItem(_cinemachineCameraTransform.transform.forward);
         //_itemGrabbableVM.SetHolderId(ulong.MaxValue);
-        //_itemGrabbableVM.OnItemDropped -= ItemGrabbable_OnItemDropped;
         _itemGrabbableVM = null;
     }
 
@@ -89,20 +90,53 @@ public class ItemGrabRaycastVM : NetworkBehaviour
                     ulong objectId = _itemGrabbableVM.NetworkObjectId;
                     SetViewModelRpc(objectId);
                     
+                    HideObjectForOwnerRpc(objectId);
+                    
                     // _itemGrabbableVM.SetHolderId(clientId);
-                    _itemGrabbableVM.OnItemDropped += ItemGrabbable_OnItemDropped;
                 }
             }
         }
         // Object is picked up. Drop it.
-        else
-        {
-            _itemGrabbableVM.ReleaseItem();
-            //_itemGrabbableVM.SetHolderId(ulong.MaxValue);
-            _itemGrabbableVM.OnItemDropped -= ItemGrabbable_OnItemDropped;
-            _itemGrabbableVM = null;
-        }
+        // else
+        // {
+        //     _itemGrabbableVM.ReleaseItem();
+        //     //_itemGrabbableVM.SetHolderId(ulong.MaxValue);
+        //     _itemGrabbableVM.OnItemDropped -= ItemGrabbable_OnItemDropped;
+        //     _itemGrabbableVM = null;
+        // }
         Debug.DrawRay(_cinemachineCameraTransform.position, _cinemachineCameraTransform.forward * _grabDistance, Color.red);
+    }
+
+    /// <summary>
+    /// Hides picked up object's world model for the player that picked it up. Object remains visible for everyone else.
+    /// </summary>
+    [Rpc(SendTo.Owner)]
+    private void HideObjectForOwnerRpc(ulong objectId)
+    {
+        if (NetworkManager.Singleton.SpawnManager.SpawnedObjects.TryGetValue(objectId, out NetworkObject networkObject))
+        {
+            _itemGrabbableVM = networkObject.GetComponent<ItemGrabbableVM>();
+            _itemGrabbableVM.HideWorldModel();
+        }
+    }
+    
+    /// <summary>
+    /// Shows picked up object's world model for the player that picked it up.
+    /// </summary>
+    [Rpc(SendTo.Owner)]
+    private void ShowWorldModelForOwnerRpc(ulong objectId)
+    {
+        if (NetworkManager.Singleton.SpawnManager.SpawnedObjects.TryGetValue(objectId, out NetworkObject networkObject))
+        {
+            _itemGrabbableVM = networkObject.GetComponent<ItemGrabbableVM>();
+            _itemGrabbableVM.ShowWorldModel();
+        }
+    }
+
+    [Rpc(SendTo.Owner)]
+    private void ClearViewModelRpc()
+    {
+        GameManager.Instance.ViewModelCleared();
     }
 
     /// <summary>
@@ -119,11 +153,4 @@ public class ItemGrabRaycastVM : NetworkBehaviour
         }
     }
     
-    private void ItemGrabbable_OnItemDropped(object sender, EventArgs e)
-    {
-        _itemGrabbableVM.ReleaseItem();
-        //_itemGrabbableVM.SetHolderId(ulong.MaxValue);
-        _itemGrabbableVM.OnItemDropped -= ItemGrabbable_OnItemDropped;
-        _itemGrabbableVM = null;
-    }
 }

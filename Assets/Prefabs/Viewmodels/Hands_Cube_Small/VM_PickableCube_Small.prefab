@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 495927448670716430}
   - component: {fileID: 1959661185667128911}
   - component: {fileID: 586194378519884521}
-  - component: {fileID: 8712857969736595223}
   m_Layer: 10
   m_Name: VM_PickableCube_Small
   m_TagString: Untagged
@@ -87,16 +86,3 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &8712857969736595223
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7488170163113672060}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d99a3b5037b7f604588e70412d897239, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _itemPrefabVM: {fileID: 858040082078945256, guid: afe3d7bef62e7ad42b32ce651ddacf03, type: 3}

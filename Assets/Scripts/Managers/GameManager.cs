@@ -38,6 +38,13 @@ public class GameManager : NetworkBehaviour
     {
         OnItemGrabbed?.Invoke(this, new OnItemGrabbedEventArgs() { itemPrefabVM = itemPrefabVM });
     }
+
+    
+    public event EventHandler OnViewModelCleared;
+    public void ViewModelCleared()
+    {
+        OnViewModelCleared?.Invoke(this, EventArgs.Empty);
+    }
     
     
     

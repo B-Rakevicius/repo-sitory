@@ -15,11 +15,11 @@ TagManager:
   - Ground
   - ItemGrabbable
   - Door
-  - Minimap
+  - 
   - Viewmodel
   - RemoteModel
-  - 
-  - 
+  - PlayerBlip
+  - Structure
   - 
   - 
   - 

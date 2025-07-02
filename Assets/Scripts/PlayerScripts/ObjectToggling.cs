@@ -4,6 +4,7 @@ using UnityEngine;
 public class PlayerMeshVisibility : NetworkBehaviour
 {
     [SerializeField] private GameObject _thirdPersonMesh;
+    [SerializeField] private Camera _minimapCamera;
 
     public override void OnNetworkSpawn()
     {
@@ -13,15 +14,7 @@ public class PlayerMeshVisibility : NetworkBehaviour
         }
         else
         {
-            SetLayer("RemoteModel");
-        }
-    }
-
-    private void SetLayer(string layerName)
-    {
-        foreach (Transform child in _thirdPersonMesh.transform)
-        {
-            child.gameObject.layer = LayerMask.NameToLayer(layerName);
+            _minimapCamera.gameObject.SetActive(false);
         }
     }
 }
