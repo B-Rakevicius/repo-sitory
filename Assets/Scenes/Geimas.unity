@@ -14038,10 +14038,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: 0_room_Jail
       objectReference: {fileID: 0}
-    - target: {fileID: 4098630354015223795, guid: 0911a2d94ea44254aa81c48afb5f8063, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8681618466646935830, guid: 0911a2d94ea44254aa81c48afb5f8063, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -14138,10 +14134,6 @@ PrefabInstance:
     - target: {fileID: 8311151526096251892, guid: 00aab112a6b90014fa447fd02c41ec3f, type: 3}
       propertyPath: m_Name
       value: 0_room_Treasure
-      objectReference: {fileID: 0}
-    - target: {fileID: 8311151526096251892, guid: 00aab112a6b90014fa447fd02c41ec3f, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
