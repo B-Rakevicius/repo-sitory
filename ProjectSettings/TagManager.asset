@@ -16,10 +16,10 @@ TagManager:
   - ItemGrabbable
   - Door
   - 
-  - 
-  - 
-  - 
-  - 
+  - Viewmodel
+  - RemoteModel
+  - PlayerBlip
+  - Structure
   - 
   - 
   - 
