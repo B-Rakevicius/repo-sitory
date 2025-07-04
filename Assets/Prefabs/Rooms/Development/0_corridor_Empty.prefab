@@ -66,7 +66,7 @@ GameObject:
   - component: {fileID: 4147184863793437959}
   - component: {fileID: 5084244466651786783}
   - component: {fileID: 9063891708690772775}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -440,7 +440,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 393153266164413445}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Bounds
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -669,7 +669,7 @@ MonoBehaviour:
   m_Center: {x: 0, y: 2, z: 0}
   m_LayerMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 15863
   m_UseGeometry: 0
   m_DefaultArea: 1
   m_GenerateLinks: 0
@@ -680,7 +680,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.16666667
   m_MinRegionArea: 1
-  m_NavMeshData: {fileID: 23800000, guid: f4663f51046ed464696e3f7dfba039e3, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: 0dcd409c5eb7474418d9c4d5103a1c5e, type: 2}
   m_BuildHeightMesh: 1
 --- !u!1 &5644417776984843166
 GameObject:
