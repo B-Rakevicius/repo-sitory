@@ -339,15 +339,30 @@ MonoBehaviour:
   roomRules:
   - room: {fileID: 8742977098161220676, guid: 4810fd4ea0fd36c428e119f21dacf96b, type: 3}
     roomWeight: 2
-    minimumSpawns: 1
+    minimumSpawns: 0
     maximumSpawns: 20
   - room: {fileID: 4429592121424805556, guid: 7d920a61f178de74b9fa1828f4e88a46, type: 3}
     roomWeight: 10
-    minimumSpawns: 1
+    minimumSpawns: 0
     maximumSpawns: 20
+  - room: {fileID: 4098630354015223795, guid: 0911a2d94ea44254aa81c48afb5f8063, type: 3}
+    roomWeight: 10
+    minimumSpawns: 0
+    maximumSpawns: 20
+  - room: {fileID: 8311151526096251892, guid: 00aab112a6b90014fa447fd02c41ec3f, type: 3}
+    roomWeight: 10
+    minimumSpawns: 0
+    maximumSpawns: 20
+  - room: {fileID: 5071547258313294354, guid: 7ec51a8e9f7acd249805328b79c6e4e1, type: 3}
+    roomWeight: 2
+    minimumSpawns: 1
+    maximumSpawns: 1
   roomCollisionLayer:
     serializedVersion: 2
     m_Bits: 0
+  availableDoors: []
+  doorPrefab: {fileID: -8068073526183931155, guid: 82084312e007c0f47afbad9699d8adeb, type: 3}
+  wallPrefab: {fileID: 919132149155446097, guid: b2d0746aa2fecb54b98f3a494068de64, type: 3}
   seed: -1
 --- !u!1 &225734972
 GameObject:
