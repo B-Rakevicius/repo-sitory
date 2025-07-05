@@ -6,7 +6,8 @@ using UnityEngine.InputSystem;
 public class ItemGrabRaycastVM : NetworkBehaviour
 {
     private ItemGrabbableVM _itemGrabbableVM;
-    private NetworkObject _networkObject; // Used in server to get picked up object
+    
+    [SerializeField] private Inventory inventory;
     
     [SerializeField] private LayerMask _grabLayerMask;
     [SerializeField] private Transform _cinemachineCameraTransform;
@@ -71,40 +72,88 @@ public class ItemGrabRaycastVM : NetworkBehaviour
     private void OnItemGrabTriggeredRpc(ulong clientId)
     {
         // No object is picked up. Try to grab it.
-        if (_itemGrabbableVM == null)
+        // Check if we have space in inventory and we don't have a viewmodel active right now.
+        if (inventory.HasSpace())
         {
             // Ray cast from camera.
             if (Physics.Raycast(_cinemachineCameraTransform.position, _cinemachineCameraTransform.forward,
                     out RaycastHit hit, _grabDistance, _grabLayerMask))
             {
                 // Object is grabbable. Get component and try to grab it.
-                if (hit.collider.TryGetComponent(out _itemGrabbableVM))
+                if (hit.collider.TryGetComponent(out ItemGrabbableVM itemGrabbableVM))
                 {
-                    // Someone else is holding the object. Don't allow to pick it up.
-                    //if (_itemGrabbableVM.GetHolderId() != ulong.MaxValue) { _itemGrabbableVM = null; return; }
+                    // Get object id, pass it to owner, and instantiate viewmodel only for him.
+                    ulong objectId = itemGrabbableVM.NetworkObjectId;
+                    
+                    // Check here if we are holding an item. If true, set the viewmodel. Otherwise just store the item 
+                    // in inventory.
+                    if (_itemGrabbableVM is null)
+                    {
+                        _itemGrabbableVM = itemGrabbableVM;
+                        // Someone else is holding the object. Don't allow to pick it up.
+                        //if (_itemGrabbableVM.GetHolderId() != ulong.MaxValue) { _itemGrabbableVM = null; return; }
 
-                    // Pass the grab point and move the object to it
-                    _itemGrabbableVM.GrabItem(_rightHandPickupPoint);
+                        // Pass the grab point and move the object to it
+                        _itemGrabbableVM.GrabItem(_rightHandPickupPoint);
+                        
+                        // Store item on server
+                        InventoryItem itemData = _itemGrabbableVM.GetItemData();
+                        inventory.TryStoreItem(itemData);
+                        
+                        // Store item on client if we are not the owner.
+                        if (!IsOwner)
+                        {
+                            SendToInventoryRpc(objectId);
+                        }
+                        
+                        SetViewModelRpc(objectId);
                     
-                    // Get object id, pass it to owner, and instantiate viewmodel only for him
-                    ulong objectId = _itemGrabbableVM.NetworkObjectId;
-                    SetViewModelRpc(objectId);
-                    
-                    HideObjectForOwnerRpc(objectId);
-                    
-                    // _itemGrabbableVM.SetHolderId(clientId);
+                        HideObjectForOwnerRpc(objectId);
+                    }
+                    // We are holding an item. Just store it in inventory and destroy in world.
+                    else
+                    {
+                        // Store item on server
+                        InventoryItem itemData = itemGrabbableVM.GetItemData();
+                        inventory.TryStoreItem(itemData);
+                        
+                        // Store item on client if we are not the owner.
+                        if (!IsOwner)
+                        {
+                            SendToInventoryRpc(objectId);
+                        }
+                        
+                        // Destroy the item in world
+                        DestroyItemRpc(objectId);
+                    }
                 }
             }
         }
-        // Object is picked up. Drop it.
-        // else
-        // {
-        //     _itemGrabbableVM.ReleaseItem();
-        //     //_itemGrabbableVM.SetHolderId(ulong.MaxValue);
-        //     _itemGrabbableVM.OnItemDropped -= ItemGrabbable_OnItemDropped;
-        //     _itemGrabbableVM = null;
-        // }
+        else
+        {
+            Debug.Log("Inventory is full!");
+        }
         Debug.DrawRay(_cinemachineCameraTransform.position, _cinemachineCameraTransform.forward * _grabDistance, Color.red);
+    }
+
+    [Rpc(SendTo.ClientsAndHost)]
+    private void DestroyItemRpc(ulong objectId)
+    {
+        if (NetworkManager.Singleton.SpawnManager.SpawnedObjects.TryGetValue(objectId, out NetworkObject networkObject))
+        {
+            Destroy(networkObject.gameObject);
+        }
+    }
+
+    [Rpc(SendTo.Owner)]
+    private void SendToInventoryRpc(ulong objectId)
+    {
+        if (NetworkManager.Singleton.SpawnManager.SpawnedObjects.TryGetValue(objectId, out NetworkObject networkObject))
+        {
+            // Send this item to inventory on client.
+            InventoryItem itemData = networkObject.gameObject.GetComponent<ItemGrabbableVM>().GetItemData();
+            inventory.TryStoreItem(itemData);
+        }
     }
 
     /// <summary>

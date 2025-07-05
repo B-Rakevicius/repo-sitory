@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ItemGrabbableVM : NetworkBehaviour
 {
-    [SerializeField] private GameObject _itemPrefabVM; // Viewmodel that represents this world object
+    [SerializeField] private InventoryItem itemData;
     private Transform _grabPointTransform;
     private Rigidbody _rb;
     
@@ -28,7 +28,7 @@ public class ItemGrabbableVM : NetworkBehaviour
     
     public void ShowViewModel()
     {
-        GameManager.Instance.ItemGrabbed(_itemPrefabVM);
+        GameManager.Instance.ItemGrabbed(itemData.itemPrefabVM);
     }
 
     [Rpc(SendTo.ClientsAndHost)]
@@ -65,5 +65,10 @@ public class ItemGrabbableVM : NetworkBehaviour
     private void MoveItemToHand()
     {
         _rb.MovePosition(_grabPointTransform.position);
+    }
+
+    public InventoryItem GetItemData()
+    {
+        return itemData;
     }
 }

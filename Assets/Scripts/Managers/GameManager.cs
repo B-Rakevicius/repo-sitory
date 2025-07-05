@@ -19,31 +19,37 @@ public class GameManager : NetworkBehaviour
     
     
     public event EventHandler<OnMapOpenedEventArgs> OnMapOpened;
-    public class OnMapOpenedEventArgs : EventArgs
-    {
+    public class OnMapOpenedEventArgs : EventArgs {
         public bool isOpen;
     }
-    public void MapOpened(bool isOpen)
-    {
+    public void MapOpened(bool isOpen) {
         OnMapOpened?.Invoke(this, new OnMapOpenedEventArgs() { isOpen = isOpen });
     }
 
     
     public event EventHandler<OnItemGrabbedEventArgs> OnItemGrabbed;
-    public class OnItemGrabbedEventArgs : EventArgs
-    {
+    public class OnItemGrabbedEventArgs : EventArgs {
         public GameObject itemPrefabVM;
     }
-    public void ItemGrabbed(GameObject itemPrefabVM)
-    {
+    public void ItemGrabbed(GameObject itemPrefabVM) {
         OnItemGrabbed?.Invoke(this, new OnItemGrabbedEventArgs() { itemPrefabVM = itemPrefabVM });
     }
 
     
     public event EventHandler OnViewModelCleared;
-    public void ViewModelCleared()
-    {
+    public void ViewModelCleared() {
         OnViewModelCleared?.Invoke(this, EventArgs.Empty);
+    }
+    
+    
+    // Inventory events
+    public event EventHandler<OnInventoryItemPickedUpEventArgs> OnInventoryItemPickedUp;
+    public class OnInventoryItemPickedUpEventArgs : EventArgs {
+        public InventoryItem item;
+    }
+    public void InventoryItemPickedUp(GameObject item) {
+        InventoryItem inventoryItem = item.gameObject.GetComponent<InventoryItem>();
+        OnInventoryItemPickedUp?.Invoke(this, new OnInventoryItemPickedUpEventArgs() { item = inventoryItem });
     }
     
     

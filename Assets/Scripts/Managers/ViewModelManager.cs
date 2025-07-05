@@ -6,8 +6,8 @@ using UnityEngine.InputSystem;
 public class ViewModelManager : NetworkBehaviour
 {
     private ViewModel _currentViewModel;
-    [SerializeField] private GameObject _mapGameObject; // Map view model will always be on the player.
     private ViewModel _mapViewModel;
+    [SerializeField] private GameObject _mapGameObject; // Map view model will always be on the player.
     
     [SerializeField] private Transform _viewModelPoint;
     [SerializeField] private Transform _leftHandPickupPoint;
