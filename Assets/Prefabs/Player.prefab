@@ -929,7 +929,6 @@ GameObject:
   - component: {fileID: 1757282215881220020}
   - component: {fileID: 1862791069371143582}
   - component: {fileID: 8643133271816065652}
-  - component: {fileID: 2616191433875050456}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -952,6 +951,7 @@ Transform:
   m_Children:
   - {fileID: 418602797968741301}
   - {fileID: 848497249139895260}
+  - {fileID: 2889029098315940757}
   - {fileID: 2020990745925120942}
   - {fileID: 58014216189192255}
   - {fileID: 6853847415843794000}
@@ -1176,20 +1176,6 @@ MonoBehaviour:
   ShowTopMostFoldoutHeaderGroup: 1
   _thirdPersonMesh: {fileID: 5254072894587646985}
   _minimapCamera: {fileID: 1056160563814540526}
---- !u!114 &2616191433875050456
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3302111891200488721}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d9b941e5ff93f51468d16657ab8c65c6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ShowTopMostFoldoutHeaderGroup: 1
-  inventorySize: 3
 --- !u!1 &3418984972465584697
 GameObject:
   m_ObjectHideFlags: 0
@@ -1728,14 +1714,62 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
-  inventory: {fileID: 2616191433875050456}
+  inventory: {fileID: 6758826358246077009}
+  viewModelManager: {fileID: 7438512987519691058}
   _grabLayerMask:
     serializedVersion: 2
     m_Bits: 128
   _cinemachineCameraTransform: {fileID: 1656126334878578098}
   _grabDistance: 5
+  itemThrowPoint: {fileID: 6159835109077881458}
   _leftHandPickupPoint: {fileID: 7754258833468598638}
   _rightHandPickupPoint: {fileID: 5110816318929934903}
+--- !u!1 &5161216206081527925
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2889029098315940757}
+  - component: {fileID: 6758826358246077009}
+  m_Layer: 0
+  m_Name: Inventory
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2889029098315940757
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5161216206081527925}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4372713437856619985}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6758826358246077009
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5161216206081527925}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9b941e5ff93f51468d16657ab8c65c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
+  inventorySize: 3
 --- !u!1 &5226419868180686944
 GameObject:
   m_ObjectHideFlags: 0

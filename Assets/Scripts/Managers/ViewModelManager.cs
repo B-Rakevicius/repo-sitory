@@ -12,7 +12,8 @@ public class ViewModelManager : NetworkBehaviour
     [SerializeField] private Transform _viewModelPoint;
     [SerializeField] private Transform _leftHandPickupPoint;
     [SerializeField] private Transform _rightHandPickupPoint;
-    
+
+    private bool _isHoldingItem = false;
 
     private void Start()
     {
@@ -23,7 +24,6 @@ public class ViewModelManager : NetworkBehaviour
         {
             GameManager.Instance.OnMapOpened += GameManager_OnMapOpened;
             GameManager.Instance.OnItemGrabbed += GameManager_OnItemGrabbed;
-            GameManager.Instance.OnViewModelCleared += GameManager_OnViewModelCleared;
             
             InputManager.Instance.playerInput.Player.Inspect.started += InputManager_OnModelInspectPressed;
 
@@ -68,12 +68,16 @@ public class ViewModelManager : NetworkBehaviour
 
         GameObject viewModel = Instantiate(newViewModel, _viewModelPoint);
         _currentViewModel = viewModel.gameObject.GetComponent<ViewModel>();
+
+        _isHoldingItem = true;
     }
 
     public void ClearViewModel()
     {
         Destroy(_currentViewModel.gameObject);
         _currentViewModel = null;
+        
+        _isHoldingItem = false;
     }
 
     private void PlayAnimation(string animName)
@@ -90,5 +94,15 @@ public class ViewModelManager : NetworkBehaviour
     private void MoveWorldObjectToPoint()
     {
         
+    }
+
+    public bool IsHoldingItem()
+    {
+        return _isHoldingItem;
+    }
+
+    public void SetIsHoldingItem(bool isHolding)
+    {
+        _isHoldingItem = isHolding;
     }
 }

@@ -2,35 +2,18 @@ using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 
-/// <summary>
-/// Class to manage inventory items.
-/// NOTE: Maybe in the future make this a singleton to make item saving process a little bit easier.
-/// Since this doesn't spawn for other players, we don't need to check whether we are owner or not.
-/// </summary>
 public class Inventory : NetworkBehaviour
 {
-    private List<InventoryItem> items; // TODO: we need to sync items to remote clients.
+    private List<InventoryItem> items;
 
     [SerializeField] private int inventorySize;
-
+    private int currentItemIdx = 0;
 
     private void Awake()
     {
         items = new List<InventoryItem>(inventorySize);
     }
-
-    private void Start()
-    {
-        if (IsOwner)
-        {
-            GameManager.Instance.OnInventoryItemPickedUp += GameManager_OnInventoryItemPickedUp;
-        }
-    }
-
-    private void GameManager_OnInventoryItemPickedUp(object sender, GameManager.OnInventoryItemPickedUpEventArgs e)
-    {
-        TryStoreItem(e.item);
-    }
+    
 
     /// <summary>
     /// Take an item out of inventory by a specified position 'idx'.
@@ -46,6 +29,15 @@ public class Inventory : NetworkBehaviour
             return null;
         }
         return item;
+    }
+
+    /// <summary>
+    /// Take currently held item.
+    /// </summary>
+    /// <returns>Currently held item's info</returns>
+    public InventoryItem TryTakeCurrentItem()
+    {
+        return TryTakeItem(currentItemIdx);
     }
 
     /// <summary>
@@ -65,6 +57,36 @@ public class Inventory : NetworkBehaviour
         return true;
     }
 
+    /// <summary>
+    /// Remove an item out of inventory from a specified position 'idx'.
+    /// </summary>
+    /// <param name="idx">Item position in invetory.</param>
+    /// <returns>True if removed. False otherwise.</returns>
+    public bool TryRemoveItem(int idx)
+    {
+        if (items.Count == 0)
+        {
+            Debug.Log("There are no items to remove!");
+            return false;
+        }
+        items.RemoveAt(idx);
+        Debug.Log("Item removed from inventory!");
+        return true;
+    }
+
+    /// <summary>
+    /// Remove currently held item.
+    /// </summary>
+    /// <returns>True if removed. False otherwise.</returns>
+    public bool TryRemoveCurrentItem()
+    {
+        return TryRemoveItem(currentItemIdx);
+    }
+
+    /// <summary>
+    /// Checks if there is space in inventory.
+    /// </summary>
+    /// <returns>True if there's space. False otherwise.</returns>
     public bool HasSpace()
     {
         return items.Count < items.Capacity;
