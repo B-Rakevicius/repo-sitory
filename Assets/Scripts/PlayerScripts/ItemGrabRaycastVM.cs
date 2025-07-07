@@ -5,8 +5,7 @@ using UnityEngine.InputSystem;
 
 public class ItemGrabRaycastVM : NetworkBehaviour
 {
-    [SerializeField] private Inventory inventory;
-    [SerializeField] private ViewModelManager viewModelManager;
+    [SerializeField] private InventoryManager inventoryManager;
     
     [SerializeField] private LayerMask _grabLayerMask;
     [SerializeField] private Transform _cinemachineCameraTransform;
@@ -53,9 +52,9 @@ public class ItemGrabRaycastVM : NetworkBehaviour
     [Rpc(SendTo.Server)]
     private void OnItemThrowTriggeredRpc()
     {
-        if (!viewModelManager.IsHoldingItem()) { return; }
-
-        InventoryItem item = inventory.TryTakeCurrentItem();
+        if (!inventoryManager.IsHoldingItem()) { return; }
+        
+        InventoryItem item = inventoryManager.TryTakeCurrentItem();
         
         // Spawn object and sync with clients
         GameObject prefab = Instantiate(item.itemPrefab, itemThrowPoint.position, Quaternion.identity);
@@ -66,12 +65,9 @@ public class ItemGrabRaycastVM : NetworkBehaviour
         
         // Execute only on owner as this is a local visual thing.
         ClearViewModelRpc();
-
-        // Set "isHoldingItem" bool on server.
-        viewModelManager.SetIsHoldingItem(false);
         
         // Remove this item from inventory on server.
-        inventory.TryRemoveCurrentItem();
+        inventoryManager.TryRemoveCurrentItem();
         
         // Remove current item from client's inventory.
         if (!IsOwner)
@@ -90,7 +86,7 @@ public class ItemGrabRaycastVM : NetworkBehaviour
     {
         // No object is picked up. Try to grab it.
         // Check if we have space in inventory and we don't have a viewmodel active right now.
-        if (inventory.HasSpace())
+        if (inventoryManager.HasSpace())
         {
             // Ray cast from camera.
             if (Physics.Raycast(_cinemachineCameraTransform.position, _cinemachineCameraTransform.forward,
@@ -101,45 +97,35 @@ public class ItemGrabRaycastVM : NetworkBehaviour
                 {
                     // Get object id, pass it to owner, and instantiate viewmodel only for him.
                     ulong objectId = itemGrabbableVM.NetworkObjectId;
-                    
+                    InventoryItem itemData = itemGrabbableVM.GetItemData();
+
                     // Check here if we are holding an item. If true, set the viewmodel. Otherwise just store the item 
                     // in inventory.
-                    if (!viewModelManager.IsHoldingItem())
+                    if (!inventoryManager.IsHoldingItem())
                     {
                         // Pass the grab point and move the object to it
                         //itemGrabbableVM.GrabItem(_rightHandPickupPoint);
-                        SetViewModelRpc(objectId);
                         
-                        // Set "isHoldingItem" bool on server and on client
-                        viewModelManager.SetIsHoldingItem(true);
-                        SetIsHoldingItemRpc(true);
+                        // Set view model and set current item for owner.
+                        SetViewModelRpc(objectId);
+                        SetCurrentItemRpc(objectId);
+                        inventoryManager.SetCurrentItem(itemData);
                     }
 
                     // Store item on server
-                    InventoryItem itemData = itemGrabbableVM.GetItemData();
-                    inventory.TryStoreItem(itemData);
+                    inventoryManager.TryStoreItem(itemData);
                         
                     // Store item on client if we are not the owner.
                     if (!IsOwner)
                     {
                         SendToInventoryRpc(objectId);
                     }
-                        
+                    
                     DestroyItemRpc(objectId);
                 }
             }
         }
-        else
-        {
-            Debug.Log("Inventory is full!");
-        }
         Debug.DrawRay(_cinemachineCameraTransform.position, _cinemachineCameraTransform.forward * _grabDistance, Color.red);
-    }
-
-    [Rpc(SendTo.Owner)]
-    private void SetIsHoldingItemRpc(bool isHolding)
-    {
-        viewModelManager.SetIsHoldingItem(isHolding);
     }
 
     [Rpc(SendTo.ClientsAndHost)]
@@ -158,14 +144,14 @@ public class ItemGrabRaycastVM : NetworkBehaviour
         {
             // Send this item to inventory on client.
             InventoryItem itemData = networkObject.gameObject.GetComponent<ItemGrabbableVM>().GetItemData();
-            inventory.TryStoreItem(itemData);
+            inventoryManager.TryStoreItem(itemData);
         }
     }
 
     [Rpc(SendTo.Owner)]
     private void RemoveCurrentInventoryItemRpc()
     {
-        inventory.TryRemoveCurrentItem();
+        inventoryManager.TryRemoveCurrentItem();
     }
 
     /// <summary>
@@ -195,7 +181,7 @@ public class ItemGrabRaycastVM : NetworkBehaviour
     [Rpc(SendTo.Owner)]
     private void ClearViewModelRpc()
     {
-        viewModelManager.ClearViewModel();
+        inventoryManager.ClearViewModel();
     }
 
     /// <summary>
@@ -208,7 +194,18 @@ public class ItemGrabRaycastVM : NetworkBehaviour
         if (NetworkManager.Singleton.SpawnManager.SpawnedObjects.TryGetValue(objectId, out NetworkObject networkObject))
         {
             // Change this to not rely on one random event.
-            networkObject.GetComponent<ItemGrabbableVM>().ShowViewModel();
+            InventoryItem itemData = networkObject.GetComponent<ItemGrabbableVM>().GetItemData();
+            inventoryManager.SetViewModel(itemData.itemPrefabVM);
+        }
+    }
+
+    private void SetCurrentItemRpc(ulong objectId)
+    {
+        if (NetworkManager.Singleton.SpawnManager.SpawnedObjects.TryGetValue(objectId, out NetworkObject networkObject))
+        {
+            // Change this to not rely on one random event.
+            InventoryItem itemData = networkObject.GetComponent<ItemGrabbableVM>().GetItemData();
+            inventoryManager.SetCurrentItem(itemData);
         }
     }
     

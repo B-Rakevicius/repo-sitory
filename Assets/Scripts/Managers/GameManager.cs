@@ -18,21 +18,11 @@ public class GameManager : NetworkBehaviour
     }
     
     
-    public event EventHandler<OnMapOpenedEventArgs> OnMapOpened;
-    public class OnMapOpenedEventArgs : EventArgs {
-        public bool isOpen;
-    }
-    public void MapOpened(bool isOpen) {
-        OnMapOpened?.Invoke(this, new OnMapOpenedEventArgs() { isOpen = isOpen });
-    }
-
-    
-    public event EventHandler<OnItemGrabbedEventArgs> OnItemGrabbed;
-    public class OnItemGrabbedEventArgs : EventArgs {
-        public GameObject itemPrefabVM;
-    }
-    public void ItemGrabbed(GameObject itemPrefabVM) {
-        OnItemGrabbed?.Invoke(this, new OnItemGrabbedEventArgs() { itemPrefabVM = itemPrefabVM });
+    // Viewmodel events
+    public event EventHandler OnClearViewModel;
+    public void ClearViewModel()
+    {
+        OnClearViewModel?.Invoke(this, EventArgs.Empty);
     }
     
     

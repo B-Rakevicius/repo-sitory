@@ -22,12 +22,16 @@ public class ViewModelManager : NetworkBehaviour
 
         if (IsOwner)
         {
-            GameManager.Instance.OnMapOpened += GameManager_OnMapOpened;
-            GameManager.Instance.OnItemGrabbed += GameManager_OnItemGrabbed;
+            InputManager.Instance.OnMapOpened += InputManager_OnMapOpened;
+            GameManager.Instance.OnClearViewModel += GameManager_OnClearViewModel;
             
             InputManager.Instance.playerInput.Player.Inspect.started += InputManager_OnModelInspectPressed;
-
         }
+    }
+
+    private void GameManager_OnClearViewModel(object sender, EventArgs e)
+    {
+        ClearViewModel();
     }
 
     private void InputManager_OnModelInspectPressed(InputAction.CallbackContext obj)
@@ -35,17 +39,7 @@ public class ViewModelManager : NetworkBehaviour
         PlayAnimation("Inspect_Throwing");
     }
 
-    private void GameManager_OnViewModelCleared(object sender, EventArgs e)
-    {
-        ClearViewModel();
-    }
-
-    private void GameManager_OnItemGrabbed(object sender, GameManager.OnItemGrabbedEventArgs e)
-    {
-        SetViewModel(e.itemPrefabVM);
-    }
-
-    private void GameManager_OnMapOpened(object sender, GameManager.OnMapOpenedEventArgs e)
+    private void InputManager_OnMapOpened(object sender, InputManager.OnMapOpenedEventArgs e)
     {
         if (e.isOpen)
         {

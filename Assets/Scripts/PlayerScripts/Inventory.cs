@@ -4,14 +4,15 @@ using UnityEngine;
 
 public class Inventory : NetworkBehaviour
 {
-    private List<InventoryItem> items;
+    private List<InventoryItem> _items;
+    private InventoryItem _currentItem;
 
     [SerializeField] private int inventorySize;
     private int currentItemIdx = 0;
 
     private void Awake()
     {
-        items = new List<InventoryItem>(inventorySize);
+        _items = new List<InventoryItem>(inventorySize);
     }
     
 
@@ -22,7 +23,7 @@ public class Inventory : NetworkBehaviour
     /// <returns>An inventory item GameObject.</returns>
     public InventoryItem TryTakeItem(int idx)
     {
-        InventoryItem item = items[idx];
+        InventoryItem item = _items[idx];
         if (item is null)
         {
             Debug.Log("No item in this slot");
@@ -37,7 +38,16 @@ public class Inventory : NetworkBehaviour
     /// <returns>Currently held item's info</returns>
     public InventoryItem TryTakeCurrentItem()
     {
-        return TryTakeItem(currentItemIdx);
+        return _currentItem;
+    }
+
+    /// <summary>
+    /// Check if player has equipped an item.
+    /// </summary>
+    /// <returns>True if item is equipped. False otherwise.</returns>
+    public bool IsHoldingItem()
+    {
+        return _currentItem != null ? true : false;
     }
 
     /// <summary>
@@ -52,9 +62,14 @@ public class Inventory : NetworkBehaviour
             return false;
         }
         
-        items.Add(item);
+        _items.Add(item);
         Debug.Log("Added " + item.itemName + " to inventory.");
         return true;
+    }
+
+    public void SetCurrentItem(InventoryItem item)
+    {
+        _currentItem = item;
     }
 
     /// <summary>
@@ -64,12 +79,13 @@ public class Inventory : NetworkBehaviour
     /// <returns>True if removed. False otherwise.</returns>
     public bool TryRemoveItem(int idx)
     {
-        if (items.Count == 0)
+        if (_items.Count == 0)
         {
             Debug.Log("There are no items to remove!");
             return false;
         }
-        items.RemoveAt(idx);
+        _items.RemoveAt(idx);
+        _currentItem = null;
         Debug.Log("Item removed from inventory!");
         return true;
     }
@@ -89,6 +105,6 @@ public class Inventory : NetworkBehaviour
     /// <returns>True if there's space. False otherwise.</returns>
     public bool HasSpace()
     {
-        return items.Count < items.Capacity;
+        return _items.Count < _items.Capacity;
     }
 }

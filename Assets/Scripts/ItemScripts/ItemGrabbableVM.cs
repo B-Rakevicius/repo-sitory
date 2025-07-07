@@ -25,11 +25,6 @@ public class ItemGrabbableVM : NetworkBehaviour
         _grabPointTransform = grabPoint;
         SetObjectPropertiesRpc();
     }
-    
-    public void ShowViewModel()
-    {
-        GameManager.Instance.ItemGrabbed(itemData.itemPrefabVM);
-    }
 
     [Rpc(SendTo.ClientsAndHost)]
     private void SetObjectPropertiesRpc()

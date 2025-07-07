@@ -1,12 +1,23 @@
+using System;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using UnityEngine.Video;
 
 public class InputManager : MonoBehaviour
 {
     public static InputManager Instance;
     
     public PlayerInput playerInput;
+    
+    // Inventry input events
+    public event EventHandler OnInventorySlotSwitched;
+    
+    public event EventHandler<OnMapOpenedEventArgs> OnMapOpened;
+    public class OnMapOpenedEventArgs : EventArgs {
+        public bool isOpen;
+    }
     
     private bool _isOpen = false;
 
@@ -32,11 +43,11 @@ public class InputManager : MonoBehaviour
     {
         if (!_isOpen)
         {
-            GameManager.Instance.MapOpened(true);
+            OnMapOpened?.Invoke(this, new OnMapOpenedEventArgs() { isOpen = true });
         }
         else
         {
-            GameManager.Instance.MapOpened(false);
+            OnMapOpened?.Invoke(this, new OnMapOpenedEventArgs() { isOpen = false });
         }
         _isOpen = !_isOpen;
     }
