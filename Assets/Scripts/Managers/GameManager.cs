@@ -18,11 +18,18 @@ public class GameManager : NetworkBehaviour
     }
     
     
-    // Viewmodel events
-    public event EventHandler OnClearViewModel;
-    public void ClearViewModel()
-    {
-        OnClearViewModel?.Invoke(this, EventArgs.Empty);
+    public event EventHandler<OnItemEquippedEventArgs> OnItemEquipped;
+    public class OnItemEquippedEventArgs : EventArgs {
+        public Sprite itemIcon;
+    }
+    public void ItemEquipped(Sprite itemIcon) {
+        OnItemEquipped?.Invoke(this, new OnItemEquippedEventArgs { itemIcon = itemIcon });
+    }
+
+
+    public event EventHandler OnClearInventorySlotImage;
+    public void ClearInventorySlotImage() {
+        OnClearInventorySlotImage?.Invoke(this, EventArgs.Empty);
     }
     
     

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -8,7 +9,7 @@ public class Inventory : NetworkBehaviour
     private InventoryItem _currentItem;
 
     [SerializeField] private int inventorySize;
-    private int currentItemIdx = 0;
+    private int _currentItemIdx = -1;
 
     private void Awake()
     {
@@ -23,12 +24,15 @@ public class Inventory : NetworkBehaviour
     /// <returns>An inventory item GameObject.</returns>
     public InventoryItem TryTakeItem(int idx)
     {
-        InventoryItem item = _items[idx];
+        InventoryItem item = _items.ElementAtOrDefault(idx);
         if (item is null)
         {
             Debug.Log("No item in this slot");
             return null;
         }
+
+        _currentItem = item;
+        _currentItemIdx = idx;
         return item;
     }
 
@@ -93,10 +97,9 @@ public class Inventory : NetworkBehaviour
     /// <summary>
     /// Remove currently held item.
     /// </summary>
-    /// <returns>True if removed. False otherwise.</returns>
     public bool TryRemoveCurrentItem()
     {
-        return TryRemoveItem(currentItemIdx);
+        return TryRemoveItem(_currentItemIdx);
     }
 
     /// <summary>

@@ -65,6 +65,7 @@ public class ItemGrabRaycastVM : NetworkBehaviour
         
         // Execute only on owner as this is a local visual thing.
         ClearViewModelRpc();
+        ClearInventorySlotImageRpc();
         
         // Remove this item from inventory on server.
         inventoryManager.TryRemoveCurrentItem();
@@ -101,16 +102,16 @@ public class ItemGrabRaycastVM : NetworkBehaviour
 
                     // Check here if we are holding an item. If true, set the viewmodel. Otherwise just store the item 
                     // in inventory.
-                    if (!inventoryManager.IsHoldingItem())
-                    {
-                        // Pass the grab point and move the object to it
-                        //itemGrabbableVM.GrabItem(_rightHandPickupPoint);
-                        
-                        // Set view model and set current item for owner.
-                        SetViewModelRpc(objectId);
-                        SetCurrentItemRpc(objectId);
-                        inventoryManager.SetCurrentItem(itemData);
-                    }
+                    // if (!inventoryManager.IsHoldingItem())
+                    // {
+                    //     // Pass the grab point and move the object to it
+                    //     //itemGrabbableVM.GrabItem(_rightHandPickupPoint);
+                    //     
+                    //     // Set view model and set current item for owner.
+                    //     // SetViewModelRpc(objectId);
+                    //     // SetCurrentItemRpc(objectId);
+                    //     // inventoryManager.SetCurrentItem(itemData);
+                    // }
 
                     // Store item on server
                     inventoryManager.TryStoreItem(itemData);
@@ -182,6 +183,12 @@ public class ItemGrabRaycastVM : NetworkBehaviour
     private void ClearViewModelRpc()
     {
         inventoryManager.ClearViewModel();
+    }
+
+    [Rpc(SendTo.Owner)]
+    private void ClearInventorySlotImageRpc()
+    {
+        GameManager.Instance.ClearInventorySlotImage();
     }
 
     /// <summary>
