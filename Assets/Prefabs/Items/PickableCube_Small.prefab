@@ -153,7 +153,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 148307576
+  GlobalObjectIdHash: 4105782008
   InScenePlacedSourceGlobalObjectIdHash: 4105782008
   DeferredDespawnTick: 0
   Ownership: 1
@@ -258,3 +258,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
   _itemPrefabVM: {fileID: 858040082078945256, guid: afe3d7bef62e7ad42b32ce651ddacf03, type: 3}
+  itemData: {fileID: 11400000, guid: a8d20832dcd752b48815312636000894, type: 2}

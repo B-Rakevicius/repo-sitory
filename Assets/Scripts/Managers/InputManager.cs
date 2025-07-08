@@ -1,12 +1,20 @@
+using System;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using UnityEngine.Video;
 
 public class InputManager : MonoBehaviour
 {
     public static InputManager Instance;
     
     public PlayerInput playerInput;
+    
+    public event EventHandler<OnMapOpenedEventArgs> OnMapOpened;
+    public class OnMapOpenedEventArgs : EventArgs {
+        public bool isOpen;
+    }
     
     private bool _isOpen = false;
 
@@ -28,15 +36,19 @@ public class InputManager : MonoBehaviour
         playerInput.Player.Map.started += OnMapStarted;
     }
 
+    /// <summary>
+    /// Event, which triggers when "M" is pressed.
+    /// </summary>
+    /// <param name="obj"></param>
     private void OnMapStarted(InputAction.CallbackContext obj)
     {
         if (!_isOpen)
         {
-            GameManager.Instance.MapOpened(true);
+            OnMapOpened?.Invoke(this, new OnMapOpenedEventArgs() { isOpen = true });
         }
         else
         {
-            GameManager.Instance.MapOpened(false);
+            OnMapOpened?.Invoke(this, new OnMapOpenedEventArgs() { isOpen = false });
         }
         _isOpen = !_isOpen;
     }

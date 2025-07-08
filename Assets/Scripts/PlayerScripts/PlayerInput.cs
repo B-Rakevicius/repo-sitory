@@ -171,6 +171,33 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""TakeItem1"",
+                    ""type"": ""Button"",
+                    ""id"": ""ba3a6c02-ed78-4f3f-a58b-3f445c564295"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""TakeItem2"",
+                    ""type"": ""Button"",
+                    ""id"": ""227ccfa5-d53c-4af8-aa42-d95accbb3f64"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""TakeItem3"",
+                    ""type"": ""Button"",
+                    ""id"": ""73db9eff-1e2d-4fe1-95ea-485f8fa6d579"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -316,6 +343,39 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""action"": ""Inspect"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""44d1411c-0824-4596-b05c-e2ad4b7a3dd3"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""TakeItem1"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a7850923-87a0-420a-841a-c71050eb8c14"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""TakeItem2"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""09b4c420-1eec-4935-8c8d-ace7bfc9d9e1"",
+                    ""path"": ""<Keyboard>/3"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""TakeItem3"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -333,6 +393,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_Player_Map = m_Player.FindAction("Map", throwIfNotFound: true);
         m_Player_ItemThrow = m_Player.FindAction("ItemThrow", throwIfNotFound: true);
         m_Player_Inspect = m_Player.FindAction("Inspect", throwIfNotFound: true);
+        m_Player_TakeItem1 = m_Player.FindAction("TakeItem1", throwIfNotFound: true);
+        m_Player_TakeItem2 = m_Player.FindAction("TakeItem2", throwIfNotFound: true);
+        m_Player_TakeItem3 = m_Player.FindAction("TakeItem3", throwIfNotFound: true);
     }
 
     ~@PlayerInput()
@@ -422,6 +485,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Map;
     private readonly InputAction m_Player_ItemThrow;
     private readonly InputAction m_Player_Inspect;
+    private readonly InputAction m_Player_TakeItem1;
+    private readonly InputAction m_Player_TakeItem2;
+    private readonly InputAction m_Player_TakeItem3;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -469,6 +535,18 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Player/Inspect".
         /// </summary>
         public InputAction @Inspect => m_Wrapper.m_Player_Inspect;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/TakeItem1".
+        /// </summary>
+        public InputAction @TakeItem1 => m_Wrapper.m_Player_TakeItem1;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/TakeItem2".
+        /// </summary>
+        public InputAction @TakeItem2 => m_Wrapper.m_Player_TakeItem2;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/TakeItem3".
+        /// </summary>
+        public InputAction @TakeItem3 => m_Wrapper.m_Player_TakeItem3;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -522,6 +600,15 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Inspect.started += instance.OnInspect;
             @Inspect.performed += instance.OnInspect;
             @Inspect.canceled += instance.OnInspect;
+            @TakeItem1.started += instance.OnTakeItem1;
+            @TakeItem1.performed += instance.OnTakeItem1;
+            @TakeItem1.canceled += instance.OnTakeItem1;
+            @TakeItem2.started += instance.OnTakeItem2;
+            @TakeItem2.performed += instance.OnTakeItem2;
+            @TakeItem2.canceled += instance.OnTakeItem2;
+            @TakeItem3.started += instance.OnTakeItem3;
+            @TakeItem3.performed += instance.OnTakeItem3;
+            @TakeItem3.canceled += instance.OnTakeItem3;
         }
 
         /// <summary>
@@ -560,6 +647,15 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Inspect.started -= instance.OnInspect;
             @Inspect.performed -= instance.OnInspect;
             @Inspect.canceled -= instance.OnInspect;
+            @TakeItem1.started -= instance.OnTakeItem1;
+            @TakeItem1.performed -= instance.OnTakeItem1;
+            @TakeItem1.canceled -= instance.OnTakeItem1;
+            @TakeItem2.started -= instance.OnTakeItem2;
+            @TakeItem2.performed -= instance.OnTakeItem2;
+            @TakeItem2.canceled -= instance.OnTakeItem2;
+            @TakeItem3.started -= instance.OnTakeItem3;
+            @TakeItem3.performed -= instance.OnTakeItem3;
+            @TakeItem3.canceled -= instance.OnTakeItem3;
         }
 
         /// <summary>
@@ -663,5 +759,26 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnInspect(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "TakeItem1" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnTakeItem1(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "TakeItem2" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnTakeItem2(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "TakeItem3" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnTakeItem3(InputAction.CallbackContext context);
     }
 }
