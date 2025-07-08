@@ -65,7 +65,6 @@ public class ItemGrabRaycastVM : NetworkBehaviour
         
         // Execute only on owner as this is a local visual thing.
         ClearViewModelRpc();
-        ClearInventorySlotImageRpc();
         
         // Remove this item from inventory on server.
         inventoryManager.TryRemoveCurrentItem();
@@ -183,12 +182,6 @@ public class ItemGrabRaycastVM : NetworkBehaviour
     private void ClearViewModelRpc()
     {
         inventoryManager.ClearViewModel();
-    }
-
-    [Rpc(SendTo.Owner)]
-    private void ClearInventorySlotImageRpc()
-    {
-        GameManager.Instance.ClearInventorySlotImage();
     }
 
     /// <summary>

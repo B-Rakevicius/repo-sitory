@@ -85,9 +85,11 @@ public class InventoryManager : NetworkBehaviour
         return inventory.TryTakeCurrentItem();
     }
 
-    public bool TryStoreItem(InventoryItem item)
+    public int TryStoreItem(InventoryItem item)
     {
-        return inventory.TryStoreItem(item);
+        int pos = inventory.TryStoreItem(item);
+        if (IsOwner && pos > -1) { GameManager.Instance.ItemPickedUp(pos, item.itemSprite); }
+        return pos;
     }
 
     public void SetCurrentItem(InventoryItem item)
@@ -95,9 +97,11 @@ public class InventoryManager : NetworkBehaviour
         inventory.SetCurrentItem(item);
     }
 
-    public bool TryRemoveCurrentItem()
+    public int TryRemoveCurrentItem()
     {
-        return inventory.TryRemoveCurrentItem();
+        int pos = inventory.TryRemoveCurrentItem();
+        if (IsOwner && pos > -1) { GameManager.Instance.ClearInventorySlotImage(pos); }
+        return pos;
     }
     #endregion
     

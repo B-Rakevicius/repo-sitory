@@ -5,15 +5,18 @@ using UnityEngine;
 
 public class Inventory : NetworkBehaviour
 {
-    private List<InventoryItem> _items;
+    private List<InventoryItem> _itemsOld;
+    private InventoryItem[] _items;
     private InventoryItem _currentItem;
 
     [SerializeField] private int inventorySize;
     private int _currentItemIdx = -1;
+    private int _itemsCount;
 
     private void Awake()
     {
-        _items = new List<InventoryItem>(inventorySize);
+        _items = new InventoryItem[inventorySize];
+        _itemsCount = 0;
     }
     
 
@@ -27,7 +30,7 @@ public class Inventory : NetworkBehaviour
         InventoryItem item = _items.ElementAtOrDefault(idx);
         if (item is null)
         {
-            Debug.Log("No item in this slot");
+            Debug.Log("No item in slot " + idx+1);
             return null;
         }
 
@@ -54,21 +57,34 @@ public class Inventory : NetworkBehaviour
         return _currentItem != null ? true : false;
     }
 
+
     /// <summary>
     /// Store a picked up item to inventory if there is enough space.
     /// </summary>
     /// <param name="item">Newly picked up item.</param>
-    public bool TryStoreItem(InventoryItem item)
+    /// <returns>Index at which the item was inserted.</returns>
+    public int TryStoreItem(InventoryItem item)
     {
+        int n = 0;
         if (!HasSpace())
         {
             Debug.Log("Inventory space is full!");
-            return false;
+            return -1;
         }
-        
-        _items.Add(item);
+
+        for (int i = 0; i < inventorySize; i++)
+        {
+            if (_items[i] is null)
+            {
+                _items[i] = item;
+                _itemsCount++;
+                break;
+            }
+
+            n++;
+        }
         Debug.Log("Added " + item.itemName + " to inventory.");
-        return true;
+        return n;
     }
 
     public void SetCurrentItem(InventoryItem item)
@@ -81,24 +97,26 @@ public class Inventory : NetworkBehaviour
     /// </summary>
     /// <param name="idx">Item position in invetory.</param>
     /// <returns>True if removed. False otherwise.</returns>
-    public bool TryRemoveItem(int idx)
+    public int TryRemoveItem(int idx)
     {
-        if (_items.Count == 0)
+        if (_itemsCount == 0)
         {
             Debug.Log("There are no items to remove!");
-            return false;
+            return -1;
         }
-        _items.RemoveAt(idx);
-        _currentItem = null;
+
+        _items[idx] = null;
+        _itemsCount--;
         Debug.Log("Item removed from inventory!");
-        return true;
+        return idx;
     }
 
     /// <summary>
     /// Remove currently held item.
     /// </summary>
-    public bool TryRemoveCurrentItem()
+    public int TryRemoveCurrentItem()
     {
+        _currentItem = null;
         return TryRemoveItem(_currentItemIdx);
     }
 
@@ -108,6 +126,6 @@ public class Inventory : NetworkBehaviour
     /// <returns>True if there's space. False otherwise.</returns>
     public bool HasSpace()
     {
-        return _items.Count < _items.Capacity;
+        return _itemsCount < _items.Length;
     }
 }

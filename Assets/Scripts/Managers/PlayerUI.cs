@@ -1,33 +1,72 @@
 using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class PlayerUI : MonoBehaviour
 {
     [SerializeField] private GameObject _itemPickupTextMesh;
-    [SerializeField] private GameObject _inventoryItemImage;
+    [SerializeField] private GameObject _inventoryItemSlotMain;
+    [SerializeField] private GameObject _inventoryItemSlot1;
+    [SerializeField] private GameObject _inventoryItemSlot2;
+    [SerializeField] private GameObject _inventoryItemSlot3;
     
     
     private void Start()
     {
         _itemPickupTextMesh.SetActive(false);
-        _inventoryItemImage.GetComponent<Image>().enabled = false;
+        _inventoryItemSlotMain.GetComponent<Image>().enabled = false;
+        _inventoryItemSlot1.GetComponent<Image>().enabled = false;
+        _inventoryItemSlot2.GetComponent<Image>().enabled = false;
+        _inventoryItemSlot3.GetComponent<Image>().enabled = false;
         
         GameManager.Instance.OnItemPickupTextShow += GameManager_OnItemPickupTextShow;
         GameManager.Instance.OnItemPickupTextHide += GameManager_OnItemPickupTextHide;
         GameManager.Instance.OnItemEquipped += GameManager_OnItemEquipped;
+        GameManager.Instance.OnItemPickedUp += GameManager_OnItemPickedUp;
         GameManager.Instance.OnClearInventorySlotImage += GameManager_OnClearInventorySlotImage;
     }
 
-    private void GameManager_OnClearInventorySlotImage(object sender, EventArgs e)
+    private void GameManager_OnItemPickedUp(object sender, GameManager.OnItemPickedUpEventArgs e)
     {
-        _inventoryItemImage.GetComponent<Image>().enabled = false;
+        switch (e.pos)
+        {
+            case 0:
+                _inventoryItemSlot1.GetComponent<Image>().enabled = true;
+                _inventoryItemSlot1.GetComponent<Image>().sprite = e.itemIcon;
+                break;
+            case 1:
+                _inventoryItemSlot2.GetComponent<Image>().enabled = true;
+                _inventoryItemSlot2.GetComponent<Image>().sprite = e.itemIcon;
+                break;
+            case 2:
+                _inventoryItemSlot3.GetComponent<Image>().enabled = true;
+                _inventoryItemSlot3.GetComponent<Image>().sprite = e.itemIcon;
+                break;
+        }
+    }
+
+    private void GameManager_OnClearInventorySlotImage(object sender, GameManager.OnClearInventorySlotImageEventArgs e)
+    {
+        switch (e.pos)
+        {
+            case 0:
+                _inventoryItemSlot1.GetComponent<Image>().enabled = false;
+                break;
+            case 1:
+                _inventoryItemSlot2.GetComponent<Image>().enabled = false;
+                break;
+            case 2:
+                _inventoryItemSlot3.GetComponent<Image>().enabled = false;
+                break;
+        }
+        _inventoryItemSlotMain.GetComponent<Image>().enabled = false;
     }
 
     private void GameManager_OnItemEquipped(object sender, GameManager.OnItemEquippedEventArgs e)
     {
-        _inventoryItemImage.GetComponent<Image>().enabled = true;
-        _inventoryItemImage.GetComponent<Image>().sprite = e.itemIcon;
+        _inventoryItemSlotMain.GetComponent<Image>().enabled = true;
+        _inventoryItemSlotMain.GetComponent<Image>().sprite = e.itemIcon;
     }
 
     private void GameManager_OnItemPickupTextHide(object sender, EventArgs e)
