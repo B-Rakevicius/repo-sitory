@@ -21,7 +21,7 @@ public class RoomGeneration : MonoBehaviour
     public LayerMask roomCollisionLayer;
 
     private List<RoomScript> spawnedRooms = new List<RoomScript>();
-    public List<DoorScript> availableDoors = new List<DoorScript>();
+    private List<DoorScript> availableDoors = new List<DoorScript>();
     private List<DoorScript> connectedDoors = new List<DoorScript>();
 
     public GameObject doorPrefab, wallPrefab;
@@ -55,9 +55,19 @@ public class RoomGeneration : MonoBehaviour
         availableDoors.AddRange(startingRoom.doorPoints.Where(d => !d.isExit));
         while (spawnedRooms.Count < roomCount && availableDoors.Count > 0)
         {
-            if (!TrySpawnRoom3())
+            if (spawnedRooms.Count > roomCount / 2)
             {
-                break;
+                if (!TrySpawnRoom3())
+                {
+                    break;
+                }
+            }
+            else
+            {
+                if (!TrySpawnRoom4())
+                {
+                    break;
+                }
             }
         }
         SealUnusedDoors();
@@ -71,7 +81,7 @@ public class RoomGeneration : MonoBehaviour
             var validRules = roomRules
             .Where(r =>
                 r.room != null &&
-                (r.maximumSpawns == -1 || !roomSpawnCounts.ContainsKey(r.room) 
+                (r.maximumSpawns == -1 || !roomSpawnCounts.ContainsKey(r.room)
                                        || roomSpawnCounts[r.room] < r.maximumSpawns)
                 )
                 .ToList();
@@ -124,6 +134,70 @@ public class RoomGeneration : MonoBehaviour
                 }
             }
             //availableDoors.Remove(targetDoor);
+        }
+        return false;
+    }
+    private bool TrySpawnRoom4()
+    {
+        foreach (DoorScript targetDoor in availableDoors.OrderBy(x => rng.NextDouble()).ToList())
+        {
+            var validRules = roomRules
+                .Where(r =>
+                    r.room != null &&
+                    (r.maximumSpawns == -1 || !roomSpawnCounts.ContainsKey(r.room)
+                                           || roomSpawnCounts[r.room] < r.maximumSpawns)
+                )
+                .ToList();
+            List<GameObject> weightedRooms = new List<GameObject>();
+            foreach (var rule in validRules)
+            {
+                RoomScript roomScript = rule.room.GetComponent<RoomScript>();
+                if (roomScript == null || roomScript.doorPoints.Count <= 1) continue; // != 1door
+
+                int doorCount = roomScript.doorPoints.Count;
+                for (int i = 0; i < rule.roomWeight * doorCount; i++)
+                    weightedRooms.Add(rule.room);
+            }
+            if (weightedRooms.Count == 0)
+                return false;
+            foreach (GameObject roomPrefab in weightedRooms.OrderBy(x => rng.NextDouble()))
+            {
+                RoomScript prefabScript = roomPrefab.GetComponent<RoomScript>();
+                if (prefabScript == null || prefabScript.doorPoints.Count <= 1) continue;
+
+                foreach (DoorScript candidateDoor in prefabScript.doorPoints)
+                {
+                    foreach (int angle in new int[] { 0, 90, 180, 270 })
+                    {
+                        Quaternion rotation = Quaternion.Euler(0, angle, 0);
+                        Vector3 rotatedForward = rotation * candidateDoor.transform.forward;
+                        if (Vector3.Dot(targetDoor.transform.forward, rotatedForward) > -0.99f)
+                            continue;
+                        Vector3 rotatedLocalPos = rotation * candidateDoor.transform.localPosition;
+                        Vector3 spawnPosition = targetDoor.transform.position - rotatedLocalPos;
+                        if (!CheckRoomOverlapSimulated(roomPrefab, spawnPosition, rotation))
+                        {
+                            GameObject newRoomObj = Instantiate(roomPrefab, spawnPosition, rotation, transform);
+                            RoomScript newRoom = newRoomObj.GetComponent<RoomScript>();
+                            spawnedRooms.Add(newRoom);
+                            if (!roomSpawnCounts.ContainsKey(roomPrefab))
+                                roomSpawnCounts[roomPrefab] = 0;
+                            roomSpawnCounts[roomPrefab]++;
+                            ConnectDoors(targetDoor, FindMatchingDoor(newRoom, candidateDoor.name));
+                            availableDoors.Remove(targetDoor);
+
+                            foreach (DoorScript newDoor in newRoom.doorPoints)
+                            {
+                                if (!connectedDoors.Contains(newDoor) && !newDoor.isExit)
+                                    availableDoors.Add(newDoor);
+
+                                Debug.Log("buhblunt " + newDoor.name);
+                            }
+                            return true;
+                        }
+                    }
+                }
+            }
         }
         return false;
     }

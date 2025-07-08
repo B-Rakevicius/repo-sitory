@@ -6,13 +6,12 @@ using UnityEngine.InputSystem;
 public class ViewModelManager : NetworkBehaviour
 {
     private ViewModel _currentViewModel;
-    [SerializeField] private GameObject _mapGameObject; // Map view model will always be on the player.
     private ViewModel _mapViewModel;
+    [SerializeField] private GameObject _mapGameObject; // Map view model will always be on the player.
     
     [SerializeField] private Transform _viewModelPoint;
     [SerializeField] private Transform _leftHandPickupPoint;
     [SerializeField] private Transform _rightHandPickupPoint;
-    
 
     private void Start()
     {
@@ -21,31 +20,27 @@ public class ViewModelManager : NetworkBehaviour
 
         if (IsOwner)
         {
-            GameManager.Instance.OnMapOpened += GameManager_OnMapOpened;
-            GameManager.Instance.OnItemGrabbed += GameManager_OnItemGrabbed;
-            GameManager.Instance.OnViewModelCleared += GameManager_OnViewModelCleared;
+            InputManager.Instance.OnMapOpened += InputManager_OnMapOpened;
             
             InputManager.Instance.playerInput.Player.Inspect.started += InputManager_OnModelInspectPressed;
-
         }
     }
 
+    /// <summary>
+    /// Event, which triggers currently when "F" is pressed.
+    /// </summary>
+    /// <param name="obj"></param>
     private void InputManager_OnModelInspectPressed(InputAction.CallbackContext obj)
     {
         PlayAnimation("Inspect_Throwing");
     }
 
-    private void GameManager_OnViewModelCleared(object sender, EventArgs e)
-    {
-        ClearViewModel();
-    }
-
-    private void GameManager_OnItemGrabbed(object sender, GameManager.OnItemGrabbedEventArgs e)
-    {
-        SetViewModel(e.itemPrefabVM);
-    }
-
-    private void GameManager_OnMapOpened(object sender, GameManager.OnMapOpenedEventArgs e)
+    /// <summary>
+    /// Event, which triggers when "M" is pressed.
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    private void InputManager_OnMapOpened(object sender, InputManager.OnMapOpenedEventArgs e)
     {
         if (e.isOpen)
         {
@@ -57,7 +52,10 @@ public class ViewModelManager : NetworkBehaviour
         }
     }
 
-
+    /// <summary>
+    /// Set player's ViewModel.
+    /// </summary>
+    /// <param name="newViewModel">New ViewModel to use.</param>
     public void SetViewModel(GameObject newViewModel)
     {
         if (_currentViewModel != null)
@@ -70,25 +68,33 @@ public class ViewModelManager : NetworkBehaviour
         _currentViewModel = viewModel.gameObject.GetComponent<ViewModel>();
     }
 
+    /// <summary>
+    /// Clears current ViewModel.
+    /// </summary>
     public void ClearViewModel()
     {
         Destroy(_currentViewModel.gameObject);
         _currentViewModel = null;
     }
 
+    /// <summary>
+    /// Plays an animation for current ViewModel.
+    /// </summary>
+    /// <param name="animName">Animation's name. Must be the same as in Animator,
+    /// which is attached to a ViewModel. </param>
     private void PlayAnimation(string animName)
     {
         _currentViewModel?.PlayAnimation(animName);
     }
 
+    /// <summary>
+    /// Opens player's map.
+    /// </summary>
+    /// <param name="animName">Animation's name. Must be the same as in Animator,
+    /// which is attached to a map's ViewModel.</param>
     private void OpenMap(string animName)
     {
         if(!_mapGameObject.activeInHierarchy) { _mapGameObject.SetActive(true); }
         _mapViewModel.PlayAnimation(animName);
-    }
-    
-    private void MoveWorldObjectToPoint()
-    {
-        
     }
 }

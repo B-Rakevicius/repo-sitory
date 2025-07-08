@@ -20,7 +20,7 @@ TagManager:
   - RemoteModel
   - PlayerBlip
   - Structure
-  - LightIgnore
+  - BoundCollider
   - 
   - 
   - 
