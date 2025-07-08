@@ -45,6 +45,10 @@ public class ItemGrabbableVM : NetworkBehaviour
         gameObject.GetComponent<Renderer>().enabled = true;
     }
 
+    /// <summary>
+    /// Throw the object towards provided direction.
+    /// </summary>
+    /// <param name="direction">Direction to throw object towards.</param>
     public void ThrowItem(Vector3 direction)
     {
         _rb.GetComponent<BoxCollider>().enabled = true;

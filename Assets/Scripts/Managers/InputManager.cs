@@ -11,9 +11,6 @@ public class InputManager : MonoBehaviour
     
     public PlayerInput playerInput;
     
-    // Inventry input events
-    public event EventHandler OnInventorySlotSwitched;
-    
     public event EventHandler<OnMapOpenedEventArgs> OnMapOpened;
     public class OnMapOpenedEventArgs : EventArgs {
         public bool isOpen;
@@ -39,6 +36,10 @@ public class InputManager : MonoBehaviour
         playerInput.Player.Map.started += OnMapStarted;
     }
 
+    /// <summary>
+    /// Event, which triggers when "M" is pressed.
+    /// </summary>
+    /// <param name="obj"></param>
     private void OnMapStarted(InputAction.CallbackContext obj)
     {
         if (!_isOpen)

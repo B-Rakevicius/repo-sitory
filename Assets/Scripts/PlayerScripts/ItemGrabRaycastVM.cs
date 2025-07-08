@@ -44,11 +44,18 @@ public class ItemGrabRaycastVM : NetworkBehaviour
         }
     }
 
+    /// <summary>
+    /// Event, which triggers when Left Mouse Button is pressed.
+    /// </summary>
+    /// <param name="obj"></param>
     private void PlayerInput_OnItemThrowTriggered(InputAction.CallbackContext obj)
     {
         OnItemThrowTriggeredRpc();
     }
 
+    /// <summary>
+    /// RPC function, which tries to throw an item if the player is holding anything.
+    /// </summary>
     [Rpc(SendTo.Server)]
     private void OnItemThrowTriggeredRpc()
     {
@@ -76,16 +83,25 @@ public class ItemGrabRaycastVM : NetworkBehaviour
         }
     }
 
+    /// <summary>
+    /// Event, which triggers when "E" is pressed.
+    /// </summary>
+    /// <param name="obj"></param>
     private void PlayerInput_OnItemGrabTriggered(InputAction.CallbackContext obj)
     {
         OnItemGrabTriggeredRpc(NetworkManager.Singleton.LocalClientId);
     }
 
+    /// <summary>
+    /// RPC function, which tries to take an item and put it in player's inventory. Inventory synchronizes across
+    /// both server and clients, while visuals are only executed locally. 
+    /// </summary>
+    /// <param name="clientId">Client's id, who is trying to pick up an object.</param>
     [Rpc(SendTo.Server)]
     private void OnItemGrabTriggeredRpc(ulong clientId)
     {
         // No object is picked up. Try to grab it.
-        // Check if we have space in inventory and we don't have a viewmodel active right now.
+        // Check if we have space in inventory.
         if (inventoryManager.HasSpace())
         {
             // Ray cast from camera.
@@ -95,7 +111,7 @@ public class ItemGrabRaycastVM : NetworkBehaviour
                 // Object is grabbable. Get component and try to grab it.
                 if (hit.collider.TryGetComponent(out ItemGrabbableVM itemGrabbableVM))
                 {
-                    // Get object id, pass it to owner, and instantiate viewmodel only for him.
+                    // Get object id and itemData.
                     ulong objectId = itemGrabbableVM.NetworkObjectId;
                     InventoryItem itemData = itemGrabbableVM.GetItemData();
 
@@ -128,6 +144,10 @@ public class ItemGrabRaycastVM : NetworkBehaviour
         Debug.DrawRay(_cinemachineCameraTransform.position, _cinemachineCameraTransform.forward * _grabDistance, Color.red);
     }
 
+    /// <summary>
+    /// Destroys a GameObject for everyone when it is picked up.
+    /// </summary>
+    /// <param name="objectId">Picked up object's id.</param>
     [Rpc(SendTo.ClientsAndHost)]
     private void DestroyItemRpc(ulong objectId)
     {
@@ -137,6 +157,10 @@ public class ItemGrabRaycastVM : NetworkBehaviour
         }
     }
 
+    /// <summary>
+    /// RPC function, which stores an item to inventory on client side.
+    /// </summary>
+    /// <param name="objectId">Picked up object's id.</param>
     [Rpc(SendTo.Owner)]
     private void SendToInventoryRpc(ulong objectId)
     {
@@ -148,6 +172,9 @@ public class ItemGrabRaycastVM : NetworkBehaviour
         }
     }
 
+    /// <summary>
+    /// RPC function, which removes currently held item from inventory.
+    /// </summary>
     [Rpc(SendTo.Owner)]
     private void RemoveCurrentInventoryItemRpc()
     {
@@ -178,6 +205,9 @@ public class ItemGrabRaycastVM : NetworkBehaviour
         }
     }
 
+    /// <summary>
+    /// RPC function, which clears current ViewModel for client.
+    /// </summary>
     [Rpc(SendTo.Owner)]
     private void ClearViewModelRpc()
     {
@@ -185,7 +215,7 @@ public class ItemGrabRaycastVM : NetworkBehaviour
     }
 
     /// <summary>
-    /// Function to set the view model for the player that grabbed the object.
+    /// RPC function, which sets the ViewModel for the player that grabbed the object.
     /// </summary>
     /// <param name="objectId">Object ID that the player grabbed.</param>
     [Rpc(SendTo.Owner)]

@@ -30,7 +30,7 @@ public class Inventory : NetworkBehaviour
         InventoryItem item = _items.ElementAtOrDefault(idx);
         if (item is null)
         {
-            Debug.Log("No item in slot " + idx+1);
+            Debug.Log("No item in slot " + idx);
             return null;
         }
 
