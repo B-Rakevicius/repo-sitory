@@ -11,39 +11,36 @@ public class GameManager : NetworkBehaviour
         OnItemPickupTextShow?.Invoke(this, EventArgs.Empty);
     }
     
-    
     public event EventHandler OnItemPickupTextHide;
     public void HideItemPickupText() {
         OnItemPickupTextHide?.Invoke(this, EventArgs.Empty);
     }
     
     
-    public event EventHandler<OnMapOpenedEventArgs> OnMapOpened;
-    public class OnMapOpenedEventArgs : EventArgs
-    {
-        public bool isOpen;
+    public event EventHandler<OnItemEquippedEventArgs> OnItemEquipped;
+    public class OnItemEquippedEventArgs : EventArgs {
+        public Sprite itemIcon;
     }
-    public void MapOpened(bool isOpen)
-    {
-        OnMapOpened?.Invoke(this, new OnMapOpenedEventArgs() { isOpen = isOpen });
+    public void ItemEquipped(Sprite itemIcon) {
+        OnItemEquipped?.Invoke(this, new OnItemEquippedEventArgs { itemIcon = itemIcon });
+    }
+    
+    public event EventHandler<OnItemPickedUpEventArgs> OnItemPickedUp;
+    public class OnItemPickedUpEventArgs : EventArgs {
+        public int pos;
+        public Sprite itemIcon;
+    }
+    public void ItemPickedUp(int pos, Sprite itemIcon) {
+        OnItemPickedUp?.Invoke(this, new OnItemPickedUpEventArgs { pos = pos, itemIcon = itemIcon });
     }
 
-    
-    public event EventHandler<OnItemGrabbedEventArgs> OnItemGrabbed;
-    public class OnItemGrabbedEventArgs : EventArgs
-    {
-        public GameObject itemPrefabVM;
-    }
-    public void ItemGrabbed(GameObject itemPrefabVM)
-    {
-        OnItemGrabbed?.Invoke(this, new OnItemGrabbedEventArgs() { itemPrefabVM = itemPrefabVM });
-    }
 
-    
-    public event EventHandler OnViewModelCleared;
-    public void ViewModelCleared()
-    {
-        OnViewModelCleared?.Invoke(this, EventArgs.Empty);
+    public event EventHandler<OnClearInventorySlotImageEventArgs> OnClearInventorySlotImage;
+    public class OnClearInventorySlotImageEventArgs : EventArgs {
+        public int pos;
+    }
+    public void ClearInventorySlotImage(int pos) {
+        OnClearInventorySlotImage?.Invoke(this, new OnClearInventorySlotImageEventArgs { pos = pos });
     }
     
     

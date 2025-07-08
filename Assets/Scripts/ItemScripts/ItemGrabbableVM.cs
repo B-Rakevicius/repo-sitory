@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ItemGrabbableVM : NetworkBehaviour
 {
-    [SerializeField] private GameObject _itemPrefabVM; // Viewmodel that represents this world object
+    [SerializeField] private InventoryItem itemData;
     private Transform _grabPointTransform;
     private Rigidbody _rb;
     
@@ -24,11 +24,6 @@ public class ItemGrabbableVM : NetworkBehaviour
     {
         _grabPointTransform = grabPoint;
         SetObjectPropertiesRpc();
-    }
-    
-    public void ShowViewModel()
-    {
-        GameManager.Instance.ItemGrabbed(_itemPrefabVM);
     }
 
     [Rpc(SendTo.ClientsAndHost)]
@@ -50,6 +45,10 @@ public class ItemGrabbableVM : NetworkBehaviour
         gameObject.GetComponent<Renderer>().enabled = true;
     }
 
+    /// <summary>
+    /// Throw the object towards provided direction.
+    /// </summary>
+    /// <param name="direction">Direction to throw object towards.</param>
     public void ThrowItem(Vector3 direction)
     {
         _rb.GetComponent<BoxCollider>().enabled = true;
@@ -65,5 +64,10 @@ public class ItemGrabbableVM : NetworkBehaviour
     private void MoveItemToHand()
     {
         _rb.MovePosition(_grabPointTransform.position);
+    }
+
+    public InventoryItem GetItemData()
+    {
+        return itemData;
     }
 }

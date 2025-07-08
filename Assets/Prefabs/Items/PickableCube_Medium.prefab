@@ -257,4 +257,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
-  _itemPrefabVM: {fileID: 5310461348303663446, guid: c060d2729a448a5409023b06077c2301, type: 3}
+  itemData: {fileID: 11400000, guid: fb3c79aa4b525bf4b93c52a304094514, type: 2}

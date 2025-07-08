@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ddcb7a9e40e93e4a898668c20f7776f, type: 3}
+  m_Name: Cube_Medium_Info
+  m_EditorClassIdentifier: 
+  itemName: Medium cube
+  itemSprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  itemPrefab: {fileID: 7190879990363816629, guid: e4ff2d105f2c92940be261ca89e972c4, type: 3}
+  itemPrefabVM: {fileID: 5310461348303663446, guid: c060d2729a448a5409023b06077c2301, type: 3}
