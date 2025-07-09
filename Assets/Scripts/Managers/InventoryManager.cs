@@ -1,3 +1,4 @@
+using System;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -7,6 +8,8 @@ public class InventoryManager : NetworkBehaviour
     [SerializeField] private Inventory inventory;
     [SerializeField] private ViewModelManager viewModelManager;
 
+    public event EventHandler OnInventoryItemUsed;
+    
     private void Start()
     {
         if(!IsOwner) { return; }

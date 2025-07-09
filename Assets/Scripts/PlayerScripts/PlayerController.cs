@@ -16,6 +16,11 @@ public class PlayerController : NetworkBehaviour
     
     // Events
     //public event EventHandler OnPlayerJumped;
+    public event EventHandler<OnPlayerLandedEventArgs> OnPlayerLanded;
+    public class OnPlayerLandedEventArgs : EventArgs
+    {
+        public float fallSpeed;
+    }
     
     // Variables
     // Player movement
@@ -175,6 +180,8 @@ public class PlayerController : NetworkBehaviour
     private void UpwardMovement()
     {
         if (_isGrounded) {
+            // Emit an event that the player has landed on ground
+            OnPlayerLanded?.Invoke(this, new OnPlayerLandedEventArgs { fallSpeed = _frameVelocity.y });
             _frameVelocity.y = 0;
         }
         if (_jumped && _isGrounded) {

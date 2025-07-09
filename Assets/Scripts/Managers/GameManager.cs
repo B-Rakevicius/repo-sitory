@@ -43,6 +43,13 @@ public class GameManager : NetworkBehaviour
         OnClearInventorySlotImage?.Invoke(this, new OnClearInventorySlotImageEventArgs { pos = pos });
     }
     
+    public event EventHandler<OnHealthChangedEventArgs> OnHealthChanged;
+    public class OnHealthChangedEventArgs : EventArgs {
+        public int newHealth;
+    }
+    public void HealthChanged(int newHealth) {
+        OnHealthChanged?.Invoke(this, new OnHealthChangedEventArgs { newHealth = newHealth });
+    }
     
     
     private void Awake()
