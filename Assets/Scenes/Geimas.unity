@@ -17664,7 +17664,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &961315322
 Transform:
   m_ObjectHideFlags: 0
@@ -37788,10 +37788,6 @@ PrefabInstance:
     - target: {fileID: 5071547258313294354, guid: 7ec51a8e9f7acd249805328b79c6e4e1, type: 3}
       propertyPath: m_Name
       value: 0_room_Furnace
-      objectReference: {fileID: 0}
-    - target: {fileID: 5071547258313294354, guid: 7ec51a8e9f7acd249805328b79c6e4e1, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
