@@ -92,15 +92,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             ""id"": ""cfb23f56-ba05-4a41-b9da-1544a95379f5"",
             ""actions"": [
                 {
-                    ""name"": ""Movement"",
-                    ""type"": ""PassThrough"",
-                    ""id"": ""27b74b42-2246-44c1-bc13-0fb7dcd0447e"",
-                    ""expectedControlType"": ""Vector2"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
                     ""name"": ""CameraMovement"",
                     ""type"": ""PassThrough"",
                     ""id"": ""41c0f195-90f1-47ae-9b38-e11bf8f36c3a"",
@@ -200,107 +191,16 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""ConsoleToggle"",
-                    ""type"": ""Button"",
-                    ""id"": ""4fd5a661-24b8-46b1-8439-f1e7e37960d9"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""SubmitKey"",
-                    ""type"": ""Button"",
-                    ""id"": ""c82878d1-32aa-45cd-9e57-84e93b1d21da"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""SearchPreviousCommand"",
-                    ""type"": ""Button"",
-                    ""id"": ""3b58909d-5f27-42a2-abe4-ead1505e9580"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""NextSuggestedCommandKey"",
-                    ""type"": ""Button"",
-                    ""id"": ""4716cbfe-b87a-4e74-9a13-c9b69baa665e"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""NextSuggestedCommandKeyAlt"",
-                    ""type"": ""Button"",
-                    ""id"": ""b3ad1a54-1b63-4480-9abc-61f6883d8d73"",
-                    ""expectedControlType"": """",
+                    ""name"": ""Movement"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""816da331-030c-4813-8900-b99f5754e962"",
+                    ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
-                {
-                    ""name"": ""2D Vector"",
-                    ""id"": ""fd986d4e-cf63-479f-bcbd-218513f59e72"",
-                    ""path"": ""2DVector"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Movement"",
-                    ""isComposite"": true,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""up"",
-                    ""id"": ""6c4196f4-7946-43ef-9f53-ec668542f4fe"",
-                    ""path"": ""<Keyboard>/w"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Movement"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""down"",
-                    ""id"": ""a4739ce5-a0b3-4dbe-b384-7f1da4f36983"",
-                    ""path"": ""<Keyboard>/s"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Movement"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""left"",
-                    ""id"": ""84234ceb-786e-449e-b705-c7c54a37ea2f"",
-                    ""path"": ""<Keyboard>/a"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Movement"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""right"",
-                    ""id"": ""5ffdf69a-f67f-4e5a-8f4d-977a659802a6"",
-                    ""path"": ""<Keyboard>/d"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Movement"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
                 {
                     ""name"": """",
                     ""id"": ""e3c7a2c7-ea88-46c6-9a3a-e90467438e42"",
@@ -423,41 +323,127 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": """",
-                    ""id"": ""955abdb7-958b-4038-b0d1-f576b18ca3e1"",
-                    ""path"": ""<Keyboard>/backquote"",
+                    ""name"": ""2D Vector"",
+                    ""id"": ""85fd36cd-2715-4cf4-9b5b-dd1feb5e126d"",
+                    ""path"": ""2DVector"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""ConsoleToggle"",
+                    ""action"": ""Movement"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""cdd99ed4-979d-4cb6-9134-df20ce160dd3"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""6262ee62-bb11-4b52-b3ca-e459769d1388"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""db53fca7-bee1-4cc0-a838-e62e65b0a930"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""7db64297-49a5-4d12-804b-2ca0f073c9cd"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                }
+            ]
+        },
+        {
+            ""name"": ""Console"",
+            ""id"": ""195c1f93-278a-461f-a635-693fa861a439"",
+            ""actions"": [
+                {
+                    ""name"": ""NextSuggestedCommandKeyAlt"",
+                    ""type"": ""Button"",
+                    ""id"": ""715c55aa-bbf5-418a-b856-d36261873b93"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""NextSuggestedCommandKey"",
+                    ""type"": ""Button"",
+                    ""id"": ""518d3884-067f-4bcc-97cb-8c22f29af52e"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SearchPreviousCommand"",
+                    ""type"": ""Button"",
+                    ""id"": ""616c8902-9d02-4e41-949f-144d4d234cc4"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SubmitKey"",
+                    ""type"": ""Button"",
+                    ""id"": ""c92fd823-145b-4cad-b176-0d480bdd68c2"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ConsoleToggle"",
+                    ""type"": ""Button"",
+                    ""id"": ""608410e6-6cac-486c-9520-488dd3699ac7"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""0a68766c-20a6-4d21-a99a-95078fa7a4dd"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""NextSuggestedCommandKeyAlt"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""0c3f1d94-ad03-4ef7-8146-b0ef7e755783"",
-                    ""path"": ""<Keyboard>/enter"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""SubmitKey"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""f5a2b737-7fa5-4110-b46f-8a087c603df4"",
-                    ""path"": ""<Keyboard>/upArrow"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""SearchPreviousCommand"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""3e2fc20b-4807-4b3f-b00e-26775ba89e42"",
+                    ""id"": ""39267e37-00fc-498e-aef5-2e7de0a53f9d"",
                     ""path"": ""<Keyboard>/downArrow"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -468,12 +454,34 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""a80df8f3-b417-4ffe-80bb-6199b97da3a4"",
-                    ""path"": ""<Keyboard>/tab"",
+                    ""id"": ""06c29a91-e8ae-443a-b3fe-31c736ca559e"",
+                    ""path"": ""<Keyboard>/upArrow"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""NextSuggestedCommandKeyAlt"",
+                    ""action"": ""SearchPreviousCommand"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0e95ec3d-c05e-4f66-834e-c3e5a54d0213"",
+                    ""path"": ""<Keyboard>/enter"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SubmitKey"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4bc57994-5f9e-47b3-833c-a4f6271f357c"",
+                    ""path"": ""<Keyboard>/backquote"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ConsoleToggle"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -484,7 +492,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
 }");
         // Player
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
-        m_Player_Movement = m_Player.FindAction("Movement", throwIfNotFound: true);
         m_Player_CameraMovement = m_Player.FindAction("CameraMovement", throwIfNotFound: true);
         m_Player_DoorMovement = m_Player.FindAction("DoorMovement", throwIfNotFound: true);
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
@@ -496,16 +503,20 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_Player_TakeItem1 = m_Player.FindAction("TakeItem1", throwIfNotFound: true);
         m_Player_TakeItem2 = m_Player.FindAction("TakeItem2", throwIfNotFound: true);
         m_Player_TakeItem3 = m_Player.FindAction("TakeItem3", throwIfNotFound: true);
-        m_Player_ConsoleToggle = m_Player.FindAction("ConsoleToggle", throwIfNotFound: true);
-        m_Player_SubmitKey = m_Player.FindAction("SubmitKey", throwIfNotFound: true);
-        m_Player_SearchPreviousCommand = m_Player.FindAction("SearchPreviousCommand", throwIfNotFound: true);
-        m_Player_NextSuggestedCommandKey = m_Player.FindAction("NextSuggestedCommandKey", throwIfNotFound: true);
-        m_Player_NextSuggestedCommandKeyAlt = m_Player.FindAction("NextSuggestedCommandKeyAlt", throwIfNotFound: true);
+        m_Player_Movement = m_Player.FindAction("Movement", throwIfNotFound: true);
+        // Console
+        m_Console = asset.FindActionMap("Console", throwIfNotFound: true);
+        m_Console_NextSuggestedCommandKeyAlt = m_Console.FindAction("NextSuggestedCommandKeyAlt", throwIfNotFound: true);
+        m_Console_NextSuggestedCommandKey = m_Console.FindAction("NextSuggestedCommandKey", throwIfNotFound: true);
+        m_Console_SearchPreviousCommand = m_Console.FindAction("SearchPreviousCommand", throwIfNotFound: true);
+        m_Console_SubmitKey = m_Console.FindAction("SubmitKey", throwIfNotFound: true);
+        m_Console_ConsoleToggle = m_Console.FindAction("ConsoleToggle", throwIfNotFound: true);
     }
 
     ~@PlayerInput()
     {
         UnityEngine.Debug.Assert(!m_Player.enabled, "This will cause a leak and performance issues, PlayerInput.Player.Disable() has not been called.");
+        UnityEngine.Debug.Assert(!m_Console.enabled, "This will cause a leak and performance issues, PlayerInput.Console.Disable() has not been called.");
     }
 
     /// <summary>
@@ -581,7 +592,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     // Player
     private readonly InputActionMap m_Player;
     private List<IPlayerActions> m_PlayerActionsCallbackInterfaces = new List<IPlayerActions>();
-    private readonly InputAction m_Player_Movement;
     private readonly InputAction m_Player_CameraMovement;
     private readonly InputAction m_Player_DoorMovement;
     private readonly InputAction m_Player_Jump;
@@ -593,11 +603,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_TakeItem1;
     private readonly InputAction m_Player_TakeItem2;
     private readonly InputAction m_Player_TakeItem3;
-    private readonly InputAction m_Player_ConsoleToggle;
-    private readonly InputAction m_Player_SubmitKey;
-    private readonly InputAction m_Player_SearchPreviousCommand;
-    private readonly InputAction m_Player_NextSuggestedCommandKey;
-    private readonly InputAction m_Player_NextSuggestedCommandKeyAlt;
+    private readonly InputAction m_Player_Movement;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -609,10 +615,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         /// Construct a new instance of the input action map wrapper class.
         /// </summary>
         public PlayerActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
-        /// <summary>
-        /// Provides access to the underlying input action "Player/Movement".
-        /// </summary>
-        public InputAction @Movement => m_Wrapper.m_Player_Movement;
         /// <summary>
         /// Provides access to the underlying input action "Player/CameraMovement".
         /// </summary>
@@ -658,25 +660,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         /// </summary>
         public InputAction @TakeItem3 => m_Wrapper.m_Player_TakeItem3;
         /// <summary>
-        /// Provides access to the underlying input action "Player/ConsoleToggle".
+        /// Provides access to the underlying input action "Player/Movement".
         /// </summary>
-        public InputAction @ConsoleToggle => m_Wrapper.m_Player_ConsoleToggle;
-        /// <summary>
-        /// Provides access to the underlying input action "Player/SubmitKey".
-        /// </summary>
-        public InputAction @SubmitKey => m_Wrapper.m_Player_SubmitKey;
-        /// <summary>
-        /// Provides access to the underlying input action "Player/SearchPreviousCommand".
-        /// </summary>
-        public InputAction @SearchPreviousCommand => m_Wrapper.m_Player_SearchPreviousCommand;
-        /// <summary>
-        /// Provides access to the underlying input action "Player/NextSuggestedCommandKey".
-        /// </summary>
-        public InputAction @NextSuggestedCommandKey => m_Wrapper.m_Player_NextSuggestedCommandKey;
-        /// <summary>
-        /// Provides access to the underlying input action "Player/NextSuggestedCommandKeyAlt".
-        /// </summary>
-        public InputAction @NextSuggestedCommandKeyAlt => m_Wrapper.m_Player_NextSuggestedCommandKeyAlt;
+        public InputAction @Movement => m_Wrapper.m_Player_Movement;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -703,9 +689,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         {
             if (instance == null || m_Wrapper.m_PlayerActionsCallbackInterfaces.Contains(instance)) return;
             m_Wrapper.m_PlayerActionsCallbackInterfaces.Add(instance);
-            @Movement.started += instance.OnMovement;
-            @Movement.performed += instance.OnMovement;
-            @Movement.canceled += instance.OnMovement;
             @CameraMovement.started += instance.OnCameraMovement;
             @CameraMovement.performed += instance.OnCameraMovement;
             @CameraMovement.canceled += instance.OnCameraMovement;
@@ -739,21 +722,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @TakeItem3.started += instance.OnTakeItem3;
             @TakeItem3.performed += instance.OnTakeItem3;
             @TakeItem3.canceled += instance.OnTakeItem3;
-            @ConsoleToggle.started += instance.OnConsoleToggle;
-            @ConsoleToggle.performed += instance.OnConsoleToggle;
-            @ConsoleToggle.canceled += instance.OnConsoleToggle;
-            @SubmitKey.started += instance.OnSubmitKey;
-            @SubmitKey.performed += instance.OnSubmitKey;
-            @SubmitKey.canceled += instance.OnSubmitKey;
-            @SearchPreviousCommand.started += instance.OnSearchPreviousCommand;
-            @SearchPreviousCommand.performed += instance.OnSearchPreviousCommand;
-            @SearchPreviousCommand.canceled += instance.OnSearchPreviousCommand;
-            @NextSuggestedCommandKey.started += instance.OnNextSuggestedCommandKey;
-            @NextSuggestedCommandKey.performed += instance.OnNextSuggestedCommandKey;
-            @NextSuggestedCommandKey.canceled += instance.OnNextSuggestedCommandKey;
-            @NextSuggestedCommandKeyAlt.started += instance.OnNextSuggestedCommandKeyAlt;
-            @NextSuggestedCommandKeyAlt.performed += instance.OnNextSuggestedCommandKeyAlt;
-            @NextSuggestedCommandKeyAlt.canceled += instance.OnNextSuggestedCommandKeyAlt;
+            @Movement.started += instance.OnMovement;
+            @Movement.performed += instance.OnMovement;
+            @Movement.canceled += instance.OnMovement;
         }
 
         /// <summary>
@@ -765,9 +736,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         /// <seealso cref="PlayerActions" />
         private void UnregisterCallbacks(IPlayerActions instance)
         {
-            @Movement.started -= instance.OnMovement;
-            @Movement.performed -= instance.OnMovement;
-            @Movement.canceled -= instance.OnMovement;
             @CameraMovement.started -= instance.OnCameraMovement;
             @CameraMovement.performed -= instance.OnCameraMovement;
             @CameraMovement.canceled -= instance.OnCameraMovement;
@@ -801,21 +769,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @TakeItem3.started -= instance.OnTakeItem3;
             @TakeItem3.performed -= instance.OnTakeItem3;
             @TakeItem3.canceled -= instance.OnTakeItem3;
-            @ConsoleToggle.started -= instance.OnConsoleToggle;
-            @ConsoleToggle.performed -= instance.OnConsoleToggle;
-            @ConsoleToggle.canceled -= instance.OnConsoleToggle;
-            @SubmitKey.started -= instance.OnSubmitKey;
-            @SubmitKey.performed -= instance.OnSubmitKey;
-            @SubmitKey.canceled -= instance.OnSubmitKey;
-            @SearchPreviousCommand.started -= instance.OnSearchPreviousCommand;
-            @SearchPreviousCommand.performed -= instance.OnSearchPreviousCommand;
-            @SearchPreviousCommand.canceled -= instance.OnSearchPreviousCommand;
-            @NextSuggestedCommandKey.started -= instance.OnNextSuggestedCommandKey;
-            @NextSuggestedCommandKey.performed -= instance.OnNextSuggestedCommandKey;
-            @NextSuggestedCommandKey.canceled -= instance.OnNextSuggestedCommandKey;
-            @NextSuggestedCommandKeyAlt.started -= instance.OnNextSuggestedCommandKeyAlt;
-            @NextSuggestedCommandKeyAlt.performed -= instance.OnNextSuggestedCommandKeyAlt;
-            @NextSuggestedCommandKeyAlt.canceled -= instance.OnNextSuggestedCommandKeyAlt;
+            @Movement.started -= instance.OnMovement;
+            @Movement.performed -= instance.OnMovement;
+            @Movement.canceled -= instance.OnMovement;
         }
 
         /// <summary>
@@ -849,6 +805,146 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     /// Provides a new <see cref="PlayerActions" /> instance referencing this action map.
     /// </summary>
     public PlayerActions @Player => new PlayerActions(this);
+
+    // Console
+    private readonly InputActionMap m_Console;
+    private List<IConsoleActions> m_ConsoleActionsCallbackInterfaces = new List<IConsoleActions>();
+    private readonly InputAction m_Console_NextSuggestedCommandKeyAlt;
+    private readonly InputAction m_Console_NextSuggestedCommandKey;
+    private readonly InputAction m_Console_SearchPreviousCommand;
+    private readonly InputAction m_Console_SubmitKey;
+    private readonly InputAction m_Console_ConsoleToggle;
+    /// <summary>
+    /// Provides access to input actions defined in input action map "Console".
+    /// </summary>
+    public struct ConsoleActions
+    {
+        private @PlayerInput m_Wrapper;
+
+        /// <summary>
+        /// Construct a new instance of the input action map wrapper class.
+        /// </summary>
+        public ConsoleActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
+        /// <summary>
+        /// Provides access to the underlying input action "Console/NextSuggestedCommandKeyAlt".
+        /// </summary>
+        public InputAction @NextSuggestedCommandKeyAlt => m_Wrapper.m_Console_NextSuggestedCommandKeyAlt;
+        /// <summary>
+        /// Provides access to the underlying input action "Console/NextSuggestedCommandKey".
+        /// </summary>
+        public InputAction @NextSuggestedCommandKey => m_Wrapper.m_Console_NextSuggestedCommandKey;
+        /// <summary>
+        /// Provides access to the underlying input action "Console/SearchPreviousCommand".
+        /// </summary>
+        public InputAction @SearchPreviousCommand => m_Wrapper.m_Console_SearchPreviousCommand;
+        /// <summary>
+        /// Provides access to the underlying input action "Console/SubmitKey".
+        /// </summary>
+        public InputAction @SubmitKey => m_Wrapper.m_Console_SubmitKey;
+        /// <summary>
+        /// Provides access to the underlying input action "Console/ConsoleToggle".
+        /// </summary>
+        public InputAction @ConsoleToggle => m_Wrapper.m_Console_ConsoleToggle;
+        /// <summary>
+        /// Provides access to the underlying input action map instance.
+        /// </summary>
+        public InputActionMap Get() { return m_Wrapper.m_Console; }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Enable()" />
+        public void Enable() { Get().Enable(); }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Disable()" />
+        public void Disable() { Get().Disable(); }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.enabled" />
+        public bool enabled => Get().enabled;
+        /// <summary>
+        /// Implicitly converts an <see ref="ConsoleActions" /> to an <see ref="InputActionMap" /> instance.
+        /// </summary>
+        public static implicit operator InputActionMap(ConsoleActions set) { return set.Get(); }
+        /// <summary>
+        /// Adds <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
+        /// </summary>
+        /// <param name="instance">Callback instance.</param>
+        /// <remarks>
+        /// If <paramref name="instance" /> is <c>null</c> or <paramref name="instance"/> have already been added this method does nothing.
+        /// </remarks>
+        /// <seealso cref="ConsoleActions" />
+        public void AddCallbacks(IConsoleActions instance)
+        {
+            if (instance == null || m_Wrapper.m_ConsoleActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_ConsoleActionsCallbackInterfaces.Add(instance);
+            @NextSuggestedCommandKeyAlt.started += instance.OnNextSuggestedCommandKeyAlt;
+            @NextSuggestedCommandKeyAlt.performed += instance.OnNextSuggestedCommandKeyAlt;
+            @NextSuggestedCommandKeyAlt.canceled += instance.OnNextSuggestedCommandKeyAlt;
+            @NextSuggestedCommandKey.started += instance.OnNextSuggestedCommandKey;
+            @NextSuggestedCommandKey.performed += instance.OnNextSuggestedCommandKey;
+            @NextSuggestedCommandKey.canceled += instance.OnNextSuggestedCommandKey;
+            @SearchPreviousCommand.started += instance.OnSearchPreviousCommand;
+            @SearchPreviousCommand.performed += instance.OnSearchPreviousCommand;
+            @SearchPreviousCommand.canceled += instance.OnSearchPreviousCommand;
+            @SubmitKey.started += instance.OnSubmitKey;
+            @SubmitKey.performed += instance.OnSubmitKey;
+            @SubmitKey.canceled += instance.OnSubmitKey;
+            @ConsoleToggle.started += instance.OnConsoleToggle;
+            @ConsoleToggle.performed += instance.OnConsoleToggle;
+            @ConsoleToggle.canceled += instance.OnConsoleToggle;
+        }
+
+        /// <summary>
+        /// Removes <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
+        /// </summary>
+        /// <remarks>
+        /// Calling this method when <paramref name="instance" /> have not previously been registered has no side-effects.
+        /// </remarks>
+        /// <seealso cref="ConsoleActions" />
+        private void UnregisterCallbacks(IConsoleActions instance)
+        {
+            @NextSuggestedCommandKeyAlt.started -= instance.OnNextSuggestedCommandKeyAlt;
+            @NextSuggestedCommandKeyAlt.performed -= instance.OnNextSuggestedCommandKeyAlt;
+            @NextSuggestedCommandKeyAlt.canceled -= instance.OnNextSuggestedCommandKeyAlt;
+            @NextSuggestedCommandKey.started -= instance.OnNextSuggestedCommandKey;
+            @NextSuggestedCommandKey.performed -= instance.OnNextSuggestedCommandKey;
+            @NextSuggestedCommandKey.canceled -= instance.OnNextSuggestedCommandKey;
+            @SearchPreviousCommand.started -= instance.OnSearchPreviousCommand;
+            @SearchPreviousCommand.performed -= instance.OnSearchPreviousCommand;
+            @SearchPreviousCommand.canceled -= instance.OnSearchPreviousCommand;
+            @SubmitKey.started -= instance.OnSubmitKey;
+            @SubmitKey.performed -= instance.OnSubmitKey;
+            @SubmitKey.canceled -= instance.OnSubmitKey;
+            @ConsoleToggle.started -= instance.OnConsoleToggle;
+            @ConsoleToggle.performed -= instance.OnConsoleToggle;
+            @ConsoleToggle.canceled -= instance.OnConsoleToggle;
+        }
+
+        /// <summary>
+        /// Unregisters <param cref="instance" /> and unregisters all input action callbacks via <see cref="ConsoleActions.UnregisterCallbacks(IConsoleActions)" />.
+        /// </summary>
+        /// <seealso cref="ConsoleActions.UnregisterCallbacks(IConsoleActions)" />
+        public void RemoveCallbacks(IConsoleActions instance)
+        {
+            if (m_Wrapper.m_ConsoleActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        /// <summary>
+        /// Replaces all existing callback instances and previously registered input action callbacks associated with them with callbacks provided via <param cref="instance" />.
+        /// </summary>
+        /// <remarks>
+        /// If <paramref name="instance" /> is <c>null</c>, calling this method will only unregister all existing callbacks but not register any new callbacks.
+        /// </remarks>
+        /// <seealso cref="ConsoleActions.AddCallbacks(IConsoleActions)" />
+        /// <seealso cref="ConsoleActions.RemoveCallbacks(IConsoleActions)" />
+        /// <seealso cref="ConsoleActions.UnregisterCallbacks(IConsoleActions)" />
+        public void SetCallbacks(IConsoleActions instance)
+        {
+            foreach (var item in m_Wrapper.m_ConsoleActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_ConsoleActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    /// <summary>
+    /// Provides a new <see cref="ConsoleActions" /> instance referencing this action map.
+    /// </summary>
+    public ConsoleActions @Console => new ConsoleActions(this);
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "Player" which allows adding and removing callbacks.
     /// </summary>
@@ -856,13 +952,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     /// <seealso cref="PlayerActions.RemoveCallbacks(IPlayerActions)" />
     public interface IPlayerActions
     {
-        /// <summary>
-        /// Method invoked when associated input action "Movement" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-        /// </summary>
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnMovement(InputAction.CallbackContext context);
         /// <summary>
         /// Method invoked when associated input action "CameraMovement" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
@@ -941,26 +1030,27 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnTakeItem3(InputAction.CallbackContext context);
         /// <summary>
-        /// Method invoked when associated input action "ConsoleToggle" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// Method invoked when associated input action "Movement" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnConsoleToggle(InputAction.CallbackContext context);
+        void OnMovement(InputAction.CallbackContext context);
+    }
+    /// <summary>
+    /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "Console" which allows adding and removing callbacks.
+    /// </summary>
+    /// <seealso cref="ConsoleActions.AddCallbacks(IConsoleActions)" />
+    /// <seealso cref="ConsoleActions.RemoveCallbacks(IConsoleActions)" />
+    public interface IConsoleActions
+    {
         /// <summary>
-        /// Method invoked when associated input action "SubmitKey" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// Method invoked when associated input action "NextSuggestedCommandKeyAlt" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnSubmitKey(InputAction.CallbackContext context);
-        /// <summary>
-        /// Method invoked when associated input action "SearchPreviousCommand" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-        /// </summary>
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnSearchPreviousCommand(InputAction.CallbackContext context);
+        void OnNextSuggestedCommandKeyAlt(InputAction.CallbackContext context);
         /// <summary>
         /// Method invoked when associated input action "NextSuggestedCommandKey" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
@@ -969,11 +1059,25 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnNextSuggestedCommandKey(InputAction.CallbackContext context);
         /// <summary>
-        /// Method invoked when associated input action "NextSuggestedCommandKeyAlt" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// Method invoked when associated input action "SearchPreviousCommand" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnNextSuggestedCommandKeyAlt(InputAction.CallbackContext context);
+        void OnSearchPreviousCommand(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "SubmitKey" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnSubmitKey(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "ConsoleToggle" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnConsoleToggle(InputAction.CallbackContext context);
     }
 }

@@ -22,11 +22,11 @@ namespace Anarkila.DeveloperConsole {
             ConsoleEvents.RegisterSettingsChangedEvent += GetSettings;
             
             // Input events
-            InputManager.Instance.playerInput.Player.ConsoleToggle.performed += InputManager_ConsoleToggle;
-            InputManager.Instance.playerInput.Player.SubmitKey.performed += InputManager_SubmitKey;
-            InputManager.Instance.playerInput.Player.SearchPreviousCommand.performed += InputManager_SearchPreviousCommand;
-            InputManager.Instance.playerInput.Player.NextSuggestedCommandKey.performed += InputManager_NextSuggestedCommandKey;
-            InputManager.Instance.playerInput.Player.NextSuggestedCommandKeyAlt.performed += InputManager_NextSuggestedCommandKey;
+            InputManager.Instance.playerInput.Console.ConsoleToggle.performed += InputManager_ConsoleToggle;
+            InputManager.Instance.playerInput.Console.SubmitKey.performed += InputManager_SubmitKey;
+            InputManager.Instance.playerInput.Console.SearchPreviousCommand.performed += InputManager_SearchPreviousCommand;
+            InputManager.Instance.playerInput.Console.NextSuggestedCommandKey.performed += InputManager_NextSuggestedCommandKey;
+            InputManager.Instance.playerInput.Console.NextSuggestedCommandKeyAlt.performed += InputManager_NextSuggestedCommandKey;
         }
 
         private void InputManager_NextSuggestedCommandKey(InputAction.CallbackContext obj)
@@ -70,7 +70,7 @@ namespace Anarkila.DeveloperConsole {
             }
 
             // If console is not open then don't check other input keys
-            if (!consoleIsOpen) return;
+            if (!consoleIsOpen) InputManager.Instance.playerInput.Player.Enable();
         }
 
         private void ActivatorStateChangeEvent(bool enabled) {
@@ -79,6 +79,7 @@ namespace Anarkila.DeveloperConsole {
 
         private void ConsoleStateChanged(bool state) {
             consoleIsOpen = state;
+            InputManager.Instance.playerInput.Player.Disable();
         }
 
         private void GetSettings() {

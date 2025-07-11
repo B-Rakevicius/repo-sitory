@@ -919,11 +919,11 @@ PlayerSettings:
   captureStartupLogs: {}
   activeInputHandler: 1
   windowsGamepadBackendHint: 0
-  cloudProjectId: a61e27e6-91b3-411e-bd63-05fe2b8c9c86
+  cloudProjectId: 508ea070-6091-4814-a3ee-ce818a33be66
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
   projectName: repo-sitory
-  organizationId: bulv1n1s
+  organizationId: zuikis
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
   hmiLoadingImage: {fileID: 0}
