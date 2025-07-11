@@ -2,6 +2,10 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.InputSystem;
 
+/// <summary>
+/// early enemy movement troubleshooting class, delete later.
+/// moves a rigidbody nav_mesh_agent that this class is attached to.
+/// </summary>
 public class EnemyClickController : MonoBehaviour
 {
     public Camera camera;
