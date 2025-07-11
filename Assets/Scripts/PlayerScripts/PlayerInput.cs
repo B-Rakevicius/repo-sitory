@@ -198,6 +198,51 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ConsoleToggle"",
+                    ""type"": ""Button"",
+                    ""id"": ""4fd5a661-24b8-46b1-8439-f1e7e37960d9"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SubmitKey"",
+                    ""type"": ""Button"",
+                    ""id"": ""c82878d1-32aa-45cd-9e57-84e93b1d21da"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SearchPreviousCommand"",
+                    ""type"": ""Button"",
+                    ""id"": ""3b58909d-5f27-42a2-abe4-ead1505e9580"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""NextSuggestedCommandKey"",
+                    ""type"": ""Button"",
+                    ""id"": ""4716cbfe-b87a-4e74-9a13-c9b69baa665e"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""NextSuggestedCommandKeyAlt"",
+                    ""type"": ""Button"",
+                    ""id"": ""b3ad1a54-1b63-4480-9abc-61f6883d8d73"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -376,6 +421,61 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""action"": ""TakeItem3"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""955abdb7-958b-4038-b0d1-f576b18ca3e1"",
+                    ""path"": ""<Keyboard>/backquote"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ConsoleToggle"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0c3f1d94-ad03-4ef7-8146-b0ef7e755783"",
+                    ""path"": ""<Keyboard>/enter"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SubmitKey"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f5a2b737-7fa5-4110-b46f-8a087c603df4"",
+                    ""path"": ""<Keyboard>/upArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SearchPreviousCommand"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3e2fc20b-4807-4b3f-b00e-26775ba89e42"",
+                    ""path"": ""<Keyboard>/downArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""NextSuggestedCommandKey"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a80df8f3-b417-4ffe-80bb-6199b97da3a4"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""NextSuggestedCommandKeyAlt"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -396,6 +496,11 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_Player_TakeItem1 = m_Player.FindAction("TakeItem1", throwIfNotFound: true);
         m_Player_TakeItem2 = m_Player.FindAction("TakeItem2", throwIfNotFound: true);
         m_Player_TakeItem3 = m_Player.FindAction("TakeItem3", throwIfNotFound: true);
+        m_Player_ConsoleToggle = m_Player.FindAction("ConsoleToggle", throwIfNotFound: true);
+        m_Player_SubmitKey = m_Player.FindAction("SubmitKey", throwIfNotFound: true);
+        m_Player_SearchPreviousCommand = m_Player.FindAction("SearchPreviousCommand", throwIfNotFound: true);
+        m_Player_NextSuggestedCommandKey = m_Player.FindAction("NextSuggestedCommandKey", throwIfNotFound: true);
+        m_Player_NextSuggestedCommandKeyAlt = m_Player.FindAction("NextSuggestedCommandKeyAlt", throwIfNotFound: true);
     }
 
     ~@PlayerInput()
@@ -488,6 +593,11 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_TakeItem1;
     private readonly InputAction m_Player_TakeItem2;
     private readonly InputAction m_Player_TakeItem3;
+    private readonly InputAction m_Player_ConsoleToggle;
+    private readonly InputAction m_Player_SubmitKey;
+    private readonly InputAction m_Player_SearchPreviousCommand;
+    private readonly InputAction m_Player_NextSuggestedCommandKey;
+    private readonly InputAction m_Player_NextSuggestedCommandKeyAlt;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -547,6 +657,26 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Player/TakeItem3".
         /// </summary>
         public InputAction @TakeItem3 => m_Wrapper.m_Player_TakeItem3;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/ConsoleToggle".
+        /// </summary>
+        public InputAction @ConsoleToggle => m_Wrapper.m_Player_ConsoleToggle;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/SubmitKey".
+        /// </summary>
+        public InputAction @SubmitKey => m_Wrapper.m_Player_SubmitKey;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/SearchPreviousCommand".
+        /// </summary>
+        public InputAction @SearchPreviousCommand => m_Wrapper.m_Player_SearchPreviousCommand;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/NextSuggestedCommandKey".
+        /// </summary>
+        public InputAction @NextSuggestedCommandKey => m_Wrapper.m_Player_NextSuggestedCommandKey;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/NextSuggestedCommandKeyAlt".
+        /// </summary>
+        public InputAction @NextSuggestedCommandKeyAlt => m_Wrapper.m_Player_NextSuggestedCommandKeyAlt;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -609,6 +739,21 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @TakeItem3.started += instance.OnTakeItem3;
             @TakeItem3.performed += instance.OnTakeItem3;
             @TakeItem3.canceled += instance.OnTakeItem3;
+            @ConsoleToggle.started += instance.OnConsoleToggle;
+            @ConsoleToggle.performed += instance.OnConsoleToggle;
+            @ConsoleToggle.canceled += instance.OnConsoleToggle;
+            @SubmitKey.started += instance.OnSubmitKey;
+            @SubmitKey.performed += instance.OnSubmitKey;
+            @SubmitKey.canceled += instance.OnSubmitKey;
+            @SearchPreviousCommand.started += instance.OnSearchPreviousCommand;
+            @SearchPreviousCommand.performed += instance.OnSearchPreviousCommand;
+            @SearchPreviousCommand.canceled += instance.OnSearchPreviousCommand;
+            @NextSuggestedCommandKey.started += instance.OnNextSuggestedCommandKey;
+            @NextSuggestedCommandKey.performed += instance.OnNextSuggestedCommandKey;
+            @NextSuggestedCommandKey.canceled += instance.OnNextSuggestedCommandKey;
+            @NextSuggestedCommandKeyAlt.started += instance.OnNextSuggestedCommandKeyAlt;
+            @NextSuggestedCommandKeyAlt.performed += instance.OnNextSuggestedCommandKeyAlt;
+            @NextSuggestedCommandKeyAlt.canceled += instance.OnNextSuggestedCommandKeyAlt;
         }
 
         /// <summary>
@@ -656,6 +801,21 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @TakeItem3.started -= instance.OnTakeItem3;
             @TakeItem3.performed -= instance.OnTakeItem3;
             @TakeItem3.canceled -= instance.OnTakeItem3;
+            @ConsoleToggle.started -= instance.OnConsoleToggle;
+            @ConsoleToggle.performed -= instance.OnConsoleToggle;
+            @ConsoleToggle.canceled -= instance.OnConsoleToggle;
+            @SubmitKey.started -= instance.OnSubmitKey;
+            @SubmitKey.performed -= instance.OnSubmitKey;
+            @SubmitKey.canceled -= instance.OnSubmitKey;
+            @SearchPreviousCommand.started -= instance.OnSearchPreviousCommand;
+            @SearchPreviousCommand.performed -= instance.OnSearchPreviousCommand;
+            @SearchPreviousCommand.canceled -= instance.OnSearchPreviousCommand;
+            @NextSuggestedCommandKey.started -= instance.OnNextSuggestedCommandKey;
+            @NextSuggestedCommandKey.performed -= instance.OnNextSuggestedCommandKey;
+            @NextSuggestedCommandKey.canceled -= instance.OnNextSuggestedCommandKey;
+            @NextSuggestedCommandKeyAlt.started -= instance.OnNextSuggestedCommandKeyAlt;
+            @NextSuggestedCommandKeyAlt.performed -= instance.OnNextSuggestedCommandKeyAlt;
+            @NextSuggestedCommandKeyAlt.canceled -= instance.OnNextSuggestedCommandKeyAlt;
         }
 
         /// <summary>
@@ -780,5 +940,40 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnTakeItem3(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "ConsoleToggle" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnConsoleToggle(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "SubmitKey" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnSubmitKey(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "SearchPreviousCommand" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnSearchPreviousCommand(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "NextSuggestedCommandKey" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnNextSuggestedCommandKey(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "NextSuggestedCommandKeyAlt" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnNextSuggestedCommandKeyAlt(InputAction.CallbackContext context);
     }
 }

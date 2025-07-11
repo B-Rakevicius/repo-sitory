@@ -25,7 +25,6 @@ public class PlayerManager : NetworkBehaviour
     {
         // Fall speed is negative. Take absolute value.
         float fallSpeed = Mathf.Abs(e.fallSpeed);
-        Debug.Log("Fall speed: " + fallSpeed);
         
         // Get minimum and maximum fall speed from which player starts receiving damage.
         float minSpeedToDmg = _playerStats.GetMinSpeedToDmg();

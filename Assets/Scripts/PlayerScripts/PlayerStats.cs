@@ -1,3 +1,4 @@
+using Mono.Cecil.Cil;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -24,16 +25,18 @@ public class PlayerStats : MonoBehaviour
     }
 
 
-
+    [ConsoleCommand("health_remove", info:"Decreases health")]
     public void TakeDamage(int damage)
     {
         _currentHealth = Mathf.Max(0, _currentHealth - damage);
         GameManager.Instance.HealthChanged(_currentHealth);
     }
 
+    [ConsoleCommand("health_add", info:"Adds health")]
     public void AddHealth(int amount)
     {
         _currentHealth = Mathf.Clamp(_currentHealth + amount, 0, _maxHealth);
+        GameManager.Instance.HealthChanged(_currentHealth);
     }
 
     public void UseStamina(int amount)

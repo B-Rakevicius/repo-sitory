@@ -56,6 +56,7 @@ public class PlayerController : NetworkBehaviour
         {
             _cinemachineCamera.Priority = 1;
             _audioListener.enabled = true;
+            Cursor.lockState = CursorLockMode.Locked;
         }
         else
         {
