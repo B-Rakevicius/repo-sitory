@@ -1,4 +1,5 @@
 using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
@@ -10,6 +11,9 @@ public class PlayerUI : MonoBehaviour
     [SerializeField] private GameObject _inventoryItemSlot1;
     [SerializeField] private GameObject _inventoryItemSlot2;
     [SerializeField] private GameObject _inventoryItemSlot3;
+    
+    // Health UI
+    [SerializeField] private TextMeshProUGUI _healthText;
     
     
     private void Start()
@@ -25,6 +29,14 @@ public class PlayerUI : MonoBehaviour
         GameManager.Instance.OnItemEquipped += GameManager_OnItemEquipped;
         GameManager.Instance.OnItemPickedUp += GameManager_OnItemPickedUp;
         GameManager.Instance.OnClearInventorySlotImage += GameManager_OnClearInventorySlotImage;
+        GameManager.Instance.OnHealthChanged += GameManager_OnHealthChanged;
+        
+        // TODO: Change health number to max health from player stats.
+    }
+
+    private void GameManager_OnHealthChanged(object sender, GameManager.OnHealthChangedEventArgs e)
+    {
+        _healthText.text = e.newHealth.ToString();
     }
 
     private void GameManager_OnItemPickedUp(object sender, GameManager.OnItemPickedUpEventArgs e)

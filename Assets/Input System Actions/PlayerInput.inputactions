@@ -112,6 +112,51 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "ConsoleToggle",
+                    "type": "Button",
+                    "id": "4fd5a661-24b8-46b1-8439-f1e7e37960d9",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "SubmitKey",
+                    "type": "Button",
+                    "id": "c82878d1-32aa-45cd-9e57-84e93b1d21da",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "SearchPreviousCommand",
+                    "type": "Button",
+                    "id": "3b58909d-5f27-42a2-abe4-ead1505e9580",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "NextSuggestedCommandKey",
+                    "type": "Button",
+                    "id": "4716cbfe-b87a-4e74-9a13-c9b69baa665e",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "NextSuggestedCommandKeyAlt",
+                    "type": "Button",
+                    "id": "b3ad1a54-1b63-4480-9abc-61f6883d8d73",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -288,6 +333,61 @@
                     "processors": "",
                     "groups": "",
                     "action": "TakeItem3",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "955abdb7-958b-4038-b0d1-f576b18ca3e1",
+                    "path": "<Keyboard>/backquote",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ConsoleToggle",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0c3f1d94-ad03-4ef7-8146-b0ef7e755783",
+                    "path": "<Keyboard>/enter",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SubmitKey",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f5a2b737-7fa5-4110-b46f-8a087c603df4",
+                    "path": "<Keyboard>/upArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SearchPreviousCommand",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3e2fc20b-4807-4b3f-b00e-26775ba89e42",
+                    "path": "<Keyboard>/downArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "NextSuggestedCommandKey",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a80df8f3-b417-4ffe-80bb-6199b97da3a4",
+                    "path": "<Keyboard>/tab",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "NextSuggestedCommandKeyAlt",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
